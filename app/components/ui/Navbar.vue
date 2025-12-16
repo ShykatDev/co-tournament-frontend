@@ -5,6 +5,11 @@ import { onMounted, ref } from "vue";
 const api = useApi();
 
 const data = ref(null);
+const isMenuOpen = ref(false);
+
+const handleMenuToggle = () => {
+  isMenuOpen.value = !isMenuOpen.value;
+};
 
 onMounted(async () => {
   try {
@@ -20,10 +25,12 @@ onMounted(async () => {
 
 <template>
   <nav
-    class="container mx-auto mt-4 bg-gray-50 rounded-xl border border-gray-200"
+    class="container mx-auto mt-4 bg-gray-50 rounded-xl border border-gray-200 relative"
   >
     <div class="flex justify-between items-center p-4">
-      <img src="/images/logo.png" alt="fc" class="w-12 object-cover" />
+      <NuxtLink to="/">
+        <img src="/images/logo.png" alt="logo" class="w-12 object-cover" />
+      </NuxtLink>
 
       <div class="flex gap-4 items-center">
         <div class="relative">
@@ -38,8 +45,24 @@ onMounted(async () => {
           />
         </div>
 
-        <button><HugeiconsIcon :icon="Menu05Icon" /></button>
+        <button @click="handleMenuToggle">
+          <HugeiconsIcon :icon="Menu05Icon" />
+        </button>
       </div>
+    </div>
+
+    <!-- menu -->
+    <div
+      v-show="isMenuOpen"
+      class="absolute p-2 top-[115%] right-0 z-50 border border-gray-300 rounded backdrop-blur-xs bg-gray-50"
+    >
+      <NuxtLink
+        to="/match"
+        class="px-4 py-1.5 rounded"
+        @click="handleMenuToggle"
+      >
+        Match Details
+      </NuxtLink>
     </div>
   </nav>
 </template>

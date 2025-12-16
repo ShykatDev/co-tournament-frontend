@@ -49,19 +49,23 @@ const winPercentage = computed(() => {
 
       <div class="space-y-1 w-1/2 px-4 py-2">
         <p>
-          <span>⚽ Total Goals</span>
+          <span>⚽ Team Goals</span>
           <span> - </span>
-          <span>{{ team?.points?.totalGoals }}</span>
+          <span>{{ team?.points?.totalGoals ?? 0 }}</span>
         </p>
         <p>
-          <span>↗️ Win Ratio</span>
+          <span>📈 Win Ratio</span>
           <span> - </span>
           <span
             >{{
-              Math.round((team?.points?.won / team?.points?.played) * 100)
+              isNaN(
+                Math.round((team?.points?.won / team?.points?.played) * 100)
+              )
+                ? "N/A"
+                : Math.round((team?.points?.won / team?.points?.played) * 100) +
+                  "%"
             }}
-            %</span
-          >
+          </span>
         </p>
       </div>
     </div>

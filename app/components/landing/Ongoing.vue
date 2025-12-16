@@ -12,6 +12,8 @@ onMounted(async () => {
     console.error(err);
   }
 });
+
+console.log(liveMatch.value);
 </script>
 
 <template>
@@ -23,12 +25,15 @@ onMounted(async () => {
         Ongoing Match
         <div class="size-2 bg-red-600 rounded-full animate-pulse" />
       </h2>
-      <h2 class="font-semibold text-xs px-2 py-0.5 bg-amber-100 rounded">
+      <h2 class="font-semibold text-xs px-2 py-0.5 bg-blue-100 rounded">
         Pre Season
       </h2>
     </div>
 
-    <div class="w-full flex flex-col xl:flex-row justify-center items-center">
+    <div
+      v-if="liveMatch"
+      class="w-full flex flex-col xl:flex-row justify-center items-center"
+    >
       <CardsLiveCard
         :team="liveMatch?.teamA"
         class="border-r flex-col-reverse xl:flex-col pt-0 xl:pt-6"
@@ -40,7 +45,11 @@ onMounted(async () => {
         class="border-none size-40 xl:size-64"
       />
 
-      <CardsLiveCard :team="liveMatch?.teamB" class="border-l" />
+      <CardsLiveCard :team="liveMatch?.teamB" class="border-l pt-0 xl:pt-6" />
+    </div>
+
+    <div v-else class="w-full h-[30vh] flex items-center justify-center">
+      <p>No live match here</p>
     </div>
   </div>
 </template>

@@ -77,12 +77,12 @@ onMounted(async () => {
             <div class="px-4 py-2 flex items-center">{{ d.won }}</div>
             <div class="px-4 py-2 flex items-center">{{ d.draw }}</div>
             <div class="px-4 py-2 flex items-center">{{ d.lost }}</div>
-            <div class="px-4 py-2 flex items-center font-semibold">
+            <div
+              class="px-4 py-2 flex items-center font-semibold text-blue-600"
+            >
               {{ d.points }}
             </div>
-            <div class="px-4 py-2 flex items-center">
-              {{ d.totalGoals }}
-            </div>
+            <div class="px-4 py-2 flex items-center">{{ d.totalGoals }} ⚽</div>
           </div>
         </div>
       </div>
