@@ -1,5 +1,9 @@
 <template>
-  <NuxtLayout class="container mx-auto px-4">
-    <NuxtPage />
-  </NuxtLayout>
+  <UApp>
+    <UContainer>
+      <NuxtLayout>
+        <NuxtPage />
+      </NuxtLayout>
+    </UContainer>
+  </UApp>
 </template>

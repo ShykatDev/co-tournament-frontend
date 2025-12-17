@@ -24,7 +24,7 @@ onMounted(async () => {
 
     <!-- HEADER -->
     <div class="overflow-x-auto">
-      <div class="min-w-[900px]">
+      <div class="min-w-[1500px]">
         <div class="grid grid-cols-14 divide-x divide-gray-200">
           <div class="text-start font-semibold px-4 py-2 col-span-2">Club</div>
           <div class="text-start font-semibold px-4 py-2 col-span-2">

@@ -24,9 +24,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <nav
-    class="container mx-auto mt-4 bg-gray-50 rounded-xl border border-gray-200 relative"
-  >
+  <nav class="mt-4 bg-gray-50 rounded-xl border border-gray-200 relative">
     <div class="flex justify-between items-center p-4">
       <NuxtLink to="/">
         <img src="/images/logo.png" alt="logo" class="w-12 object-cover" />
