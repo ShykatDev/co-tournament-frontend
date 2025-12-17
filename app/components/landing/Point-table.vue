@@ -25,15 +25,19 @@ onMounted(async () => {
     <!-- HEADER -->
     <div class="overflow-x-auto">
       <div class="min-w-[900px]">
-        <div class="grid grid-cols-10 divide-x divide-gray-200">
+        <div class="grid grid-cols-14 divide-x divide-gray-200">
           <div class="text-start font-semibold px-4 py-2 col-span-2">Club</div>
           <div class="text-start font-semibold px-4 py-2 col-span-2">
             Players
           </div>
           <div class="text-start font-semibold px-4 py-2">Team Name</div>
-          <div class="text-start font-semibold px-4 py-2">Win</div>
-          <div class="text-start font-semibold px-4 py-2">Draw</div>
-          <div class="text-start font-semibold px-4 py-2">Lose</div>
+          <div class="text-start font-semibold px-4 py-2">MP</div>
+          <div class="text-start font-semibold px-4 py-2">W</div>
+          <div class="text-start font-semibold px-4 py-2">D</div>
+          <div class="text-start font-semibold px-4 py-2">L</div>
+          <div class="text-start font-semibold px-4 py-2">GF</div>
+          <div class="text-start font-semibold px-4 py-2">GA</div>
+          <div class="text-start font-semibold px-4 py-2">GD</div>
           <div class="text-start font-semibold px-4 py-2">Point</div>
           <div class="text-start font-semibold px-4 py-2">Total Goals</div>
         </div>
@@ -43,7 +47,7 @@ onMounted(async () => {
           <div
             v-for="(d, index) in data"
             :key="index"
-            class="grid grid-cols-10 divide-x divide-gray-200 items-stretch even:bg-gray-100"
+            class="grid grid-cols-14 divide-x divide-gray-200 items-stretch even:bg-gray-100"
             :class="{ 'border-b border-gray-200': index !== data.length - 1 }"
           >
             <div
@@ -74,9 +78,17 @@ onMounted(async () => {
               {{ d?.team?.name }}
             </div>
 
+            <div
+              class="px-4 py-2 flex items-center text-amber-600 font-semibold"
+            >
+              {{ d.played }}
+            </div>
             <div class="px-4 py-2 flex items-center">{{ d.won }}</div>
             <div class="px-4 py-2 flex items-center">{{ d.draw }}</div>
             <div class="px-4 py-2 flex items-center">{{ d.lost }}</div>
+            <div class="px-4 py-2 flex items-center">{{ d.goalFor }}</div>
+            <div class="px-4 py-2 flex items-center">{{ d.goalAgainst }}</div>
+            <div class="px-4 py-2 flex items-center">{{ d.goalDiff }}</div>
             <div
               class="px-4 py-2 flex items-center font-semibold text-blue-600"
             >

@@ -42,10 +42,8 @@ const formatDate = (date) => dayjs(date).format("DD MMM YYYY");
         <div
           class="flex items-center justify-between px-2 w-full gap-2 divide-x divide-gray-700"
         >
-          <div
-            class="grid grid-cols-[max-content_max-content_max-content_max-content] gap-4 w-full pr-2 py-2"
-          >
-            <div class="flex items-center gap-2">
+          <div class="flex justify-between gap-4 w-full pr-2 py-2">
+            <div class="flex items-center gap-2 lg:min-w-40">
               <img
                 :src="match.teamA.club.logo"
                 alt="team-1-icon"
@@ -55,8 +53,12 @@ const formatDate = (date) => dayjs(date).format("DD MMM YYYY");
                 match.teamA.club.name
               }}</span>
             </div>
-            <h2 class="flex items-center justify-center">vs</h2>
-            <div class="flex items-center gap-2">
+            <h2
+              class="flex items-center justify-center w-10 font-semibold text-blue-300"
+            >
+              vs
+            </h2>
+            <div class="flex items-center gap-2 lg:min-w-40">
               <img
                 :src="match.teamB.club.logo"
                 alt="team-2-icon"
@@ -66,10 +68,9 @@ const formatDate = (date) => dayjs(date).format("DD MMM YYYY");
                 match.teamB.club.name
               }}</span>
             </div>
-            <span
+            <!-- <span
               class="shrink-0 text-blue-300 flex items-center justify-center"
-              >{{ formatDate(match.scheduledAt) }}</span
-            >
+              >{{ formatDate(match.scheduledAt) }}</span -->
           </div>
         </div>
       </li>
