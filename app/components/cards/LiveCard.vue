@@ -10,41 +10,41 @@ const winPercentage = computed(() => {
 </script>
 
 <template>
-  <div class="flex flex-col w-full items-center">
+  <div class="flex flex-col w-full items-center border-gray-800" :class="class">
     <div class="flex gap-4 p-4">
       <div
         v-for="player in team?.players"
         :key="player.name"
-        class="w-full flex border-gray-700"
-        :class="class"
+        class="w-full flex border-gray-800"
       >
         <div class="relative">
           <UAvatar
             :src="player?.profileImg"
             :alt="player?.name"
-            class="border border-gray-700 object-cover object-top grayscale-100 size-32"
+            class="border border-gray-800 object-cover object-top grayscale-100 size-32"
           />
           <UAvatar
             :src="team?.club?.logo"
             :alt="team?.club?.name"
-            class="object-cover rounded-full border border-gray-700 absolute top-0 right-0 size-10"
+            class="object-cover rounded-full border border-gray-800 absolute top-0 right-0 size-10"
           />
         </div>
       </div>
     </div>
 
-    <div class="border-t border-gray-700 w-full divide-y divide-gray-700">
+    <div class="border-t border-gray-800 w-full divide-y divide-gray-800">
       <ul
-        class="w-full space-y-1 px-4 py-2 flex justify-between items-center xl:flex-col"
+        class="w-full space-y-2 px-4 py-2 flex justify-between items-center xl:flex-col"
       >
         <li
           v-for="player in team?.players"
           :key="player.name"
-          class="flex items-center gap-2"
+          class="flex items-center gap-2 text-sm"
         >
           <UAvatar
             :src="player.profileImg"
             :alt="player.name"
+            size="xs"
             class="border overflow-hidden"
           />
           {{ player.name }}
@@ -52,7 +52,7 @@ const winPercentage = computed(() => {
       </ul>
 
       <div
-        class="w-full space-y-1 px-4 py-2 flex justify-between items-center xl:flex-col"
+        class="w-full space-y-2 px-4 py-2 flex justify-between items-center xl:flex-col"
       >
         <p>
           <span>⚽ Team Goals</span>
@@ -77,68 +77,4 @@ const winPercentage = computed(() => {
       </div>
     </div>
   </div>
-  <!-- <div class="w-full">
-    <div class="flex">
-      <div
-        v-for="player in team?.players"
-        :key="player.name"
-        class="w-full relative flex flex-col items-center justify-between h-full border-gray-700"
-        :class="class"
-      >
-        <div class="relative">
-          <img
-            :src="player?.profileImg"
-            :alt="player?.name"
-            class="size-48 xl:size-72 rounded-full border border-gray-700 object-cover object-top grayscale-100"
-          />
-          <img
-            :src="team?.club?.logo"
-            :alt="team?.club?.name"
-            class="object-cover rounded-full border size-16 xl:size-20 border-gray-700 absolute top-0 right-0"
-          />
-        </div>
-      </div>
-    </div>
-
-    <div
-      class="xl:border-t border-t my-6 xl:mb-0 border-gray-700 w-full flex justify-between divide-x divide-gray-700"
-    >
-      <ul class="space-y-1 w-1/2 px-4 py-2">
-        <li
-          v-for="player in team?.players"
-          :key="player.name"
-          class="flex items-center gap-2"
-        >
-          <UAvatar
-            :src="player.profileImg"
-            :alt="player.name"
-            class="border overflow-hidden"
-          />
-          {{ player.name }}
-        </li>
-      </ul>
-
-      <div class="space-y-1 w-1/2 px-4 py-2">
-        <p>
-          <span>⚽ Team Goals</span>
-          <span> - </span>
-          <span>{{ team?.points?.totalGoals ?? 0 }}</span>
-        </p>
-        <p>
-          <span>📈 Win Ratio</span>
-          <span> - </span>
-          <span
-            >{{
-              isNaN(
-                Math.round((team?.points?.won / team?.points?.played) * 100)
-              )
-                ? "N/A"
-                : Math.round((team?.points?.won / team?.points?.played) * 100) +
-                  "%"
-            }}
-          </span>
-        </p>
-      </div>
-    </div>
-  </div> -->
 </template>

@@ -19,9 +19,9 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="border border-gray-700 rounded-lg">
+  <div class="border bg-gray-950 border-gray-800 rounded-lg">
     <div
-      class="h-[5vh] px-4 flex justify-between items-center border-b border-gray-700"
+      class="p-4 flex justify-between items-center border-b border-gray-800 bg-gray-950"
     >
       <h2 class="font-semibold text-lg flex items-center gap-2">
         {{ liveMatch ? "Ongoing Match" : "Next Upcoming Match" }}
@@ -46,7 +46,7 @@ onMounted(async () => {
       <CardsLiveCard :team="liveMatch?.teamA ?? upcomingMatch?.teamA" />
 
       <div
-        class="border-y md:border-x md:border-y-0 border-gray-700 w-full flex justify-center items-center"
+        class="border-y xl:border-x xl:border-y-0 border-gray-800 w-full flex justify-center items-center"
       >
         <img src="/assets/images/vs.png" alt="vs" class="size-28 lg:size-40" />
       </div>

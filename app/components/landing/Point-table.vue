@@ -17,15 +17,15 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="border border-gray-700 rounded-lg mb-4 xl:mb-0">
-    <div class="p-4 border-b border-gray-700">
+  <div class="border border-gray-800 rounded-lg mb-4 xl:mb-0 overflow-hidden">
+    <div class="p-4 border-b bg-gray-950 border-gray-800">
       <h2 class="text-center font-semibold text-lg">Point Table</h2>
     </div>
 
     <!-- HEADER -->
     <div class="overflow-x-auto">
-      <div class="min-w-[1500px]">
-        <div class="grid grid-cols-14 divide-x divide-gray-700">
+      <div class="min-w-375">
+        <div class="grid grid-cols-14 divide-x divide-gray-800 bg-gray-900">
           <div class="text-start font-semibold px-4 py-2 col-span-2">Club</div>
           <div class="text-start font-semibold px-4 py-2 col-span-2">
             Players
@@ -47,12 +47,12 @@ onMounted(async () => {
         </div>
 
         <!-- BODY -->
-        <div class="w-full border-t border-gray-700">
+        <div class="w-full border-t border-gray-800">
           <div
             v-for="(d, index) in data"
             :key="index"
-            class="grid grid-cols-14 divide-x divide-gray-700 items-stretch even:bg-gray-800"
-            :class="{ 'border-b border-gray-700': index !== data.length - 1 }"
+            class="grid grid-cols-14 divide-x divide-gray-800 items-stretch even:bg-gray-900"
+            :class="{ 'border-b border-gray-800': index !== data.length - 1 }"
           >
             <div
               class="col-span-2 px-4 py-2 flex items-center gap-2 whitespace-nowrap"

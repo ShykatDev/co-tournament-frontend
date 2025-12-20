@@ -20,10 +20,10 @@ const formatDate = (date) => dayjs(date).format("DD MMM YYYY");
 
 <template>
   <div
-    class="border border-gray-700 rounded-lg h-full overflow-y-auto bg-gray-900 text-gray-300"
+    class="border border-gray-800 rounded-lg h-full overflow-y-auto bg-gray-900 text-gray-300"
   >
     <div
-      class="flex justify-between items-center p-4 h-[5vh] border-b border-gray-700"
+      class="flex justify-between items-center p-4 border-b border-gray-800 bg-gray-950"
     >
       <h2 class="font-semibold text-lg">Upcoming Match</h2>
 
@@ -34,11 +34,11 @@ const formatDate = (date) => dayjs(date).format("DD MMM YYYY");
       <li
         v-for="(match, index) in upcomingMatches"
         :key="match.id"
-        class="flex border-b border-gray-700 even:bg-gray-800"
+        class="flex border-b border-gray-800 even:bg-gray-800"
         :class="{ 'border-b-0': (index === upcomingMatches?.lenght) === 1 }"
       >
         <div
-          class="flex items-center justify-between px-2 w-full gap-2 divide-x divide-gray-700"
+          class="flex items-center justify-between px-2 w-full gap-2 divide-x divide-gray-800"
         >
           <div class="flex justify-between gap-4 w-full pr-2 py-2">
             <div class="flex items-center gap-2 w-1/2 lg:min-w-40">
