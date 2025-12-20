@@ -149,10 +149,19 @@ const avatarB = computed(
       </form>
     </UCard>
 
-    <CardsMatchCard
-      :data="data?.filter((d) => d.status === 'ONGOING')"
-      isLive="true"
-    />
+    <div>
+      <UBadge
+        variant="soft"
+        color="neutral"
+        size="xl"
+        class="w-full text-center block mb-2 py-2"
+        label="Ongoing Match"
+      />
+      <CardsMatchCard
+        :data="data?.filter((d) => d.status === 'ONGOING')"
+        isLive="true"
+      />
+    </div>
 
     <div>
       <UBadge

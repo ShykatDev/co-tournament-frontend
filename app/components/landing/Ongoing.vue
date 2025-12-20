@@ -19,7 +19,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="border bg-gray-950 border-gray-800 rounded-lg">
+  <div class="border bg-gray-950 border-gray-800 rounded-lg overflow-hidden">
     <div
       class="p-4 flex justify-between items-center border-b border-gray-800 bg-gray-950"
     >
@@ -31,7 +31,7 @@ onMounted(async () => {
         />
         <div
           v-if="liveMatch"
-          class="text-xs px-1.5 py-0.5 border border-red-600 text-red-600 rounded animate-pulse"
+          class="text-xs px-1.5 font-semibold py-0.5 border border-red-600 text-red-600 rounded animate-pulse"
         >
           Live
         </div>

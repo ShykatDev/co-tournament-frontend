@@ -117,7 +117,7 @@ const handleSubmit = async (id) => {
       <div
         class="pl-2 flex flex-row justify-between items-center lg:items-start lg:flex-col gap-y-2 col-span-2 lg:col-span-1 order-first lg:order-3"
       >
-        <div class="flex justify-between w-full">
+        <div class="flex xl:justify-between gap-2 w-full">
           <UBadge
             :color="isEnd ? 'primary' : isLive ? 'neutral' : 'info'"
             :label="match?.status.toLowerCase()"
@@ -153,12 +153,15 @@ const handleSubmit = async (id) => {
             </UDropdownMenu>
           </div>
 
-          <div
+          <UBadge
+            color="error"
+            variant="outline"
+            size="sm"
             v-if="isLive"
-            class="text-xs px-1.5 py-0.5 border border-red-600 text-red-600 rounded animate-pulse"
+            class="font-semibold animate-pulse"
           >
             Live
-          </div>
+          </UBadge>
         </div>
 
         <!-- Winner -->
@@ -185,7 +188,7 @@ const handleSubmit = async (id) => {
 
         <div v-show="isLive && !isEditing">
           <UButton
-            class="text-sm px-2 py-1 rounded"
+            class="text-sm px-2 py-1 text-nowrap"
             color="info"
             @click="handleEdit"
           >
@@ -194,7 +197,11 @@ const handleSubmit = async (id) => {
         </div>
 
         <div v-show="isEditing" class="flex items-center gap-2">
-          <UButton size="sm" class="" @click="() => handleSubmit(match?.id)">
+          <UButton
+            size="sm"
+            class="text-nowrap"
+            @click="() => handleSubmit(match?.id)"
+          >
             Save Changes
           </UButton>
 

@@ -56,7 +56,7 @@ onMounted(async () => {
     <!-- menu -->
     <div
       v-show="isMenuOpen"
-      class="absolute p-2 top-[115%] right-0 z-50 border border-gray-600 rounded backdrop-blur-xs"
+      class="absolute p-2 top-[115%] right-0 z-50 border border-gray-600 rounded backdrop-blur-sm bg-gray-900/90"
     >
       <NuxtLink
         to="/match"

@@ -52,7 +52,9 @@ onMounted(async () => {
             v-for="(d, index) in data"
             :key="index"
             class="grid grid-cols-14 divide-x divide-gray-800 items-stretch even:bg-gray-900"
-            :class="{ 'border-b border-gray-800': index !== data.length - 1 }"
+            :class="{
+              'border-b border-gray-800': index !== data.length - 1,
+            }"
           >
             <div
               class="col-span-2 px-4 py-2 flex items-center gap-2 whitespace-nowrap"
