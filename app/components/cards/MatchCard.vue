@@ -182,7 +182,7 @@ const handleSubmit = async (id) => {
             </div>
 
             <div v-else-if="match?.scoreA === match?.scoreB">
-              <span class="text-gray-500">Draw 🤝</span>
+              <span class="text-gray-500 text-nowrap text-sm">Draw 🤝</span>
             </div>
             <div v-else class="flex items-center gap-1">
               <UAvatar :src="match?.teamB?.club?.logo" size="2xs" />
