@@ -28,7 +28,7 @@ const formData = ref({
   scheduledAt: new Date(),
 });
 
-const onSubmit = async (e) => {
+const onSubmit = async () => {
   if (!formData.value.teamAId || !formData.value.teamBId) {
     alert("Please fill all fields");
     return;
@@ -49,7 +49,7 @@ const onSubmit = async (e) => {
   formData.scheduledAt = null;
   isAdd.value = false;
 
-  // window.location.reload();
+  window.location.reload();
 };
 
 // Format date as YYYY-MM-DD HH:mm:ss
@@ -149,7 +149,7 @@ const avatarB = computed(
       </form>
     </UCard>
 
-    <div>
+    <div v-if="data?.filter((d) => d.status === 'ONGOING')">
       <UBadge
         variant="soft"
         color="neutral"
