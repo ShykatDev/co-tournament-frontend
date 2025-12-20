@@ -8,19 +8,28 @@ const teams = ref(null);
 
 const isAdd = ref(false);
 
+const items = computed(() => {
+  if (!teams.value) return [];
+
+  return teams.value.map((t) => ({
+    label: `${t?.club?.name} | ${t?.name}`,
+    value: t?.id,
+    avatar: {
+      src: t?.club?.logo || "https://github.com/benjamincanac.png",
+      alt: "t.name",
+    },
+  }));
+});
+
 const formData = ref({
   tournamentId: 2,
   teamAId: null,
   teamBId: null,
-  scheduledAt: null,
+  scheduledAt: new Date(),
 });
 
-const onSubmit = async () => {
-  if (
-    !formData.value.teamAId ||
-    !formData.value.teamBId ||
-    !formData.value.scheduledAt
-  ) {
+const onSubmit = async (e) => {
+  if (!formData.value.teamAId || !formData.value.teamBId) {
     alert("Please fill all fields");
     return;
   }
@@ -32,12 +41,15 @@ const onSubmit = async () => {
 
   // send payload to your API
   await api.createMatch(payload);
+
+  console.log(payload);
+
   formData.teamAId = null;
   formData.teamBId = null;
   formData.scheduledAt = null;
   isAdd.value = false;
 
-  window.location.reload();
+  // window.location.reload();
 };
 
 // Format date as YYYY-MM-DD HH:mm:ss
@@ -64,14 +76,26 @@ onMounted(async () => {
     console.error(err);
   }
 });
+
+const avatarA = computed(
+  () =>
+    items.value.find((item) => item.value === formData.value.teamAId)?.avatar
+);
+const avatarB = computed(
+  () =>
+    items.value.find((item) => item.value === formData.value.teamBId)?.avatar
+);
 </script>
 
 <template>
-  <div class="space-y-6 pt-6">
+  <div class="space-y-6 py-6">
     <div class="flex justify-between">
       <h1 class="font-semibold text-2xl">All Match</h1>
 
-      <button
+      <UButton
+        variant="soft"
+        color="info"
+        :icon="isAdd ? 'i-lucide-circle-minus' : 'i-lucide-circle-plus'"
         class="border px-3 py-1 rounded"
         @click="
           () => {
@@ -83,74 +107,81 @@ onMounted(async () => {
         "
       >
         {{ isAdd ? "Close" : "Add Match" }}
-      </button>
+      </UButton>
     </div>
 
-    <form
-      v-show="isAdd"
-      @submit.prevent="onSubmit"
-      class="w-full border rounded border-gray-200 p-4 flex justify-center items-end gap-4"
-    >
-      <div>
-        <label for="teamA" class="block">Select Team A</label>
-        <select
-          id="teamA"
-          v-model="formData.teamAId"
-          class="border p-2 rounded"
-        >
-          <option value="" disabled>Team A</option>
-          <option v-for="team in teams" :key="team.id" :value="team.id">
-            {{ team.name }} - {{ team.club.name }}
-          </option>
-        </select>
-      </div>
-
-      <div>
-        <label for="teamB" class="block">Select Team B</label>
-        <select
-          id="teamB"
-          v-model="formData.teamBId"
-          class="border p-2 rounded"
-        >
-          <option value="" disabled>Team B</option>
-          <option v-for="team in teams" :key="team.id" :value="team.id">
-            {{ team.name }} - {{ team.club.name }}
-          </option>
-        </select>
-      </div>
-
-      <div>
-        <label for="match_time" class="block">Date</label>
-        <input
-          type="datetime-local"
-          id="match_time"
-          v-model="formData.scheduledAt"
-          class="border p-2 rounded"
-        />
-      </div>
-
-      <button
-        type="submit"
-        class="border px-4 py-2 rounded bg-black text-white"
+    <UCard variant="subtle" v-show="isAdd">
+      <form
+        @submit.prevent="onSubmit"
+        class="w-full rounded flex flex-col md:flex-row md:items-end gap-2 gap-y-4"
       >
-        Submit
-      </button>
-    </form>
+        <UFormField label="Team A" required>
+          <USelect
+            variant="subtle"
+            placeholder="Select Team A"
+            v-model="formData.teamAId"
+            :items="items"
+            value-key="value"
+            :avatar="avatarA"
+            class="w-full md:w-64 py-2"
+          />
+        </UFormField>
+
+        <UFormField label="Team B" required>
+          <USelect
+            placeholder="Select Team B"
+            v-model="formData.teamBId"
+            :items="items"
+            value-key="value"
+            :avatar="avatarB"
+            class="w-full md:w-64 py-2"
+          />
+        </UFormField>
+
+        <UButton
+          type="submit"
+          variant="solid"
+          color="neutral"
+          class="py-2 text-center block md:inline-block"
+        >
+          Submit
+        </UButton>
+      </form>
+    </UCard>
 
     <CardsMatchCard
       :data="data?.filter((d) => d.status === 'ONGOING')"
       isLive="true"
     />
 
-    <div class="space-y-4">
-      <CardsMatchCard :data="data?.filter((d) => d.status === 'UPCOMING')" />
+    <div>
+      <UBadge
+        variant="soft"
+        color="info"
+        size="xl"
+        class="w-full text-center block mb-2 py-2"
+        label="Upcoming Matches"
+      />
+
+      <div class="grid lg:grid-cols-2 gap-2">
+        <CardsMatchCard :data="data?.filter((d) => d.status === 'UPCOMING')" />
+      </div>
     </div>
 
-    <div class="space-y-4">
-      <CardsMatchCard
-        :data="data?.filter((d) => d.status === 'FINISHED')"
-        isEnd="true"
+    <div>
+      <UBadge
+        variant="soft"
+        size="xl"
+        class="w-full text-center block mb-2 py-2"
+        label="Finished Matches"
       />
+
+      <div class="grid lg:grid-cols-2 gap-2">
+        <CardsMatchCard
+          :data="data?.filter((d) => d.status === 'FINISHED')"
+          isEnd="true"
+        />
+      </div>
     </div>
   </div>
 </template>

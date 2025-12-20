@@ -27,9 +27,7 @@ const formatDate = (date) => dayjs(date).format("DD MMM YYYY");
     >
       <h2 class="font-semibold text-lg">Upcoming Match</h2>
 
-      <span class="font-semibold text-xs px-2 py-0.5 bg-sky-700 rounded">{{
-        upcomingMatches?.length
-      }}</span>
+      <UBadge color="info" :label="upcomingMatches?.length" />
     </div>
 
     <ul class="h-auto overflow-y-auto">
@@ -43,7 +41,7 @@ const formatDate = (date) => dayjs(date).format("DD MMM YYYY");
           class="flex items-center justify-between px-2 w-full gap-2 divide-x divide-gray-700"
         >
           <div class="flex justify-between gap-4 w-full pr-2 py-2">
-            <div class="flex items-center gap-2 lg:min-w-40">
+            <div class="flex items-center gap-2 w-1/2 lg:min-w-40">
               <img
                 :src="match.teamA.club.logo"
                 alt="team-1-icon"
@@ -58,7 +56,7 @@ const formatDate = (date) => dayjs(date).format("DD MMM YYYY");
             >
               vs
             </h2>
-            <div class="flex items-center gap-2 lg:min-w-40">
+            <div class="flex items-center gap-2 w-1/2 lg:min-w-40">
               <img
                 :src="match.teamB.club.logo"
                 alt="team-2-icon"

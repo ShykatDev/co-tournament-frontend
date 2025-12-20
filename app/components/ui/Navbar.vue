@@ -24,10 +24,14 @@ onMounted(async () => {
 </script>
 
 <template>
-  <nav class="mt-4 bg-gray-50 rounded-xl border border-gray-200 relative">
+  <nav class="mt-4 rounded-xl relative border border-gray-700">
     <div class="flex justify-between items-center p-4">
       <NuxtLink to="/">
-        <img src="/images/logo.png" alt="logo" class="w-12 object-cover" />
+        <img
+          src="/images/logo.svg"
+          alt="logo"
+          class="w-12 object-cover mix-blend-difference"
+        />
       </NuxtLink>
 
       <div class="flex gap-4 items-center">
@@ -35,7 +39,7 @@ onMounted(async () => {
           <img
             src="/assets/images/fc.jpg"
             alt="fc"
-            class="size-10 object-cover rounded"
+            class="size-10 object-cover rounded brightness-200"
           />
 
           <div
@@ -52,7 +56,7 @@ onMounted(async () => {
     <!-- menu -->
     <div
       v-show="isMenuOpen"
-      class="absolute p-2 top-[115%] right-0 z-50 border border-gray-300 rounded backdrop-blur-xs bg-gray-50"
+      class="absolute p-2 top-[115%] right-0 z-50 border border-gray-600 rounded backdrop-blur-xs"
     >
       <NuxtLink
         to="/match"

@@ -19,14 +19,14 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="border border-gray-200 rounded-lg">
+  <div class="border border-gray-700 rounded-lg">
     <div
-      class="h-[5vh] px-4 flex justify-between items-center border-b border-gray-200"
+      class="h-[5vh] px-4 flex justify-between items-center border-b border-gray-700"
     >
       <h2 class="font-semibold text-lg flex items-center gap-2">
         {{ liveMatch ? "Ongoing Match" : "Next Upcoming Match" }}
         <div
-          v-if="upcomingMatch"
+          v-if="upcomingMatch && !liveMatch"
           class="size-2 bg-blue-600 rounded-full animate-pulse"
         />
         <div
@@ -36,30 +36,22 @@ onMounted(async () => {
           Live
         </div>
       </h2>
-      <h2 class="font-semibold text-xs px-2 py-0.5 bg-blue-100 rounded">
-        Pre Season
-      </h2>
+      <UBadge color="info" label="Pre Season" />
     </div>
 
     <div
       v-if="liveMatch || upcomingMatch"
-      class="w-full flex flex-col xl:flex-row justify-center items-center"
+      class="w-full flex flex-col xl:flex-row justify-center items-stretch"
     >
-      <CardsLiveCard
-        :team="liveMatch?.teamA ?? upcomingMatch?.teamA"
-        class="border-r flex-col-reverse xl:flex-col pt-0 xl:pt-6"
-      />
+      <CardsLiveCard :team="liveMatch?.teamA ?? upcomingMatch?.teamA" />
 
-      <img
-        src="/assets/images/vs.png"
-        alt="vs"
-        class="border-none size-40 xl:size-64"
-      />
+      <div
+        class="border-y md:border-x md:border-y-0 border-gray-700 w-full flex justify-center items-center"
+      >
+        <img src="/assets/images/vs.png" alt="vs" class="size-28 lg:size-40" />
+      </div>
 
-      <CardsLiveCard
-        :team="liveMatch?.teamB ?? upcomingMatch?.teamB"
-        class="border-l pt-0 xl:pt-6"
-      />
+      <CardsLiveCard :team="liveMatch?.teamB ?? upcomingMatch?.teamB" />
     </div>
 
     <div v-else class="w-full h-[30vh] flex items-center justify-center">

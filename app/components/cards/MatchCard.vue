@@ -48,100 +48,191 @@ const handleSubmit = async (id) => {
 </script>
 
 <template>
-  <div
+  <UCard
+    variant="subtle"
     v-for="match in data"
-    class="border border-gray-200 rounded flex items-center whitespace-nowrap gap-8 overflow-x-auto justify-between py-2 px-4 relative"
-    :class="{
-      ' bg-blue-50': isLive,
-      'bg-gray-100 cursor-no-drop opacity-65': isEnd,
-    }"
+    class="relative"
+    :class="{ 'bg-primary/5': isEnd }"
   >
-    <div class="flex items-center gap-6 shrink-0">
-      <div class="flex items-center gap-2">
-        <img :src="match?.teamA?.club?.logo" alt="club" class="w-10 rounded" />
-        <p class="font-semibold">{{ match?.teamA?.club?.name }}</p>
+    <div
+      class="grid grid-cols-[1fr_max-content] gap-y-4 lg:grid-cols-3 lg:divide-x divide-accented"
+    >
+      <div class="space-y-2 gap-6 shrink-0 px-2">
+        <div class="flex items-center gap-2">
+          <UAvatar size="xs" :src="match?.teamA?.club?.logo" alt="club" />
+          <p class="font-semibold">{{ match?.teamA?.club?.name }}</p>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <UAvatar size="xs" :src="match?.teamB?.club?.logo" alt="club" />
+          <p class="font-semibold">{{ match?.teamB?.club?.name }}</p>
+        </div>
       </div>
 
-      <span class="font-bold text-xl">vs</span>
+      <div class="space-y-2 gap-6 shrink-0 px-2">
+        <div class="flex items-center gap-2">
+          <p v-if="!isEditing">
+            <span v-if="match?.status === 'ONGOING'"> 0 </span>
+            <span v-else>
+              {{ match?.scoreB ?? "N/A" }}
+            </span>
+          </p>
 
-      <div class="flex items-center gap-2">
-        <img :src="match?.teamB?.club?.logo" alt="club" class="w-10 rounded" />
-        <p class="font-semibold">{{ match?.teamB?.club?.name }}</p>
+          <div v-else class="flex gap-2 items-center mb-1">
+            <label for="scoreA" class="text-xs">{{
+              match?.teamA?.club?.name
+            }}</label>
+            <UInput
+              v-model="scores.scoreA"
+              type="number"
+              id="scoreA"
+              min="0"
+              class="h-6 w-10"
+            />
+          </div>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <p v-if="!isEditing">
+            <span v-if="match?.status === 'ONGOING'"> 0 </span>
+            <span v-else>
+              {{ match?.scoreB ?? "N/A" }}
+            </span>
+          </p>
+          <div v-else class="flex items-center gap-2">
+            <label for="scoreA" class="text-xs">{{
+              match?.teamB?.club?.name
+            }}</label>
+            <UInput
+              v-model="scores.scoreB"
+              type="number"
+              id="scoreA"
+              min="0"
+              class="h-6 w-10"
+            />
+          </div>
+        </div>
       </div>
-    </div>
 
-    <div class="flex items-center gap-2">
-      <span>Score: </span>
-      <div class="flex items-center gap-2">
-        <p v-if="!isEditing">{{ match?.scoreA ?? "N/A" }}</p>
-        <input
-          v-else
-          v-model="scores.scoreA"
-          type="number"
-          name=""
-          id=""
-          min="0"
-          class="border outline-none w-10 text-center"
-        />
-      </div>
-
-      <span class="font-bold text-xl">-</span>
-
-      <div class="flex items-center gap-2">
-        <p v-if="!isEditing">{{ match?.scoreB ?? "N/A" }}</p>
-        <input
-          v-else
-          v-model="scores.scoreB"
-          type="number"
-          name=""
-          id=""
-          min="0"
-          class="border outline-none w-10 text-center"
-        />
-      </div>
-    </div>
-
-    <div class="flex items-center gap-2">
-      <span>{{ match?.status }}</span>
       <div
-        v-show="isLive"
-        class="size-2 rounded-full bg-red-500 animate-pulse"
-      />
-    </div>
-
-    <div v-show="isEnd">
-      <span
-        >Winner -
-        {{
-          match?.scoreA > match?.scoreB
-            ? match?.teamA?.club?.name
-            : match?.teamB?.club?.name
-        }}</span
+        class="pl-2 flex flex-row justify-between items-center lg:items-start lg:flex-col gap-y-2 col-span-2 lg:col-span-1 order-first lg:order-3"
       >
+        <div class="flex justify-between w-full">
+          <UBadge
+            :color="isEnd ? 'primary' : isLive ? 'neutral' : 'info'"
+            :label="match?.status.toLowerCase()"
+            variant="soft"
+            class="capitalize w-fit"
+          />
+          <div v-show="!isLive && !isEnd" class="">
+            <UDropdownMenu
+              disabled="true"
+              class="disabled:opacity-30 cursor-none"
+              :content="{
+                align: 'end',
+                side: 'bottom',
+                sideOffset: 8,
+              }"
+              :items="[
+                [
+                  {
+                    label: 'Delete',
+                    icon: 'i-lucide-trash',
+                    click: onDelete,
+                    color: 'error',
+                    size: 'xs',
+                  },
+                ],
+              ]"
+            >
+              <UButton
+                icon="i-lucide-ellipsis-vertical"
+                size="xs"
+                variant="soft"
+              />
+            </UDropdownMenu>
+          </div>
+
+          <div
+            v-if="isLive"
+            class="text-xs px-1.5 py-0.5 border border-red-600 text-red-600 rounded animate-pulse"
+          >
+            Live
+          </div>
+        </div>
+
+        <!-- Winner -->
+        <div v-show="isEnd">
+          <div class="flex items-center gap-2">
+            <div
+              v-if="match?.scoreA > match?.scoreB"
+              class="flex items-center gap-1"
+            >
+              <UAvatar :src="match?.teamA?.club?.logo" size="2xs" />
+              <span class="text-sm text-nowrap"
+                >{{ match?.teamA?.club?.name }} 🏆
+              </span>
+            </div>
+
+            <div v-else class="flex items-center gap-1">
+              <UAvatar :src="match?.teamB?.club?.logo" size="2xs" />
+              <span class="text-sm text-nowrap"
+                >{{ match?.teamB?.club?.name }} 🏆</span
+              >
+            </div>
+          </div>
+        </div>
+
+        <div v-show="isLive && !isEditing">
+          <UButton
+            class="text-sm px-2 py-1 rounded"
+            color="info"
+            @click="handleEdit"
+          >
+            Edit Match
+          </UButton>
+        </div>
+
+        <div v-show="isEditing" class="flex items-center gap-2">
+          <UButton size="sm" class="" @click="() => handleSubmit(match?.id)">
+            Save Changes
+          </UButton>
+
+          <UButton
+            variant="outline"
+            color="neutral"
+            size="sm"
+            class=""
+            @click="isEditing = false"
+          >
+            Cancel
+          </UButton>
+        </div>
+
+        <div class="hidden lg:block" v-show="!isLive && !isEnd">
+          <UButton
+            size="sm"
+            class="w-full text-center block lg:inline-block lg:w-fit"
+            @click="() => handleStart(match?.id)"
+            variant="subtle"
+            color="neutral"
+          >
+            Start Match
+          </UButton>
+        </div>
+      </div>
     </div>
 
-    <button
-      v-show="isLive && !isEditing"
-      class="text-sm px-2 py-1 rounded bg-blue-300"
-      @click="handleEdit"
-    >
-      Edit Match
-    </button>
-
-    <button
-      v-show="isEditing"
-      class="text-sm px-2 py-1 rounded bg-gray-300"
-      @click="() => handleSubmit(match?.id)"
-    >
-      Save Changes
-    </button>
-
-    <button
-      v-show="!isLive && !isEnd"
-      class="text-sm px-2 py-1 rounded bg-green-300"
-      @click="() => handleStart(match?.id)"
-    >
-      Start Match
-    </button>
-  </div>
+    <div class="lg:hidden mt-4" v-show="!isLive && !isEnd">
+      <UButton
+        size="sm"
+        class="w-full text-center block lg:inline-block lg:w-fit"
+        @click="() => handleStart(match?.id)"
+        variant="subtle"
+        color="neutral"
+      >
+        Start Match
+      </UButton>
+    </div>
+  </UCard>
 </template>
