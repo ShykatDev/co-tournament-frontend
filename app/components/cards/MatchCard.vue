@@ -78,7 +78,7 @@ const handleSubmit = async (id) => {
           <p v-if="!isEditing">
             <span v-if="match?.status === 'ONGOING'"> 0 </span>
             <span v-else>
-              {{ match?.scoreB ?? "N/A" }}
+              {{ match?.scoreA ?? "N/A" }}
             </span>
           </p>
 
@@ -181,6 +181,9 @@ const handleSubmit = async (id) => {
               </span>
             </div>
 
+            <div v-else-if="match?.scoreA === match?.scoreB">
+              <span class="text-gray-500">Draw 🤝</span>
+            </div>
             <div v-else class="flex items-center gap-1">
               <UAvatar :src="match?.teamB?.club?.logo" size="2xs" />
               <span class="text-sm text-nowrap"
