@@ -52,10 +52,14 @@ const handleSubmit = async (id) => {
     variant="subtle"
     v-for="match in data"
     class="relative"
-    :class="{ 'bg-primary/5': isEnd }"
+    :class="{
+      'bg-primary/5': isEnd,
+      'ring-1 bg-red-500/10 ring-red-900/50': isLive,
+    }"
   >
     <div
       class="grid grid-cols-[1fr_max-content] gap-y-4 lg:grid-cols-3 lg:divide-x divide-accented"
+      :class="{ 'divide-red-900/50': isLive }"
     >
       <div class="space-y-2 gap-6 shrink-0 px-2">
         <div class="flex items-center gap-2">

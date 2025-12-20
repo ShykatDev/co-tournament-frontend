@@ -42,8 +42,6 @@ const onSubmit = async () => {
   // send payload to your API
   await api.createMatch(payload);
 
-  console.log(payload);
-
   formData.teamAId = null;
   formData.teamBId = null;
   formData.scheduledAt = null;
@@ -149,7 +147,7 @@ const avatarB = computed(
       </form>
     </UCard>
 
-    <div v-if="data?.filter((d) => d.status === 'ONGOING')">
+    <div v-show="data?.find((d) => d.status === 'ONGOING')">
       <UBadge
         variant="soft"
         color="neutral"
