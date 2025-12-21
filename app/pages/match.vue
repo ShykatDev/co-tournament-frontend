@@ -97,10 +97,11 @@ const avatarB = computed(
       <h1 class="font-semibold text-2xl">All Match</h1>
 
       <UButton
+        disabled
         variant="soft"
         color="info"
         :icon="isAdd ? 'i-lucide-circle-minus' : 'i-lucide-circle-plus'"
-        class="border px-3 py-1 rounded"
+        class="border px-3 py-1 rounded disabled:opacity-30"
         @click="
           () => {
             isAdd = !isAdd;
@@ -111,6 +112,8 @@ const avatarB = computed(
         "
       >
         {{ isAdd ? "Close" : "Add Match" }}
+
+        <UIcon name="i-lucide-lock" class="size-3 text-yellow-500" />
       </UButton>
     </div>
 

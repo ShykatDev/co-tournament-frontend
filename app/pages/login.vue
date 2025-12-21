@@ -2,6 +2,39 @@
 definePageMeta({
   layout: "without-header-footer",
 });
+const api = useAPIMethods();
+const toast = useToast();
+const show = ref(false);
+const isLoading = ref(false);
+const route = useRoute();
+const formdata = ref({
+  email: "admin.co-tournament@email.com",
+  password: "",
+});
+
+const onSubmit = async () => {
+  try {
+    isLoading.value = true;
+
+    const data = await api.login({ ...formdata.value });
+
+    toast.add({
+      title: "Login success",
+      color: "success",
+    });
+
+    await navigateTo("/");
+  } catch (err) {
+    console.error(err);
+
+    toast.add({
+      title: err?.data?.message || err?.message || "Login failed",
+      color: "error",
+    });
+  } finally {
+    isLoading.value = false;
+  }
+};
 </script>
 
 <template>
@@ -25,34 +58,62 @@ definePageMeta({
         <h1 class="mt-4 text-3xl font-semibold">
           Login as <span class="text-primary">Admin</span>
         </h1>
+
         <p class="mt-2 text-gray-400">
-          Please login to control the match and score
+          Please login to control the
+          <span class="text-gray-200">match</span> and
+          <span class="text-gray-200">score</span>
         </p>
       </div>
 
       <div>
-        <UForm action="" class="space-y-4">
+        <UForm @submit.prevent="onSubmit" class="space-y-4">
           <UFormField label="Email">
             <UInput
               placeholder="Enter your email"
               size="lg"
               class="w-full md:w-1/2"
+              v-model="formdata.email"
             />
           </UFormField>
 
           <UFormField label="Password">
             <UInput
-              placeholder="Enter your password"
-              size="lg"
-              type="password"
+              v-model="formdata.password"
+              placeholder="Password"
+              :type="show ? 'text' : 'password'"
               class="w-full md:w-1/2"
-            />
+              size="lg"
+              :ui="{ trailing: 'pe-1' }"
+            >
+              <template #trailing>
+                <UButton
+                  color="neutral"
+                  variant="link"
+                  size="sm"
+                  :icon="show ? 'i-lucide-eye-off' : 'i-lucide-eye'"
+                  :aria-label="show ? 'Hide password' : 'Show password'"
+                  :aria-pressed="show"
+                  aria-controls="password"
+                  @click="show = !show"
+                />
+              </template>
+            </UInput>
           </UFormField>
 
           <UBadge variant="soft" color="info" class="block w-fit font-normal"
-            >For admin access, please contact with current admin</UBadge
+            >For edit access, please contact with current admin</UBadge
           >
-          <UButton color="secondary">Login</UButton>
+          <UButton
+            :loading="isLoading"
+            :disabled="isLoading"
+            loading-icon="i-lucide-loader-circle"
+            color="secondary"
+            icon="i-lucide-log-in"
+            type="submit"
+          >
+            {{ isLoading ? "Loading" : "Login" }}
+          </UButton>
         </UForm>
       </div>
     </div>

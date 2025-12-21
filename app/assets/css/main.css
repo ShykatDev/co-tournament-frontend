@@ -9,6 +9,10 @@ button {
   @apply cursor-pointer;
 }
 
+input {
+  @apply focus-visible:ring-secondary;
+}
+
 /* Chrome, Safari, Edge, Opera */
 input[type="number"]::-webkit-outer-spin-button,
 input[type="number"]::-webkit-inner-spin-button {

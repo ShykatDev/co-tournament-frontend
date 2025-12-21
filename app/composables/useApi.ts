@@ -1,17 +1,15 @@
+import type { FetchOptions } from "ofetch";
 
-export const useAPI = (
+export const useAPI = <T>(
   key: string,
   url: string,
-  options?: Parameters<typeof $fetch>[1],
-  immediate = true // auto-fetch by default
+  options?: FetchOptions,
+  immediate = true
 ) => {
   const config = useRuntimeConfig();
   const base = config.public.backendUrl;
 
-  // useAsyncData returns reactive refs: data, pending, error, refresh
-  return useAsyncData(
-    key,
-    () => $fetch(`${base}${url}`, options),
-    { immediate }
-  );
+  return useAsyncData<T>(key, () => $fetch<T>(`${base}${url}`, options), {
+    immediate,
+  });
 };

@@ -35,11 +35,7 @@ onMounted(async () => {
       </NuxtLink>
 
       <div class="flex gap-4 items-center">
-        <NuxtLink
-          to="/match"
-          class="py-1.5 rounded block"
-          @click="handleMenuToggle"
-        >
+        <NuxtLink to="/match" class="py-1.5 rounded block">
           <UButton class="" variant="soft" color="secondary">Match</UButton>
         </NuxtLink>
         <!-- <div class="relative">
@@ -67,9 +63,10 @@ onMounted(async () => {
     >
       <NuxtLink
         to="/login"
-        class="px-4 py-1.5 rounded"
+        class="rounded flex items-center gap-2"
         @click="handleMenuToggle"
       >
+        <UIcon name="i-lucide-log-in" />
         Login
       </NuxtLink>
     </div>
