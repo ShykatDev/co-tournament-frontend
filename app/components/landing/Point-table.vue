@@ -1,6 +1,6 @@
 <script setup>
 import { onMounted, ref } from "vue";
-const api = useApi();
+const api = useAPIMethods();
 
 const data = ref(null);
 
