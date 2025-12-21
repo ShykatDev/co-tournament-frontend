@@ -1,21 +1,10 @@
 <script setup>
-import { onMounted, ref } from "vue";
-const api = useApi();
+import { ref } from "vue";
 
-const liveMatch = ref(null);
-const upcomingMatch = ref(null);
+const { data, pending } = useAPI("ongoing", "/matches/live");
 
-onMounted(async () => {
-  try {
-    const res = await api.getLiveMatch();
-    console.log(res);
-
-    liveMatch.value = res?.ongoingMatch || null;
-    upcomingMatch.value = res?.upcomingMatch || null;
-  } catch (err) {
-    console.error(err);
-  }
-});
+const liveMatch = ref(data.value?.ongoingMatch);
+const upcomingMatch = ref(data.value?.upcomingMatch);
 </script>
 
 <template>
@@ -40,7 +29,13 @@ onMounted(async () => {
     </div>
 
     <div
-      v-if="liveMatch || upcomingMatch"
+      v-if="pending"
+      class="w-full h-[30vh] flex items-center justify-center"
+    >
+      Loading...
+    </div>
+    <div
+      v-else-if="liveMatch || upcomingMatch"
       class="w-full flex flex-col xl:flex-row justify-center items-stretch"
     >
       <CardsLiveCard :team="liveMatch?.teamA ?? upcomingMatch?.teamA" />
@@ -53,7 +48,6 @@ onMounted(async () => {
 
       <CardsLiveCard :team="liveMatch?.teamB ?? upcomingMatch?.teamB" />
     </div>
-
     <div v-else class="w-full h-[30vh] flex items-center justify-center">
       <p>No live match here</p>
     </div>

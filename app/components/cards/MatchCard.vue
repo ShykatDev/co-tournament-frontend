@@ -23,10 +23,9 @@ const scores = reactive({
   scoreB: null,
 });
 
-const api = useApi();
+const api = useAPIMethods();
 const handleStart = async (id) => {
   await api.startMatch(id);
-  window.location.reload();
 };
 
 const handleEdit = async (id) => {
@@ -43,7 +42,7 @@ const handleSubmit = async (id) => {
 
   isLoading.value = false;
 
-  window.location.reload();
+  await refreshNuxtData("matches");
 };
 </script>
 

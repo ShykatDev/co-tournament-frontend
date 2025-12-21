@@ -1,25 +1,27 @@
 <script setup>
 import dayjs from "dayjs";
 import { onMounted, ref } from "vue";
-const api = useApi();
+const api = useAPIMethods();
 
-const upcomingMatches = ref([]);
+const { data, pending } = useAPI("upcoming", "/matches/upcoming");
+console.log(data.value);
 
-onMounted(async () => {
-  try {
-    const res = await api.getUpcomingMatches();
-    upcomingMatches.value = res?.upcomingMatches || [];
-  } catch (err) {
-    console.error(err);
-  }
-});
+const upcomingMatches = ref(data.value?.upcomingMatches ?? []);
 
-// Expose dayjs to template
-const formatDate = (date) => dayjs(date).format("DD MMM YYYY");
+// onMounted(async () => {
+//   try {
+//     const res = await api.getUpcomingMatches();
+//     upcomingMatches.value = res?.upcomingMatches || [];
+//   } catch (err) {
+//     console.error(err);
+//   }
+// });
 </script>
 
 <template>
+  <div v-if="pending" class="w-64">Loading...</div>
   <div
+    v-else
     class="border border-gray-800 rounded-lg h-full overflow-y-auto bg-gray-900 text-gray-300"
   >
     <div

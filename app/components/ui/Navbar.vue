@@ -2,7 +2,7 @@
 import { Menu05Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/vue";
 import { onMounted, ref } from "vue";
-const api = useApi();
+const api = useAPIMethods();
 
 const data = ref(null);
 const isMenuOpen = ref(false);

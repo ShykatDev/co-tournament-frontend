@@ -1,4 +1,4 @@
-export const useApi = () => {
+export const useAPIMethods = () => {
   const config = useRuntimeConfig();
   const base = config.public.backendUrl;
 
