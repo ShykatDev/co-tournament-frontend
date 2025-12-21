@@ -1,10 +1,11 @@
 <script setup>
-import { ref } from "vue";
-
 const { data, pending } = useAPI("ongoing", "/matches/live");
 
-const liveMatch = ref(data.value?.ongoingMatch);
-const upcomingMatch = ref(data.value?.upcomingMatch);
+const liveMatch = computed(() => data.value?.ongoingMatch ?? null);
+const upcomingMatch = computed(() => data.value?.upcomingMatch ?? null);
+
+console.log("liveMatch", liveMatch);
+console.log("upcoming", upcomingMatch);
 </script>
 
 <template>

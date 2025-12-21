@@ -1,19 +1,5 @@
 <script setup>
-import { onMounted, ref } from "vue";
-const api = useAPIMethods();
-
-const data = ref(null);
-
-onMounted(async () => {
-  try {
-    const res = await api.getPointTable(2);
-    data.value = res || null;
-
-    console.log(data.value);
-  } catch (err) {
-    console.error(err);
-  }
-});
+const { data, pending } = useAPI("point-table", `/points/2`);
 </script>
 
 <template>
@@ -22,8 +8,11 @@ onMounted(async () => {
       <h2 class="text-center font-semibold text-lg">Point Table</h2>
     </div>
 
+    <div v-if="pending" class="w-full h-20 flex justify-center items-center">
+      Loading...
+    </div>
     <!-- HEADER -->
-    <div class="overflow-x-auto">
+    <div v-else class="overflow-x-auto">
       <div class="min-w-375">
         <div class="grid grid-cols-14 divide-x divide-gray-800 bg-gray-900">
           <div class="text-start font-semibold px-4 py-2 col-span-2">Club</div>

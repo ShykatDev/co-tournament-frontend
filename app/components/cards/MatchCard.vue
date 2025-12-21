@@ -14,6 +14,7 @@ const props = defineProps({
     default: false,
   },
 });
+const toast = useToast();
 
 const isEditing = ref(false);
 const isLoading = ref(false);
@@ -38,7 +39,18 @@ const handleSubmit = async (id) => {
   isLoading.value = true;
   isEditing.value = !isEditing.value;
 
-  await api.editMatchResult(id, scores);
+  try {
+    await api.editMatchResult(id, scores);
+    toast.add({
+      title: "Match Updated!",
+      color: "success",
+    });
+  } catch (err) {
+    toast.add({
+      title: "Something went wrong!",
+      color: "error",
+    });
+  }
 
   isLoading.value = false;
 
@@ -236,9 +248,10 @@ const handleSubmit = async (id) => {
       </div>
     </div>
 
+    <!-- Mobile Start -->
     <div class="lg:hidden mt-4" v-show="!isLive && !isEnd">
       <UButton
-        size="sm"
+        size="md"
         class="w-full text-center block lg:inline-block lg:w-fit"
         @click="() => handleStart(match?.id)"
         variant="subtle"
