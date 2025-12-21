@@ -11,6 +11,12 @@ export default defineNuxtConfig({
   routeRules: {
     "/": { prerender: true },
   },
+  colorMode: {
+    preference: 'dark',   // ALWAYS dark
+    fallback: 'dark',
+    classSuffix: '',      // results in `.dark` instead of `.dark-mode`
+    storageKey: null,     // disables localStorage
+  },
 
   compatibilityDate: "2025-01-15",
 
