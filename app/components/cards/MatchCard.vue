@@ -66,6 +66,7 @@ const onDelete = async (id) => {
       title: "Match Deleted!",
       color: "success",
     });
+    await refreshNuxtData("matches");
   } catch (err) {
     console.error(err);
   }
