@@ -30,7 +30,7 @@ const api = useAPIMethods();
 const handleStart = async (id) => {
   try {
     await api.startMatch(id);
-    await refreshNuxtData("matches");
+    await refreshNuxtData("matches-all");
   } catch (err) {
     console.error(err);
   }
@@ -52,6 +52,7 @@ const handleSubmit = async (id) => {
       title: "Match Updated!",
       color: "success",
     });
+    await refreshNuxtData("matches-all");
   } catch (err) {
     toast.add({
       title: "Something went wrong!",
@@ -60,8 +61,6 @@ const handleSubmit = async (id) => {
   }
 
   isLoading.value = false;
-
-  await refreshNuxtData("matches");
 };
 
 const onDelete = async (id) => {
@@ -71,7 +70,7 @@ const onDelete = async (id) => {
       title: "Match Deleted!",
       color: "success",
     });
-    await refreshNuxtData("matches");
+    await refreshNuxtData("matches-all");
   } catch (err) {
     console.error(err);
   }
