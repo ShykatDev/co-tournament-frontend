@@ -16,7 +16,8 @@ const onSubmit = async () => {
   try {
     isLoading.value = true;
 
-    const data = await api.login({ ...formdata.value });
+    await api.login({ ...formdata.value });
+    // await api.getMe
 
     toast.add({
       title: "Login success",
@@ -46,7 +47,7 @@ const onSubmit = async () => {
         class="h-full object-cover"
       />
     </div>
-    <div class="flex flex-col gap-y-4 md:gap-y-10 justify-center w-1/2">
+    <div class="flex flex-col gap-y-4 md:gap-y-10 justify-center md:w-1/2">
       <div>
         <NuxtLink to="/">
           <img

@@ -15,6 +15,7 @@ const props = defineProps({
   },
 });
 const toast = useToast();
+const auth = useAuth();
 
 const isEditing = ref(false);
 const isLoading = ref(false);
@@ -206,11 +207,18 @@ const handleSubmit = async (id) => {
 
         <div v-show="isLive && !isEditing">
           <UButton
+            :disabled="!auth.loggedIn"
             class="text-sm px-2 py-1 text-nowrap"
             color="info"
             @click="handleEdit"
           >
             Edit Match
+
+            <UIcon
+              v-show="!auth.loggedIn"
+              name="i-lucide-lock"
+              class="size-3 text-yellow-500 ml-1"
+            />
           </UButton>
         </div>
 
@@ -236,6 +244,7 @@ const handleSubmit = async (id) => {
 
         <div class="hidden lg:block" v-show="!isLive && !isEnd">
           <UButton
+            :disabled="!auth.loggedIn"
             size="sm"
             class="w-full text-center block lg:inline-block lg:w-fit"
             @click="() => handleStart(match?.id)"
@@ -243,6 +252,12 @@ const handleSubmit = async (id) => {
             color="neutral"
           >
             Start Match
+
+            <UIcon
+              v-show="!!auth.loggedIn"
+              name="i-lucide-lock"
+              class="size-3 text-yellow-500 ml-1"
+            />
           </UButton>
         </div>
       </div>
@@ -251,6 +266,7 @@ const handleSubmit = async (id) => {
     <!-- Mobile Start -->
     <div class="lg:hidden mt-4" v-show="!isLive && !isEnd">
       <UButton
+        :disabled="!auth.loggedIn"
         size="md"
         class="w-full text-center block lg:inline-block lg:w-fit"
         @click="() => handleStart(match?.id)"
@@ -258,6 +274,11 @@ const handleSubmit = async (id) => {
         color="neutral"
       >
         Start Match
+        <UIcon
+          v-show="!auth.loggedIn"
+          name="i-lucide-lock"
+          class="size-3 text-yellow-500 ml-1"
+        />
       </UButton>
     </div>
   </UCard>

@@ -2,6 +2,9 @@
 import { ref } from "vue";
 const toast = useToast();
 const api = useAPIMethods();
+const auth = useAuth();
+
+console.log("auth", auth.loggedIn);
 
 const { data, pending, error, refresh } = useAPI("matches", "/matches");
 const {
@@ -97,7 +100,7 @@ const avatarB = computed(
       <h1 class="font-semibold text-2xl">All Match</h1>
 
       <UButton
-        disabled
+        :disabled="!auth.loggedIn"
         variant="soft"
         color="info"
         :icon="isAdd ? 'i-lucide-circle-minus' : 'i-lucide-circle-plus'"
@@ -113,7 +116,11 @@ const avatarB = computed(
       >
         {{ isAdd ? "Close" : "Add Match" }}
 
-        <UIcon name="i-lucide-lock" class="size-3 text-yellow-500" />
+        <UIcon
+          v-show="!auth.loggedIn"
+          name="i-lucide-lock"
+          class="size-3 text-yellow-500"
+        />
       </UButton>
     </div>
 
