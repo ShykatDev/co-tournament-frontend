@@ -155,7 +155,7 @@ const onDelete = async (id) => {
           />
           <div v-show="!isLive && !isEnd" class="">
             <UDropdownMenu
-              :disabled="auth.isLogin"
+              :disabled="!auth.isLogin"
               class="disabled:opacity-30 cursor-none"
               :content="{
                 align: 'end',
