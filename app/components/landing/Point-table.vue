@@ -52,7 +52,9 @@ const { data, pending } = useAPI("point-table", `/points/2`);
                 :src="d?.team?.club?.logo"
                 class="size-8 object-cover rounded-full"
               />
-              <span>{{ d?.team?.club?.name }} {{ index === 0 && "🏆" }}</span>
+              <span
+                >{{ d?.team?.club?.name }} {{ index === 0 ? "🏆" : "" }}</span
+              >
             </div>
 
             <div class="px-4 py-2 col-span-2 space-y-1">
