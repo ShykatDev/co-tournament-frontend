@@ -167,7 +167,7 @@ const onDelete = async (id) => {
                   {
                     label: 'Delete',
                     icon: 'i-lucide-trash',
-                    click: () => onDelete(match.id),
+                    onSelect: () => onDelete(match.id),
                     color: 'error',
                     size: 'xs',
                   },
