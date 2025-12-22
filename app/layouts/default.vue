@@ -1,6 +1,8 @@
 <template>
-  <main>
-    <UiNavbar />
-    <slot />
-  </main>
+  <UContainer>
+    <main>
+      <UiNavbar />
+      <slot />
+    </main>
+  </UContainer>
 </template>

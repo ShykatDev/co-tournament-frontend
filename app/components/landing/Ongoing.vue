@@ -1,21 +1,11 @@
 <script setup>
-import { onMounted, ref } from "vue";
-const api = useApi();
+const { data, pending } = useAPI("ongoing", "/matches/live");
 
-const liveMatch = ref(null);
-const upcomingMatch = ref(null);
+const liveMatch = computed(() => data.value?.ongoingMatch ?? null);
+const upcomingMatch = computed(() => data.value?.upcomingMatch ?? null);
 
-onMounted(async () => {
-  try {
-    const res = await api.getLiveMatch();
-    console.log(res);
-
-    liveMatch.value = res?.ongoingMatch || null;
-    upcomingMatch.value = res?.upcomingMatch || null;
-  } catch (err) {
-    console.error(err);
-  }
-});
+console.log("liveMatch", liveMatch);
+console.log("upcoming", upcomingMatch);
 </script>
 
 <template>
@@ -40,7 +30,13 @@ onMounted(async () => {
     </div>
 
     <div
-      v-if="liveMatch || upcomingMatch"
+      v-if="pending"
+      class="w-full h-[30vh] flex items-center justify-center"
+    >
+      Loading...
+    </div>
+    <div
+      v-else-if="liveMatch || upcomingMatch"
       class="w-full flex flex-col xl:flex-row justify-center items-stretch"
     >
       <CardsLiveCard :team="liveMatch?.teamA ?? upcomingMatch?.teamA" />
@@ -53,7 +49,6 @@ onMounted(async () => {
 
       <CardsLiveCard :team="liveMatch?.teamB ?? upcomingMatch?.teamB" />
     </div>
-
     <div v-else class="w-full h-[30vh] flex items-center justify-center">
       <p>No live match here</p>
     </div>

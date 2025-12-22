@@ -1,10 +1,14 @@
 <script setup>
-import { onMounted, ref } from "vue";
-const api = useApi();
+import { ref } from "vue";
+const toast = useToast();
+const api = useAPIMethods();
 
-const data = ref(null);
-const clubs = ref(null);
-const teams = ref(null);
+const { data, pending, error, refresh } = useAPI("matches", "/matches");
+const {
+  data: teams,
+  pending: teamsPending,
+  error: teamsError,
+} = useAPI("teams", "/teams");
 
 const isAdd = ref(false);
 
@@ -39,15 +43,26 @@ const onSubmit = async () => {
     scheduledAt: formatDate(formData.value.scheduledAt),
   };
 
-  // send payload to your API
-  await api.createMatch(payload);
+  try {
+    await api.createMatch(payload);
+    toast.add({
+      title: "Match Created!",
+      color: "success",
+    });
+  } catch (err) {
+    console.log(err);
+    toast.add({
+      title: "Something went wrong!",
+      color: "error",
+    });
+  }
 
   formData.teamAId = null;
   formData.teamBId = null;
   formData.scheduledAt = null;
   isAdd.value = false;
 
-  window.location.reload();
+  refresh();
 };
 
 // Format date as YYYY-MM-DD HH:mm:ss
@@ -62,19 +77,6 @@ function formatDate(dateStr) {
   return `${yyyy}-${mm}-${dd} ${hh}:${min}:${ss}`;
 }
 
-onMounted(async () => {
-  try {
-    const res = await api.getAllMatches();
-    const resClubs = await api.getAllClubs();
-    const resTeams = await api.getAllTeams();
-    data.value = res || null;
-    clubs.value = resClubs || null;
-    teams.value = resTeams || null;
-  } catch (err) {
-    console.error(err);
-  }
-});
-
 const avatarA = computed(
   () =>
     items.value.find((item) => item.value === formData.value.teamAId)?.avatar
@@ -86,15 +88,20 @@ const avatarB = computed(
 </script>
 
 <template>
-  <div class="space-y-6 py-6">
+  <div v-if="pending">
+    <LoadingMatchCard />
+  </div>
+  <div v-else-if="error">Error: {{ error.message }}</div>
+  <div v-else class="space-y-6 py-6">
     <div class="flex justify-between">
       <h1 class="font-semibold text-2xl">All Match</h1>
 
       <UButton
+        disabled
         variant="soft"
         color="info"
         :icon="isAdd ? 'i-lucide-circle-minus' : 'i-lucide-circle-plus'"
-        class="border px-3 py-1 rounded"
+        class="border px-3 py-1 rounded disabled:opacity-30"
         @click="
           () => {
             isAdd = !isAdd;
@@ -105,6 +112,8 @@ const avatarB = computed(
         "
       >
         {{ isAdd ? "Close" : "Add Match" }}
+
+        <UIcon name="i-lucide-lock" class="size-3 text-yellow-500" />
       </UButton>
     </div>
 

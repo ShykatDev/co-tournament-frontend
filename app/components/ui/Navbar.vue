@@ -2,7 +2,7 @@
 import { Menu05Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/vue";
 import { onMounted, ref } from "vue";
-const api = useApi();
+const api = useAPIMethods();
 
 const data = ref(null);
 const isMenuOpen = ref(false);
@@ -35,7 +35,10 @@ onMounted(async () => {
       </NuxtLink>
 
       <div class="flex gap-4 items-center">
-        <div class="relative">
+        <NuxtLink to="/match" class="py-1.5 rounded block">
+          <UButton class="" variant="soft" color="secondary">Match</UButton>
+        </NuxtLink>
+        <!-- <div class="relative">
           <img
             src="/assets/images/fc.jpg"
             alt="fc"
@@ -45,7 +48,7 @@ onMounted(async () => {
           <div
             class="size-2 bg-red-500 rounded-full absolute -top-0.5 -right-0.5"
           />
-        </div>
+        </div> -->
 
         <button @click="handleMenuToggle">
           <HugeiconsIcon :icon="Menu05Icon" />
@@ -59,11 +62,12 @@ onMounted(async () => {
       class="absolute p-2 top-[115%] right-0 z-50 border border-gray-600 rounded backdrop-blur-sm bg-gray-900/90"
     >
       <NuxtLink
-        to="/match"
-        class="px-4 py-1.5 rounded"
+        to="/login"
+        class="rounded flex items-center gap-2"
         @click="handleMenuToggle"
       >
-        Match Details
+        <UIcon name="i-lucide-log-in" />
+        Login
       </NuxtLink>
     </div>
   </nav>

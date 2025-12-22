@@ -1,16 +1,22 @@
-export const useApi = () => {
+export const useAPIMethods = () => {
   const config = useRuntimeConfig();
   const base = config.public.backendUrl;
 
+  const login = (payload) =>
+    $fetch(`${base}/login`, {
+      method: "POST",
+      body: payload,
+    });
+
   const getPointTable = (tournamentId) =>
     $fetch(`${base}/points/${tournamentId}`);
-  
+
   const getLiveMatch = () => $fetch(`${base}/matches/live`);
-  
+
   const getUpcomingMatches = () => $fetch(`${base}/matches/upcoming`);
 
   const getTournaments = () => $fetch(`${base}/tournaments`);
-  
+
   const getAllMatches = () => $fetch(`${base}/matches`);
 
   const getAllClubs = () => $fetch(`${base}/club`);
@@ -19,17 +25,18 @@ export const useApi = () => {
   const createMatch = (payload) =>
     $fetch(`${base}/matches`, {
       method: "POST",
-      body: payload
+      body: payload,
     });
 
-  const startMatch = (matchId) => $fetch(`${base}/matches/${matchId}/start`, {
-     method: 'PATCH',
-  });
+  const startMatch = (matchId) =>
+    $fetch(`${base}/matches/${matchId}/start`, {
+      method: "PATCH",
+    });
 
   const editMatchResult = (matchId, payload) =>
     $fetch(`${base}/matches/${matchId}/finish`, {
       method: "POST",
-      body: payload
+      body: payload,
     });
 
   return {
@@ -43,5 +50,6 @@ export const useApi = () => {
     getAllClubs,
     createMatch,
     getAllTeams,
+    login,
   };
 };
