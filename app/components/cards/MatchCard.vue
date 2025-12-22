@@ -155,7 +155,7 @@ const onDelete = async (id) => {
           />
           <div v-show="!isLive && !isEnd" class="">
             <UDropdownMenu
-              :disabled="!auth.isLogin"
+              :disabled="true"
               class="disabled:opacity-30 cursor-none"
               :content="{
                 align: 'end',
@@ -167,7 +167,7 @@ const onDelete = async (id) => {
                   {
                     label: 'Delete',
                     icon: 'i-lucide-trash',
-                    click: onDelete(match.id),
+                    click: () => onDelete(match.id),
                     color: 'error',
                     size: 'xs',
                   },

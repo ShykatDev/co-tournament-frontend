@@ -186,14 +186,23 @@ const filterAvatar = computed(
           />
         </UFormField>
 
-        <UButton
-          type="submit"
-          variant="solid"
-          color="neutral"
-          class="py-2 text-center block md:inline-block"
+        <UTooltip
+          :text="
+            formData.teamAId === formData.teamBId
+              ? 'Teams should be different'
+              : ''
+          "
         >
-          Submit
-        </UButton>
+          <UButton
+            :disabled="formData.teamAId === formData.teamBId"
+            type="submit"
+            variant="solid"
+            color="neutral"
+            class="py-2 text-center block md:inline-block"
+          >
+            Add Match
+          </UButton>
+        </UTooltip>
       </form>
     </UCard>
 
