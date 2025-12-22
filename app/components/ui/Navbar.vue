@@ -2,11 +2,14 @@
 import { ref, onMounted } from "vue";
 import { Menu05Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/vue";
+import { useAuthStore } from "~/store/authStore";
 
 const isMenuOpen = ref(false);
 
-// Use auth composable
-const auth = useAuth();
+// Use auth store
+const auth = useAuthStore();
+
+console.log(auth.user, "auth user");
 
 // Toggle menu
 const handleMenuToggle = () => {
@@ -17,7 +20,7 @@ const handleMenuToggle = () => {
 onMounted(async () => {
   try {
     // Fetch logged-in user on mount
-    await auth.fetchUser();
+    await auth.fetchMe();
   } catch (err) {
     console.error(err);
   }
@@ -37,7 +40,7 @@ onMounted(async () => {
 
       <div class="flex gap-4 items-center">
         <NuxtLink to="/match" class="py-1.5 rounded block">
-          <UButton variant="soft" color="secondary">Match</UButton>
+          <UButton variant="outline" color="secondary">Match List</UButton>
         </NuxtLink>
 
         <button @click="handleMenuToggle">
@@ -53,7 +56,7 @@ onMounted(async () => {
     >
       <!-- Show Login if user is NOT logged in -->
       <NuxtLink
-        v-if="!!auth.loggedIn"
+        v-if="!auth.isLogin"
         to="/login"
         class="rounded flex items-center gap-2"
         @click="handleMenuToggle"
@@ -65,6 +68,10 @@ onMounted(async () => {
 
       <!-- Show Logout if user IS logged in -->
       <div v-else>
+        <div class="border-b border-gray-700 pb-2 mb-2">
+          <p class="text-secondary">{{ auth.user?.name }}</p>
+          <small class="text-gray-400">{{ auth.user.email }}</small>
+        </div>
         <UButton
           trailing-icon="i-lucide-log-out"
           color="error"

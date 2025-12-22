@@ -17,8 +17,6 @@ const onSubmit = async () => {
     isLoading.value = true;
 
     await api.login({ ...formdata.value });
-    // await api.getMe
-
     toast.add({
       title: "Login success",
       color: "success",
