@@ -6,10 +6,7 @@ const upcomingMatches = computed(() => data.value?.upcomingMatches ?? []);
 
 <template>
   <div>
-    <div v-if="pending" class="w-64">Loading...</div>
-    <div v-else-if="upcomingMatches.length === 0">No matches found</div>
     <div
-      v-else
       class="border border-gray-800 rounded-lg h-full overflow-y-auto bg-gray-900 text-gray-300"
     >
       <div
@@ -20,7 +17,16 @@ const upcomingMatches = computed(() => data.value?.upcomingMatches ?? []);
         <UBadge color="info" :label="upcomingMatches?.length" />
       </div>
 
-      <ul class="h-auto overflow-y-auto">
+      <div v-if="pending" class="p-2">
+        <div class="space-y-2">
+          <USkeleton
+            class="w-96 h-8 even:bg-gray-900 bg-gray-800 border border-gray-800"
+            v-for="_ in Array(5)"
+          />
+        </div>
+      </div>
+
+      <ul v-else class="h-auto overflow-y-auto">
         <li
           v-for="(match, index) in upcomingMatches"
           :key="match.id"

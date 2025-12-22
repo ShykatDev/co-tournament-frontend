@@ -1,5 +1,6 @@
 <script setup>
 import { reactive } from "vue";
+import { useAuthStore } from "~/store/authStore";
 const props = defineProps({
   data: {
     type: Array,
@@ -15,6 +16,7 @@ const props = defineProps({
   },
 });
 const toast = useToast();
+const auth = useAuthStore();
 
 const isEditing = ref(false);
 const isLoading = ref(false);
@@ -206,11 +208,18 @@ const handleSubmit = async (id) => {
 
         <div v-show="isLive && !isEditing">
           <UButton
+            :disabled="!auth.isLogin"
             class="text-sm px-2 py-1 text-nowrap"
             color="info"
             @click="handleEdit"
           >
             Edit Match
+
+            <UIcon
+              v-show="!auth.isLogin"
+              name="i-lucide-lock"
+              class="size-3 text-yellow-500 ml-1"
+            />
           </UButton>
         </div>
 
@@ -235,30 +244,55 @@ const handleSubmit = async (id) => {
         </div>
 
         <div class="hidden lg:block" v-show="!isLive && !isEnd">
-          <UButton
-            size="sm"
-            class="w-full text-center block lg:inline-block lg:w-fit"
-            @click="() => handleStart(match?.id)"
-            variant="subtle"
-            color="neutral"
+          <UTooltip
+            :text="!auth.isLogin ? 'Admin access required' : ''"
+            delay-duration="0"
+            arrow
           >
-            Start Match
-          </UButton>
+            <UButton
+              :disabled="!auth.isLogin"
+              size="sm"
+              class="w-full text-center block lg:inline-block lg:w-fit disabled:opacity-50"
+              @click="() => handleStart(match?.id)"
+              variant="subtle"
+              color="neutral"
+            >
+              Start Match
+
+              <UIcon
+                v-show="!auth.isLogin"
+                name="i-lucide-lock"
+                class="size-3 text-yellow-500 ml-1"
+              />
+            </UButton>
+          </UTooltip>
         </div>
       </div>
     </div>
 
     <!-- Mobile Start -->
     <div class="lg:hidden mt-4" v-show="!isLive && !isEnd">
-      <UButton
-        size="md"
-        class="w-full text-center block lg:inline-block lg:w-fit"
-        @click="() => handleStart(match?.id)"
-        variant="subtle"
-        color="neutral"
+      <UTooltip
+        :text="!auth.isLogin ? 'Admin access required' : ''"
+        delay-duration="0"
+        arrow
       >
-        Start Match
-      </UButton>
+        <UButton
+          :disabled="!auth.isLogin"
+          size="md"
+          class="w-full text-center block lg:inline-block lg:w-fit disabled:opacity-50"
+          @click="() => handleStart(match?.id)"
+          variant="subtle"
+          color="neutral"
+        >
+          Start Match
+          <UIcon
+            v-show="!auth.isLogin"
+            name="i-lucide-lock"
+            class="size-3 text-yellow-500 ml-1"
+          />
+        </UButton>
+      </UTooltip>
     </div>
   </UCard>
 </template>

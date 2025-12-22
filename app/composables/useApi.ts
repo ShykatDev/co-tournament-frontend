@@ -1,9 +1,9 @@
-import type { FetchOptions } from "ofetch";
+import type { NitroFetchOptions } from 'nitropack'
 
 export const useAPI = <T>(
   key: string,
   url: string,
-  options?: FetchOptions,
+  options?: NitroFetchOptions<string>,
   immediate = true
 ) => {
   const config = useRuntimeConfig();

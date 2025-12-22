@@ -1,7 +1,9 @@
 <script setup>
 import { ref } from "vue";
+import { useAuthStore } from "~/store/authStore";
 const toast = useToast();
 const api = useAPIMethods();
+const auth = useAuthStore();
 
 const { data, pending, error, refresh } = useAPI("matches", "/matches");
 const {
@@ -50,7 +52,6 @@ const onSubmit = async () => {
       color: "success",
     });
   } catch (err) {
-    console.log(err);
     toast.add({
       title: "Something went wrong!",
       color: "error",
@@ -96,25 +97,35 @@ const avatarB = computed(
     <div class="flex justify-between">
       <h1 class="font-semibold text-2xl">All Match</h1>
 
-      <UButton
-        disabled
-        variant="soft"
-        color="info"
-        :icon="isAdd ? 'i-lucide-circle-minus' : 'i-lucide-circle-plus'"
-        class="border px-3 py-1 rounded disabled:opacity-30"
-        @click="
-          () => {
-            isAdd = !isAdd;
-            formData.teamAId = null;
-            formData.teamBId = null;
-            formData.scheduledAt = null;
-          }
-        "
+      <UTooltip
+        :text="!auth.isLogin ? 'Admin access required' : ''"
+        delay-duration="0"
+        arrow
       >
-        {{ isAdd ? "Close" : "Add Match" }}
+        <UButton
+          :disabled="!auth.isLogin"
+          variant="soft"
+          color="info"
+          :icon="isAdd ? 'i-lucide-circle-minus' : 'i-lucide-circle-plus'"
+          class="border px-3 py-1 rounded disabled:opacity-50"
+          @click="
+            () => {
+              isAdd = !isAdd;
+              formData.teamAId = null;
+              formData.teamBId = null;
+              formData.scheduledAt = null;
+            }
+          "
+        >
+          {{ isAdd ? "Close" : "Add Match" }}
 
-        <UIcon name="i-lucide-lock" class="size-3 text-yellow-500" />
-      </UButton>
+          <UIcon
+            v-show="!auth.isLogin"
+            name="i-lucide-lock"
+            class="size-3 text-yellow-500"
+          />
+        </UButton>
+      </UTooltip>
     </div>
 
     <UCard variant="subtle" v-show="isAdd">

@@ -14,3 +14,8 @@
     </div>
   </main>
 </template>
+
+<script setup>
+const auth = useAuth();
+await auth.fetchUser();
+</script>

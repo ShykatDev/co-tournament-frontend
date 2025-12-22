@@ -3,9 +3,6 @@ const { data, pending } = useAPI("ongoing", "/matches/live");
 
 const liveMatch = computed(() => data.value?.ongoingMatch ?? null);
 const upcomingMatch = computed(() => data.value?.upcomingMatch ?? null);
-
-console.log("liveMatch", liveMatch);
-console.log("upcoming", upcomingMatch);
 </script>
 
 <template>
