@@ -195,10 +195,11 @@ const filterAvatar = computed(
         >
           <UButton
             :disabled="formData.teamAId === formData.teamBId"
+            delay-duration="0"
             type="submit"
             variant="solid"
             color="neutral"
-            class="py-2 text-center block md:inline-block"
+            class="py-2 text-center block md:inline-block disabled:opacity-50"
           >
             Add Match
           </UButton>
