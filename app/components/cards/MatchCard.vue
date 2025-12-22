@@ -28,7 +28,12 @@ const scores = reactive({
 
 const api = useAPIMethods();
 const handleStart = async (id) => {
-  await api.startMatch(id);
+  try {
+    await api.startMatch(id);
+    await refreshNuxtData("matches");
+  } catch (err) {
+    console.error(err);
+  }
 };
 
 const handleEdit = async (id) => {
