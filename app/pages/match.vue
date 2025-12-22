@@ -5,7 +5,18 @@ const toast = useToast();
 const api = useAPIMethods();
 const auth = useAuthStore();
 
-const { data, pending, error, refresh } = useAPI("matches", "/matches");
+const filterKey = ref(null);
+
+const { data, pending, error, refresh } = useAPI(
+  computed(() =>
+    filterKey.value ? `matches-${filterKey.value}` : "matches-all"
+  ),
+  "/matches",
+  computed(() => ({
+    query: filterKey.value ? { teamId: filterKey.value } : {},
+  }))
+);
+
 const {
   data: teams,
   pending: teamsPending,
@@ -86,6 +97,15 @@ const avatarB = computed(
   () =>
     items.value.find((item) => item.value === formData.value.teamBId)?.avatar
 );
+
+const itemsWithAll = computed(() => [
+  { label: "All Teams", value: null },
+  ...items.value,
+]);
+
+const filterAvatar = computed(
+  () => items.value.find((item) => item.value === filterKey.value)?.avatar
+);
 </script>
 
 <template>
@@ -94,8 +114,17 @@ const avatarB = computed(
   </div>
   <div v-else-if="error">Error: {{ error.message }}</div>
   <div v-else class="space-y-6 py-6">
-    <div class="flex justify-between">
-      <h1 class="font-semibold text-2xl">All Match</h1>
+    <div class="flex gap-y-4 md:flex-row justify-between items-center">
+      <div class="w-1/2">
+        <USelect
+          placeholder="Filter team"
+          v-model="filterKey"
+          :items="itemsWithAll"
+          value-key="value"
+          :avatar="filterAvatar"
+          class="w-40 md:w-56 py-2"
+        />
+      </div>
 
       <UTooltip
         :text="!auth.isLogin ? 'Admin access required' : ''"
@@ -104,10 +133,11 @@ const avatarB = computed(
       >
         <UButton
           :disabled="!auth.isLogin"
-          variant="soft"
+          variant="subtle"
+          size="lg"
           color="info"
           :icon="isAdd ? 'i-lucide-circle-minus' : 'i-lucide-circle-plus'"
-          class="border px-3 py-1 rounded disabled:opacity-50"
+          class="disabled:opacity-50"
           @click="
             () => {
               isAdd = !isAdd;

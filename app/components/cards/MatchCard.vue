@@ -58,6 +58,18 @@ const handleSubmit = async (id) => {
 
   await refreshNuxtData("matches");
 };
+
+const onDelete = async (id) => {
+  try {
+    await api.deleteMatch(id);
+    toast.add({
+      title: "Match Deleted!",
+      color: "success",
+    });
+  } catch (err) {
+    console.error(err);
+  }
+};
 </script>
 
 <template>
@@ -143,7 +155,7 @@ const handleSubmit = async (id) => {
           />
           <div v-show="!isLive && !isEnd" class="">
             <UDropdownMenu
-              disabled="true"
+              :disabled="auth.isLogin"
               class="disabled:opacity-30 cursor-none"
               :content="{
                 align: 'end',
@@ -155,7 +167,7 @@ const handleSubmit = async (id) => {
                   {
                     label: 'Delete',
                     icon: 'i-lucide-trash',
-                    click: onDelete,
+                    click: onDelete(match.id),
                     color: 'error',
                     size: 'xs',
                   },

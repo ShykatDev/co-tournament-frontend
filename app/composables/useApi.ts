@@ -1,15 +1,19 @@
-import type { NitroFetchOptions } from 'nitropack'
+import type { NitroFetchOptions } from "nitropack";
+import { unref } from "vue";
 
 export const useAPI = <T>(
-  key: string,
+  key: string | Ref<string>,
   url: string,
-  options?: NitroFetchOptions<string>,
+  options?: NitroFetchOptions<string> | Ref<NitroFetchOptions<string>>,
   immediate = true
 ) => {
   const config = useRuntimeConfig();
   const base = config.public.backendUrl;
 
-  return useAsyncData<T>(key, () => $fetch<T>(`${base}${url}`, options), {
-    immediate,
-  });
+  // Unwrap refs when calling useAsyncData
+  return useAsyncData<T>(
+    () => unref(key),
+    () => $fetch<T>(`${base}${url}`, unref(options)),
+    { immediate }
+  );
 };

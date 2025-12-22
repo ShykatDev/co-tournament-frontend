@@ -2,7 +2,7 @@ export const useAPIMethods = () => {
   const config = useRuntimeConfig();
   const base = config.public.backendUrl;
 
-  const getMe = () => $fetch(`${base}/me`, {credentials: 'include'});
+  const getMe = () => $fetch(`${base}/me`, { credentials: "include" });
 
   const getPointTable = (tournamentId) =>
     $fetch(`${base}/points/${tournamentId}`);
@@ -18,43 +18,44 @@ export const useAPIMethods = () => {
   const getAllClubs = () => $fetch(`${base}/club`);
   const getAllTeams = () => $fetch(`${base}/teams`);
 
-const login = (payload) =>
+  const login = (payload) =>
     $fetch(`${base}/login`, {
       method: "POST",
       body: payload,
-      credentials: 'include'
+      credentials: "include",
     });
 
-    const logout = () =>
+  const logout = () =>
     $fetch(`${base}/logout`, {
       method: "POST",
-      credentials: 'include'
+      credentials: "include",
     });
+
 
   const createMatch = (payload) =>
     $fetch(`${base}/matches`, {
       method: "POST",
       body: payload,
-      credentials: 'include'
+      credentials: "include",
     });
 
   const startMatch = (matchId) =>
     $fetch(`${base}/matches/${matchId}/start`, {
       method: "PATCH",
-      credentials: 'include'
+      credentials: "include",
     });
 
-    const deleteMatch = (matchId) =>
+  const deleteMatch = (matchId) =>
     $fetch(`${base}/matches/${matchId}`, {
       method: "DELETE",
-      credentials: 'include'
+      credentials: "include",
     });
 
   const editMatchResult = (matchId, payload) =>
     $fetch(`${base}/matches/${matchId}/finish`, {
       method: "POST",
       body: payload,
-      credentials: 'include'
+      credentials: "include",
     });
 
   return {
@@ -71,6 +72,6 @@ const login = (payload) =>
     login,
     logout,
     deleteMatch,
-    getMe
+    getMe,
   };
 };

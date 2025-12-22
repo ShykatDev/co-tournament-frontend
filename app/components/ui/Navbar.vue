@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { ref, onMounted } from "vue";
 import { Menu05Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/vue";
+import { onMounted, ref } from "vue";
 import { useAuthStore } from "~/store/authStore";
 
 const isMenuOpen = ref(false);
@@ -40,7 +40,7 @@ onMounted(async () => {
 
       <div class="flex gap-4 items-center">
         <NuxtLink to="/match" class="py-1.5 rounded block">
-          <UButton variant="outline" color="secondary">Match List</UButton>
+          <UButton variant="link" color="neutral">Match List</UButton>
         </NuxtLink>
 
         <button @click="handleMenuToggle">

@@ -12,10 +12,9 @@ export default defineNuxtConfig({
     "/": { prerender: true },
   },
   colorMode: {
-    preference: 'dark',   // ALWAYS dark
-    fallback: 'dark',
-    classSuffix: '',      // results in `.dark` instead of `.dark-mode`
-    storageKey: null,     // disables localStorage
+    preference: "dark", // ALWAYS dark
+    fallback: "dark",
+    classSuffix: "", // results in `.dark` instead of `.dark-mode`
   },
 
   compatibilityDate: "2025-01-15",
