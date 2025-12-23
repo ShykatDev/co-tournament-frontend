@@ -1,5 +1,10 @@
 <script setup>
-const { data, pending } = useAPI("ongoing", "/matches/live");
+// const { data, pending } = useAPI("ongoing", "/matches/live");
+   const { data, pending, execute } = useAPI("ongoing", "/matches/live", undefined, false);
+
+onMounted(() => {
+  execute(); // Fetches the API
+});
 
 const liveMatch = computed(() => data.value?.ongoingMatch ?? null);
 const upcomingMatch = computed(() => data.value?.upcomingMatch ?? null);
