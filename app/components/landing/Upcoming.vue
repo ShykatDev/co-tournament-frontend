@@ -1,5 +1,10 @@
 <script setup>
-const { data, pending } = useAPI("upcoming", "/matches/upcoming");
+// const { data, pending } = useAPI("upcoming", "/matches/upcoming");
+   const { data, pending, execute } = useAPI("upcoming","/matches/upcoming", undefined, false);
+
+onMounted(() => {
+  execute(); // Fetches the API
+});
 
 const upcomingMatches = computed(() => data.value?.upcomingMatches ?? []);
 </script>
