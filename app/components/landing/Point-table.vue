@@ -1,10 +1,5 @@
 <script setup>
-// const { data, pending } = useAPI("point-table", `/points/2`);
-  const { data, pending, execute } = useAPI("point-table", `/points/2`, undefined, false);
-
-onMounted(() => {
-  execute(); // Fetches the API
-});
+const { data, pending } = useAPI("point-table", `/points/2`);
 </script>
 
 <template>
@@ -19,7 +14,7 @@ onMounted(() => {
     <!-- HEADER -->
     <div v-else class="overflow-x-auto">
       <div class="min-w-375">
-        <div class="grid grid-cols-14 divide-x divide-gray-800 bg-gray-900">
+        <div class="grid grid-cols-13 divide-x divide-gray-800 bg-gray-900">
           <div class="text-start font-semibold px-4 py-2 col-span-2">Club</div>
           <div class="text-start font-semibold px-4 py-2 col-span-2">
             Players
@@ -31,13 +26,13 @@ onMounted(() => {
           <div class="text-start font-semibold px-4 py-2 text-green-400">W</div>
           <div class="text-start font-semibold px-4 py-2 text-gray-400">D</div>
           <div class="text-start font-semibold px-4 py-2 text-red-400">L</div>
-          <div class="text-start font-semibold px-4 py-2 text-gray-400">GF</div>
+          <div class="text-start font-semibold px-4 py-2 text-gray-100">GF</div>
           <div class="text-start font-semibold px-4 py-2 text-gray-400">GA</div>
           <div class="text-start font-semibold px-4 py-2 text-gray-400">GD</div>
           <div class="text-start font-semibold px-4 py-2 text-blue-400">
             Point
           </div>
-          <div class="text-start font-semibold px-4 py-2">Total Goals</div>
+          <!-- <div class="text-start font-semibold px-4 py-2">Total Goals</div> -->
         </div>
 
         <!-- BODY -->
@@ -45,7 +40,7 @@ onMounted(() => {
           <div
             v-for="(d, index) in data"
             :key="index"
-            class="grid grid-cols-14 divide-x divide-gray-800 items-stretch even:bg-gray-900"
+            class="grid grid-cols-13 divide-x divide-gray-800 items-stretch even:bg-gray-900"
             :class="{
               'border-b border-gray-800': index !== data.length - 1,
             }"
@@ -57,9 +52,7 @@ onMounted(() => {
                 :src="d?.team?.club?.logo"
                 class="size-8 object-cover rounded-full"
               />
-              <span
-                >{{ d?.team?.club?.name }} {{ index === 0 ? "🏆" : "" }}</span
-              >
+              <span>{{ d?.team?.club?.name }}</span>
             </div>
 
             <div class="px-4 py-2 col-span-2 space-y-1">
@@ -94,21 +87,21 @@ onMounted(() => {
             <div class="px-4 py-2 flex items-center text-red-400">
               {{ d.lost }}
             </div>
-            <div class="px-4 py-2 flex items-center text-gray-400">
+            <div class="px-4 py-2 flex items-center text-gray-100">
               {{ d.goalFor }}
             </div>
             <div class="px-4 py-2 flex items-center text-gray-400">
               {{ d.goalAgainst }}
             </div>
             <div class="px-4 py-2 flex items-center text-gray-400">
-              {{ d.goalDiff }}
+              {{ Math.abs(d.goalDiff) }}
             </div>
             <div
               class="px-4 py-2 flex items-center font-semibold text-blue-400"
             >
               {{ d.points }}
             </div>
-            <div class="px-4 py-2 flex items-center">{{ d.totalGoals }} ⚽</div>
+            <!-- <div class="px-4 py-2 flex items-center">{{ d.totalGoals }} ⚽</div> -->
           </div>
         </div>
       </div>
