@@ -1,9 +1,26 @@
 @import "tailwindcss";
 @import "@nuxt/ui";
 
+:root {
+  --dark-bg: #101010;
+  --light-text: #cccccc;
+  --primary: #ffdaba;
+  --dark-card: #202020;
+  --dark-border: #2f2f2f;
+}
+
 body {
   font-family: "Inter", sans-serif;
   padding-bottom: 2rem;
+  background: var(--dark-bg);
+  color: var(--light-text);
+  font-family: "Inter", system-ui, sans-serif;
+}
+
+h1,
+h2,
+h3 {
+  font-family: "Space Grotesk", system-ui, sans-serif;
 }
 
 button {
