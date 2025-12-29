@@ -1,6 +1,10 @@
 <script setup>
 //const { data, pending } = useAPI("point-table", `/points/2`);
   const { data, pending, execute } = useAPI("point-table", "/points/2", undefined, false);
+
+  onMounted(() => {
+  execute(); // Fetches the API
+});
 </script>
 
 <template>
