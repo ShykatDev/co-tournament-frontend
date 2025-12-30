@@ -99,7 +99,7 @@
               {{ d.goalAgainst }}
             </div>
             <div class="px-4 py-2 flex items-center text-gray-400">
-              {{ Math.abs(d.goalDiff) }}
+              {{ d.goalDiff }}
             </div>
             <div
               class="px-4 py-2 flex items-center font-semibold text-blue-400"
