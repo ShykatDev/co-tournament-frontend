@@ -1,9 +1,13 @@
 <template>
-  <main class="p-10 flex gap-8 min-h-screen">
-    <nav class="w-1/6">
+  <main class="p-4 lg:p-10 flex flex-col lg:flex-row gap-8 min-h-screen">
+    <nav class="w-full lg:w-1/6 hidden lg:block">
       <UiSidebar />
     </nav>
-    <div class="w-5/6">
+
+    <nav class="block lg:hidden">
+      <UiNavbar />
+    </nav>
+    <div class="lg:flex-1">
       <slot />
     </div>
   </main>

@@ -15,7 +15,7 @@ const fixtures = computed(() => data.value?.upcomingMatches ?? []);
 
 <template>
   <div
-    class="border rounded-xl flex-1 h-[70%] border-(--dark-border) bg-(--dark-card) p-8"
+    class="border rounded-xl lg:w-[40%] lg:h-[90%] border-(--dark-border) bg-(--dark-card) p-4 lg:p-8"
   >
     <div class="flex justify-between items-stretch">
       <CardsHeading lable="Fixtures" />
@@ -39,7 +39,7 @@ const fixtures = computed(() => data.value?.upcomingMatches ?? []);
       <div
         v-for="(match, index) in fixtures"
         :key="match.id"
-        class="py-2 px-6 border border-(--dark-border) rounded-md odd:bg-(--dark-bg) flex justify-between"
+        class="py-2 px-4 border border-(--dark-border) rounded-md odd:bg-(--dark-bg) flex justify-between"
       >
         <div class="flex items-center gap-4 w-1/2 lg:min-w-40">
           <img

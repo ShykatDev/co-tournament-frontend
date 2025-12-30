@@ -17,9 +17,9 @@ const winPercentage = computed(() => {
 </script>
 
 <template>
-  <div class="flex flex-col items-center gap-8">
+  <div class="flex flex-col items-center gap-4 lg:gap-8">
     <span
-      class="px-4 py-3 rounded-lg w-fit border flex items-center gap-3"
+      class="px-4 py-1.5 lg:py-3 rounded-lg w-fit border flex items-center gap-3 text-xs lg:text-base"
       :class="
         winPercentage >= 50
           ? 'text-[#A8FF92] bg-[#0D5219]/20 border-[#0D5219]/15'
@@ -30,14 +30,18 @@ const winPercentage = computed(() => {
         :name="
           winPercentage >= 50 ? 'lucide-trending-up' : 'lucide-trending-down'
         "
-        size="24"
+        class="size-5 md:size-6"
       />
 
       Win Percentange: {{ winPercentage }}%</span
     >
 
     <!-- Club logo -->
-    <img :src="team?.club?.logo" :alt="team?.club?.name" class="size-40" />
+    <img
+      :src="team?.club?.logo"
+      :alt="team?.club?.name"
+      class="size-28 lg:size-40"
+    />
 
     <!-- Player details -->
     <div class="space-y-3">

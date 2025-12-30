@@ -8,7 +8,7 @@ const props = defineProps({
 </script>
 
 <template>
-  <div class="flex items-center gap-4">
+  <div class="md:flex items-center gap-4 hidden">
     <img :src="team?.club?.logo" :alt="team?.club?.name" class="size-10" />
     <h3>
       Team Goal:
