@@ -23,41 +23,67 @@ console.log(filteredByGoalFor.value);
 
 <template>
   <div
-    class="border lg:w-[40%] rounded-xl border-(--dark-border) bg-(--dark-card) p-4 lg:p-8"
+    v-if="pending"
+    class="border mt-12 lg:mt-0 min-h-64 flex items-center justify-center lg:w-[40%] rounded-xl border-(--dark-border) bg-(--dark-card)/50 p-4 lg:p-8"
+  >
+    Loading...
+  </div>
+  <div
+    v-else
+    class="border mt-12 lg:mt-0 lg:w-[40%] rounded-xl border-(--dark-border) bg-(--dark-card)/50 p-4 lg:p-8"
   >
     <div
-      class="w-full h-1/2 border bg-(--dark-bg) border-(--dark-border) rounded-md flex flex-col justify-center items-center gap-2 relative"
+      class="w-full min-h-[16vh] lg:h-1/2 border bg-(--dark-bg) border-(--dark-border) rounded-md pt-6 lg:pt-0 flex flex-col lg:flex-row justify-start items-center gap-2 relative"
     >
-      <img
-        :src="filteredByGoalFor[0]?.team?.players[0]?.profileImg"
-        :alt="filteredByGoalFor[0]?.team?.players[0]?.name"
-        class="absolute -left-4 lg:-left-8 bottom-0 h-[120%] lg:h-[150%]"
-      />
+      <div class="lg:hidden flex flex-col items-center justify-center">
+        <div class="flex items-center gap-1">
+          <UAvatar
+            class="bg-transparent"
+            :src="filteredByGoalFor[0]?.team?.club?.logo"
+            :alt="filteredByGoalFor[0]?.team?.club?.name"
+            size="2xl"
+          />
+        </div>
 
-      <UAvatar
-        :src="filteredByGoalFor[0]?.team?.club?.logo"
-        size="3xl"
-        alt="Club"
-        class="bg-transparent"
-      />
-      <p class="text-xl">Top Goal Scorer</p>
-      <h2 class="text-5xl text-(--primary)">
-        {{ filteredByGoalFor[0]?.totalGoals ?? 0 }}
-      </h2>
+        <span class="my-2">Top Goal Scorer</span>
+        <h3 class="text-4xl text-(--primary)">
+          {{ filteredByGoalFor[0]?.totalGoals ?? 0 }}
+        </h3>
+      </div>
 
-      <img
-        :src="filteredByGoalFor[0]?.team?.players[1]?.profileImg"
-        :alt="filteredByGoalFor[0]?.team?.players[1]?.name"
-        class="absolute -right-4 lg:-right-8 bottom-0 scale-x-[-1] h-[120%] lg:h-[150%]"
-      />
+      <div class="relative w-full lg:w-1/2 h-full flex justify-center">
+        <img
+          :src="filteredByGoalFor[0]?.team?.players[0]?.profileImg"
+          :alt="filteredByGoalFor[0]?.team?.players[0]?.name"
+          class="lg:absolute -left-4 lg:-left-8 bottom-0 w-[50%] lg:w-auto lg:h-[150%]"
+        />
+        <img
+          :src="filteredByGoalFor[0]?.team?.players[1]?.profileImg"
+          :alt="filteredByGoalFor[0]?.team?.players[1]?.name"
+          class="lg:absolute left-16 lg:left-16 bottom-0 scale-x-[-1] w-[50%] lg:w-auto lg:h-[150%]"
+        />
+      </div>
+
+      <div class="space-y-2 hidden lg:block">
+        <UAvatar
+          :src="filteredByGoalFor[0]?.team?.club?.logo"
+          size="3xl"
+          alt="Club"
+          class="bg-transparent"
+        />
+        <p class="lg:text-xl">Top Goal Scorer</p>
+        <h2 class="text-3xl lg:text-5xl text-(--primary)">
+          {{ filteredByGoalFor[0]?.totalGoals ?? 0 }}
+        </h2>
+      </div>
     </div>
 
     <div
-      class="mt-5 divide-y divide-(--dark-border) border border-(--dark-border) rounded-md"
+      class="mt-5 divide-y divide-(--dark-border) border border-(--dark-border) rounded-md lg:h-[calc(50%-20px)] overflow-y-auto invisible-scrollbar"
     >
       <div
         v-for="(team, index) in filteredByGoalFor.slice(1)"
-        class="flex items-center gap-4 justify-between py-2 px-4"
+        class="flex flex-col lg:flex-row items-center gap-4 justify-between py-2 px-4 even:bg-(--dark-bg)/30"
       >
         <span class="text-(--light-text)/50 text-sm">#{{ index + 2 }}</span>
         <div class="flex-1 flex items-center gap-3">
@@ -65,7 +91,7 @@ console.log(filteredByGoalFor.value);
             :src="team?.team?.club?.logo"
             :alt="team?.team?.club?.name"
           />
-          <span>{{ team?.team?.club?.name }}</span>
+          <span class="text-nowrap">{{ team?.team?.club?.name }}</span>
         </div>
 
         <UAvatarGroup class="flex-1">

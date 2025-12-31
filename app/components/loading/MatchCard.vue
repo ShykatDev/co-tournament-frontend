@@ -6,7 +6,7 @@
     </div>
     <USkeleton class="h-10 w-full mt-4" />
     <div class="grid lg:grid-cols-2 gap-4 mt-4">
-      <UCard v-for="_ in Array(6)" class="bg-gray-900">
+      <UCard v-for="_ in Array(6)" class="bg-(--dark-bg)/50">
         <div class="space-y-4 lg:space-y-0">
           <div class="flex gap-2 lg:hidden">
             <USkeleton class="w-20 h-6" />

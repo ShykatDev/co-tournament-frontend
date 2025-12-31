@@ -113,7 +113,7 @@ const filterAvatar = computed(
     <LoadingMatchCard />
   </div>
   <div v-else-if="error">Error: {{ error.message }}</div>
-  <div v-else class="space-y-6 py-6">
+  <div v-else class="space-y-6 py-6 h-full">
     <div class="flex gap-y-4 md:flex-row justify-between items-center">
       <div class="w-1/2">
         <USelect
@@ -122,6 +122,7 @@ const filterAvatar = computed(
           :items="itemsWithAll"
           value-key="value"
           :avatar="filterAvatar"
+          color="neutral"
           class="w-40 md:w-56 py-2"
         />
       </div>

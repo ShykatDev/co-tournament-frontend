@@ -13,34 +13,56 @@ onMounted(() => {
 
 <template>
   <div
-    class="border lg:w-[60%] rounded-xl border-(--dark-border) bg-(--dark-card) p-4 lg:p-8 overflow-hidden relative"
+    class="border lg:w-[60%] rounded-xl border-(--dark-border) bg-(--dark-card)/50 p-4 lg:p-8 overflow-hidden relative"
   >
     <CardsHeading lable="Point Table" />
 
+    <div v-if="pending" class="min-h-64 flex items-center justify-center">
+      Loading...
+    </div>
     <div
-      class="mt-5 border border-(--dark-border) rounded-md overflow-auto h-[calc(100%-48px)] invisible-scrollbar"
+      v-else
+      class="mt-5 border border-(--dark-border) rounded-md overflow-auto h-[calc(100%-60px)] invisible-scrollbar"
     >
       <div class="min-w-250">
         <div
           class="flex h-15 sticky inset-0 z-30 bg-(--dark-bg) items-center justify-between border-b border-(--dark-border) pl-4 whitespace-nowrap shrink-0"
         >
-          <h3 class="text-xl lg:flex-1 text-(--primary)">Club</h3>
-          <h3 class="text-xl text-(--primary) flex-1">Players</h3>
+          <h3 class="text-base lg:text-xl lg:flex-1 text-(--primary)">Club</h3>
+          <h3 class="text-base lg:text-xl text-(--primary) lg:flex-1">
+            Players
+          </h3>
           <div class="flex">
-            <h3 class="text-xl text-(--primary) w-16 text-center">MP</h3>
-            <h3 class="text-xl text-(--primary) w-16 text-center">W</h3>
-            <h3 class="text-xl text-(--primary) w-16 text-center">D</h3>
-            <h3 class="text-xl text-(--primary) w-16 text-center">L</h3>
-            <h3 class="text-xl text-(--primary) w-16 text-center">GF</h3>
-            <h3 class="text-xl text-(--primary) w-16 text-center">GA</h3>
-            <h3 class="text-xl text-(--primary) w-16 text-center">GD</h3>
-            <h3 class="text-xl text-(--primary) w-16 text-center">Pt</h3>
+            <h3 class="text-base lg:text-xl text-(--primary) w-16 text-center">
+              MP
+            </h3>
+            <h3 class="text-base lg:text-xl text-(--primary) w-16 text-center">
+              W
+            </h3>
+            <h3 class="text-base lg:text-xl text-(--primary) w-16 text-center">
+              D
+            </h3>
+            <h3 class="text-base lg:text-xl text-(--primary) w-16 text-center">
+              L
+            </h3>
+            <h3 class="text-base lg:text-xl text-(--primary) w-16 text-center">
+              GF
+            </h3>
+            <h3 class="text-base lg:text-xl text-(--primary) w-16 text-center">
+              GA
+            </h3>
+            <h3 class="text-base lg:text-xl text-(--primary) w-16 text-center">
+              GD
+            </h3>
+            <h3 class="text-base lg:text-xl text-(--primary) w-16 text-center">
+              Pt
+            </h3>
           </div>
         </div>
 
         <div
-          class="flex items-center justify-between pl-4 py-2 shrink-0 border-t border-(--dark-border)"
-          :class="i === 0 && 'bg-(--primary)/5 border-t-0'"
+          class="flex items-center justify-between pl-4 py-2 shrink-0 border-t border-(--dark-border) even:bg-(--dark-bg)/30"
+          :class="i === 0 && 'bg-(--primary)/5! border-t-0'"
           v-for="(team, i) in data"
         >
           <div class="flex-1 flex items-center gap-3">
@@ -49,7 +71,7 @@ onMounted(() => {
               alt="Player avatar"
               class="bg-transparent"
             />
-            <span
+            <span class=""
               >{{ team?.team?.club?.name ?? "Club Name" }}
               <span v-show="i === 0">🏆</span>
             </span>
@@ -70,34 +92,34 @@ onMounted(() => {
           </div>
           <div class="flex">
             <span
-              class="text-lg py-2 inline-block w-16 text-center text-(--light-text)/50"
+              class="lg:text-lg py-2 inline-block w-16 text-center text-(--light-text)/50"
               >{{ team?.played }}</span
             >
             <span
-              class="text-lg py-2 inline-block w-16 text-center text-(--light-text)/50"
+              class="lg:text-lg py-2 inline-block w-16 text-center text-(--light-text)/50"
               >{{ team?.won }}</span
             >
             <span
-              class="text-lg py-2 inline-block w-16 text-center text-(--light-text)/50"
+              class="lg:text-lg py-2 inline-block w-16 text-center text-(--light-text)/50"
               >{{ team?.draw }}</span
             >
             <span
-              class="text-lg py-2 inline-block w-16 text-center text-(--light-text)/50"
+              class="lg:text-lg py-2 inline-block w-16 text-center text-(--light-text)/50"
               >{{ team?.lost }}</span
             >
             <span
-              class="text-lg py-2 inline-block w-16 text-center text-(--light-text)/50"
+              class="lg:text-lg py-2 inline-block w-16 text-center text-(--light-text)/50"
               >{{ team?.goalFor }}</span
             >
             <span
-              class="text-lg py-2 inline-block w-16 text-center text-(--light-text)/50"
+              class="lg:text-lg py-2 inline-block w-16 text-center text-(--light-text)/50"
               >{{ team?.goalAgainst }}</span
             >
             <span
-              class="text-lg py-2 inline-block w-16 text-center text-(--light-text)/50"
+              class="lg:text-lg py-2 inline-block w-16 text-center text-(--light-text)/50"
               >{{ team?.goalDiff }}</span
             >
-            <span class="text-lg py-2 inline-block w-16 text-center">{{
+            <span class="lg:text-lg py-2 inline-block w-16 text-center">{{
               team?.points
             }}</span>
           </div>

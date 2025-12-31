@@ -18,6 +18,11 @@ export default defineNuxtConfig({
     download: true,
   },
 
+  devServer: {
+    host: "0.0.0.0", // expose to network
+    port: 3000,
+  },
+
   routeRules: {
     "/": { prerender: true },
   },

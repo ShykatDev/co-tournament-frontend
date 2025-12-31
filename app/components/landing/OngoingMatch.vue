@@ -19,12 +19,12 @@ const upcomingMatch = computed(() => data.value?.upcomingMatch ?? null);
     class="border lg:w-[60%] rounded-xl border-(--dark-border) bg-[url('/assets/images/ongoing-bg.png')] bg-center bg-cover p-4 lg:p-8 relative overflow-hidden"
   >
     <div
-      class="w-full h-full absolute inset-0 bg-black/50 rounded-xl backdrop-blur-xs z-0"
+      class="w-full h-full absolute inset-0 bg-black/65 rounded-xl backdrop-blur-xs z-0"
     />
 
     <div
       v-if="pending"
-      class="w-full h-full relative z-10 flex items-center justify-center"
+      class="w-full h-[36vh] relative z-10 flex items-center justify-center"
     >
       Loading...
     </div>
@@ -34,16 +34,12 @@ const upcomingMatch = computed(() => data.value?.upcomingMatch ?? null);
       class="z-10 relative flex flex-col justify-between items-center h-full"
     >
       <div class="w-full">
-        <CardsHeading
-          :lable="liveMatch ? 'Ongoing Match' : 'Next Upcoming Match'"
-        />
+        <CardsHeading :lable="liveMatch ? 'Ongoing Match' : 'Next Match'" />
       </div>
 
-      <div
-        class="flex flex-col lg:flex-row gap-10 lg:gap-20 items-center my-10 lg:my-0"
-      >
+      <div class="flex gap-10 lg:gap-20 items-center my-10 lg:my-5">
         <CardsMainHeroCard :team="liveMatch?.teamA ?? upcomingMatch?.teamA" />
-        <h2 class="text-5xl font-semibold text-(--primary)">VS</h2>
+        <h2 class="text-2xl lg:text-5xl font-semibold text-(--primary)">VS</h2>
         <CardsMainHeroCard :team="liveMatch?.teamB ?? upcomingMatch?.teamB" />
       </div>
 

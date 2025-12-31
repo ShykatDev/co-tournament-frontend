@@ -81,9 +81,9 @@ const onDelete = async (id) => {
   <UCard
     variant="subtle"
     v-for="match in data"
-    class="relative"
+    class="relative bg-(--dark-card)/50 ring-(--dark-border)"
     :class="{
-      'bg-primary/5': isEnd,
+      'bg-primary/5 ring-green-500/10': isEnd,
       'ring-1 bg-red-500/10 ring-red-900/50': isLive,
     }"
   >

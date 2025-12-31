@@ -15,12 +15,12 @@ const fixtures = computed(() => data.value?.upcomingMatches ?? []);
 
 <template>
   <div
-    class="border rounded-xl lg:w-[40%] lg:h-[90%] border-(--dark-border) bg-(--dark-card) p-4 lg:p-8"
+    class="border rounded-xl lg:w-[40%] lg:max-h-[450px] border-(--dark-border) bg-(--dark-card)/50 p-4 lg:p-8 ."
   >
     <div class="flex justify-between items-stretch">
       <CardsHeading lable="Fixtures" />
       <h3
-        class="px-4 text-black font-semibold text-xl rounded-lg bg-(--primary) flex items-center"
+        class="px-4 text-black font-semibold lg:text-xl rounded-lg bg-(--primary) flex items-center"
       >
         {{ fixtures.length }}
       </h3>
@@ -29,17 +29,20 @@ const fixtures = computed(() => data.value?.upcomingMatches ?? []);
     <div v-if="pending" class="pt-5">
       <div class="space-y-3">
         <USkeleton
-          class="w-full h-14 border border-(--dark-border) rounded-md odd:bg-(--dark-bg) even:bg-transparent flex justify-between"
+          class="w-full h-14 border border-(--dark-border) rounded-md odd:bg-(--dark-bg)/30 even:bg-transparent flex justify-between"
           v-for="_ in Array(5)"
         />
       </div>
     </div>
 
-    <div v-else class="pt-5 overflow-y-auto space-y-3 h-[calc(100%-52px)]">
+    <div
+      v-else
+      class="pt-5 overflow-y-auto invisible-scrollbar space-y-3 h-64 lg:h-[calc(100%-52px)]"
+    >
       <div
         v-for="(match, index) in fixtures"
         :key="match.id"
-        class="py-2 px-4 border border-(--dark-border) rounded-md odd:bg-(--dark-bg) flex justify-between"
+        class="py-2 px-4 border border-(--dark-border) rounded-md odd:bg-(--dark-bg)/30 flex justify-between"
       >
         <div class="flex items-center gap-4 w-1/2 lg:min-w-40">
           <img
@@ -47,10 +50,12 @@ const fixtures = computed(() => data.value?.upcomingMatches ?? []);
             alt="team-1-icon"
             class="size-8 object-cover"
           />
-          <span class="font-semibold">{{ match.teamA.club.name }}</span>
+          <span class="font-semibold text-xs sm:text-sm lg:text-base">{{
+            match.teamA.club.name
+          }}</span>
         </div>
         <h2
-          class="flex items-center justify-center text-xl w-20 font-semibol text-(--primary)"
+          class="flex items-center justify-center text-sm lg:text-xl w-20 font-semibol text-(--primary)"
         >
           vs
         </h2>
@@ -60,7 +65,9 @@ const fixtures = computed(() => data.value?.upcomingMatches ?? []);
             alt="team-2-icon"
             class="size-8 object-cover"
           />
-          <span class="font-semibold">{{ match.teamB.club.name }}</span>
+          <span class="font-semibold text-xs sm:text-sm lg:text-base">{{
+            match.teamB.club.name
+          }}</span>
         </div>
       </div>
     </div>

@@ -43,17 +43,17 @@ onMounted(async () => {
 
       <div class="flex flex-col gap-4 mt-8">
         <NuxtLink to="/">Home</NuxtLink>
-        <NuxtLink to="/match">Matches</NuxtLink>
+        <NuxtLink to="/match">Match List</NuxtLink>
       </div>
     </div>
 
     <NuxtLink
       v-if="!auth.isLogin"
       to="/login"
-      class="flex items-center justify-center gap-2 border border-(--primary)/20 bg-(--primary)/10 px-4 py-3 rounded-md"
+      class="flex items-center justify-center gap-2 border border-(--primary)/20 bg-(--primary)/10 px-4 py-2 rounded-md"
     >
       <UIcon name="i-lucide-log-in" />
-      <h3 class="text-lg">Login</h3>
+      <h3 class="">Login</h3>
     </NuxtLink>
 
     <div

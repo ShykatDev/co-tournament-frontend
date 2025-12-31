@@ -19,7 +19,7 @@ const winPercentage = computed(() => {
 <template>
   <div class="flex flex-col items-center gap-4 lg:gap-8">
     <span
-      class="px-4 py-1.5 lg:py-3 rounded-lg w-fit border flex items-center gap-3 text-xs lg:text-base"
+      class="px-4 py-1.5 lg:py-2 rounded-lg w-fit border flex items-center gap-2 text-nowrap text-xs lg:text-sm"
       :class="
         winPercentage >= 50
           ? 'text-[#A8FF92] bg-[#0D5219]/20 border-[#0D5219]/15'
@@ -30,17 +30,20 @@ const winPercentage = computed(() => {
         :name="
           winPercentage >= 50 ? 'lucide-trending-up' : 'lucide-trending-down'
         "
-        class="size-5 md:size-6"
+        class="size-4 md:size-5 shrink-0 hidden lg:inline-block"
       />
 
-      Win Percentange: {{ winPercentage }}%</span
+      <span
+        >Win <span class="hidden lg:inline">Percentange </span>:
+        {{ winPercentage }}%</span
+      ></span
     >
 
     <!-- Club logo -->
     <img
       :src="team?.club?.logo"
       :alt="team?.club?.name"
-      class="size-28 lg:size-40"
+      class="size-18 lg:size-32"
     />
 
     <!-- Player details -->
@@ -48,7 +51,7 @@ const winPercentage = computed(() => {
       <div
         v-for="player in team?.players"
         :key="player.name"
-        class="w-full flex border-gray-800"
+        class="w-full border-gray-800 hidden lg:flex"
       >
         <div class="flex items-center gap-3">
           <UAvatar
@@ -59,6 +62,16 @@ const winPercentage = computed(() => {
           <h2 class="text-xl">{{ player?.name }}</h2>
         </div>
       </div>
+
+      <UAvatarGroup class="lg:hidden">
+        <UAvatar
+          v-for="player in team?.players"
+          :key="player.name"
+          :src="player?.profileImg"
+          :alt="player?.name"
+          class="border border-gray-800 object-cover object-top grayscale-100 size-8"
+        />
+      </UAvatarGroup>
     </div>
   </div>
 </template>
