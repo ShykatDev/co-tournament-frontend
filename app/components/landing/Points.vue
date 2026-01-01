@@ -31,6 +31,7 @@ onMounted(() => {
           <h3 class="text-base lg:text-xl lg:flex-1 text-brand">Club</h3>
           <h3 class="text-base lg:text-xl text-brand lg:flex-1">Players</h3>
           <div class="flex">
+            <h3 class="text-base lg:text-xl text-brand w-16 text-center">Pt</h3>
             <h3 class="text-base lg:text-xl text-brand w-16 text-center">MP</h3>
             <h3 class="text-base lg:text-xl text-brand w-16 text-center">W</h3>
             <h3 class="text-base lg:text-xl text-brand w-16 text-center">D</h3>
@@ -38,7 +39,6 @@ onMounted(() => {
             <h3 class="text-base lg:text-xl text-brand w-16 text-center">GF</h3>
             <h3 class="text-base lg:text-xl text-brand w-16 text-center">GA</h3>
             <h3 class="text-base lg:text-xl text-brand w-16 text-center">GD</h3>
-            <h3 class="text-base lg:text-xl text-brand w-16 text-center">Pt</h3>
           </div>
         </div>
 
@@ -48,6 +48,7 @@ onMounted(() => {
           v-for="(team, i) in data"
         >
           <div class="flex-1 flex items-center gap-3">
+            <span class="text-sm text-text/40">#{{ i + 1 }}</span>
             <UAvatar
               :src="team?.team?.club?.logo"
               alt="Player avatar"
@@ -71,38 +72,30 @@ onMounted(() => {
             <span class="text-xs text-text/40">{{ team?.team?.name }} </span>
           </div>
           <div class="flex">
-            <span
-              class="lg:text-lg py-2 inline-block w-16 text-center text-text/50"
-              >{{ team?.played }}</span
-            >
-            <span
-              class="lg:text-lg py-2 inline-block w-16 text-center text-text/50"
-              >{{ team?.won }}</span
-            >
-            <span
-              class="lg:text-lg py-2 inline-block w-16 text-center text-text/50"
-              >{{ team?.draw }}</span
-            >
-            <span
-              class="lg:text-lg py-2 inline-block w-16 text-center text-text/50"
-              >{{ team?.lost }}</span
-            >
-            <span
-              class="lg:text-lg py-2 inline-block w-16 text-center text-text/50"
-              >{{ team?.goalFor }}</span
-            >
-            <span
-              class="lg:text-lg py-2 inline-block w-16 text-center text-text/50"
-              >{{ team?.goalAgainst }}</span
-            >
-            <span
-              class="lg:text-lg py-2 inline-block w-16 text-center text-text/50"
-              >{{ team?.goalDiff }}</span
-            >
-            <span
-              class="lg:text-lg py-2 inline-block w-16 text-center text-brand"
-              >{{ team?.points }}</span
-            >
+            <span class="py-2 inline-block w-16 text-center text-brand">{{
+              team?.points
+            }}</span>
+            <span class="py-2 inline-block w-16 text-center text-text/50">{{
+              team?.played
+            }}</span>
+            <span class="py-2 inline-block w-16 text-center text-text/50">{{
+              team?.won
+            }}</span>
+            <span class="py-2 inline-block w-16 text-center text-text/50">{{
+              team?.draw
+            }}</span>
+            <span class="py-2 inline-block w-16 text-center text-text/50">{{
+              team?.lost
+            }}</span>
+            <span class="py-2 inline-block w-16 text-center text-text/50">{{
+              team?.goalFor
+            }}</span>
+            <span class="py-2 inline-block w-16 text-center text-text/50">{{
+              team?.goalAgainst
+            }}</span>
+            <span class="py-2 inline-block w-16 text-center text-text/50">{{
+              team?.goalDiff
+            }}</span>
           </div>
         </div>
       </div>
