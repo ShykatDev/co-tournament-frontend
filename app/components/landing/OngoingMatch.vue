@@ -16,7 +16,7 @@ const upcomingMatch = computed(() => data.value?.upcomingMatch ?? null);
 
 <template>
   <div
-    class="border lg:w-[60%] rounded-xl border-(--dark-border) bg-[url('/assets/images/ongoing-bg.png')] bg-center bg-cover p-4 lg:p-8 relative overflow-hidden"
+    class="border lg:w-[60%] rounded-xl border-border bg-[url('/assets/images/ongoing-bg.png')] bg-center bg-cover p-4 lg:p-8 relative overflow-hidden"
   >
     <div
       class="w-full h-full absolute inset-0 bg-black/65 rounded-xl backdrop-blur-xs z-0"
@@ -39,7 +39,7 @@ const upcomingMatch = computed(() => data.value?.upcomingMatch ?? null);
 
       <div class="flex gap-10 lg:gap-20 items-center my-10 lg:my-5">
         <CardsMainHeroCard :team="liveMatch?.teamA ?? upcomingMatch?.teamA" />
-        <h2 class="text-2xl lg:text-5xl font-semibold text-(--primary)">VS</h2>
+        <h2 class="text-2xl lg:text-5xl font-semibold text-brand">VS</h2>
         <CardsMainHeroCard :team="liveMatch?.teamB ?? upcomingMatch?.teamB" />
       </div>
 
@@ -63,7 +63,7 @@ const upcomingMatch = computed(() => data.value?.upcomingMatch ?? null);
         </svg>
 
         <h2
-          class="text-(--primary) px-4 py-1.5 bg-(--primary)/10 rounded-md text-xs md:text-sm lg:text-base"
+          class="text-brand px-4 py-1.5 bg-brand/10 rounded-md text-xs md:text-sm lg:text-base"
         >
           Pre Season
         </h2>

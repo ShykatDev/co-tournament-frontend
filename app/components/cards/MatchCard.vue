@@ -81,14 +81,14 @@ const onDelete = async (id) => {
   <UCard
     variant="subtle"
     v-for="match in data"
-    class="relative bg-(--dark-card)/50 ring-(--dark-border)"
+    class="relative bg-card/50 ring-border"
     :class="{
       'bg-primary/5 ring-green-500/10': isEnd,
       'ring-1 bg-red-500/10 ring-red-900/50': isLive,
     }"
   >
     <div
-      class="grid grid-cols-[1fr_max-content] gap-y-4 lg:grid-cols-3 lg:divide-x divide-accented"
+      class="grid grid-cols-[1fr_max-content] gap-y-4 lg:grid-cols-3 lg:divide-x divide-info/10"
       :class="{ 'divide-red-900/50': isLive }"
     >
       <div class="space-y-2 gap-6 shrink-0 px-2">
@@ -173,7 +173,7 @@ const onDelete = async (id) => {
                     label: 'Delete',
                     icon: 'i-lucide-trash',
                     onSelect: () => onDelete(match.id),
-                    color: 'error',
+                    color: 'info',
                     size: 'xs',
                   },
                 ],
@@ -183,6 +183,7 @@ const onDelete = async (id) => {
                 icon="i-lucide-ellipsis-vertical"
                 size="xs"
                 variant="soft"
+                color="info"
               />
             </UDropdownMenu>
           </div>
@@ -272,7 +273,7 @@ const onDelete = async (id) => {
               class="w-full text-center block lg:inline-block lg:w-fit disabled:opacity-50"
               @click="() => handleStart(match?.id)"
               variant="subtle"
-              color="neutral"
+              color="secondary"
             >
               Start Match
 

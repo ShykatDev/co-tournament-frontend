@@ -19,7 +19,7 @@ onMounted(async () => {
 
 <template>
   <div
-    class="border h-full rounded-xl border-(--dark-border) bg-(--dark-card) p-8 flex flex-col justify-between"
+    class="border h-full rounded-xl border-border bg-card p-8 flex flex-col justify-between"
   >
     <div>
       <div>
@@ -50,7 +50,7 @@ onMounted(async () => {
     <NuxtLink
       v-if="!auth.isLogin"
       to="/login"
-      class="flex items-center justify-center gap-2 border border-(--primary)/20 bg-(--primary)/10 px-4 py-2 rounded-md"
+      class="flex items-center justify-center gap-2 border border-(--primary)/20 bg-brand/10 px-4 py-2 rounded-md"
     >
       <UIcon name="i-lucide-log-in" />
       <h3 class="">Login</h3>
@@ -63,7 +63,7 @@ onMounted(async () => {
           await auth.logout();
         }
       "
-      class="flex items-center justify-between border border-(--primary)/20 bg-(--primary)/10 rounded-md px-4 py-3"
+      class="flex items-center justify-between border border-(--primary)/20 bg-brand/10 rounded-md px-4 py-3"
     >
       <div>
         <h2 class="text-(--primary) text-lg">{{ auth.user?.name }}</h2>

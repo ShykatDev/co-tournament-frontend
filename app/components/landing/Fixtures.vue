@@ -15,12 +15,12 @@ const fixtures = computed(() => data.value?.upcomingMatches ?? []);
 
 <template>
   <div
-    class="border rounded-xl lg:w-[40%] lg:max-h-[450px] border-(--dark-border) bg-(--dark-card)/50 p-4 lg:p-8 ."
+    class="border rounded-xl lg:w-[40%] lg:max-h-[450px] border-border bg-card/50 p-4 lg:p-8 ."
   >
     <div class="flex justify-between items-stretch">
       <CardsHeading lable="Fixtures" />
       <h3
-        class="px-4 text-black font-semibold lg:text-xl rounded-lg bg-(--primary) flex items-center"
+        class="px-4 text-black font-semibold lg:text-xl rounded-lg bg-brand flex items-center"
       >
         {{ fixtures.length }}
       </h3>
@@ -29,7 +29,7 @@ const fixtures = computed(() => data.value?.upcomingMatches ?? []);
     <div v-if="pending" class="pt-5">
       <div class="space-y-3">
         <USkeleton
-          class="w-full h-14 border border-(--dark-border) rounded-md odd:bg-(--dark-bg)/30 even:bg-transparent flex justify-between"
+          class="w-full h-14 border border-border rounded-md odd:bg-dark/50 even:bg-transparent flex justify-between"
           v-for="_ in Array(5)"
         />
       </div>
@@ -42,9 +42,9 @@ const fixtures = computed(() => data.value?.upcomingMatches ?? []);
       <div
         v-for="(match, index) in fixtures"
         :key="match.id"
-        class="py-2 px-4 border border-(--dark-border) rounded-md odd:bg-(--dark-bg)/30 flex justify-between"
+        class="py-2 px-4 border border-border rounded-md odd:bg-dark/50 flex justify-between"
       >
-        <div class="flex items-center gap-4 w-1/2 lg:min-w-40">
+        <div class="flex items-center gap-2 flex-1">
           <img
             :src="match.teamA.club.logo"
             alt="team-1-icon"
@@ -59,7 +59,7 @@ const fixtures = computed(() => data.value?.upcomingMatches ?? []);
         >
           vs
         </h2>
-        <div class="flex items-center gap-4 w-1/2 lg:min-w-40">
+        <div class="flex items-center gap-2 flex-1">
           <img
             :src="match.teamB.club.logo"
             alt="team-2-icon"

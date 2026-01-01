@@ -17,23 +17,21 @@ const filteredByGoalFor = computed(() => {
     .filter((item) => item.goalFor !== null && item.goalFor !== undefined)
     .sort((a, b) => b.goalFor - a.goalFor);
 });
-
-console.log(filteredByGoalFor.value);
 </script>
 
 <template>
   <div
     v-if="pending"
-    class="border mt-12 lg:mt-0 min-h-64 flex items-center justify-center lg:w-[40%] rounded-xl border-(--dark-border) bg-(--dark-card)/50 p-4 lg:p-8"
+    class="border mt-12 lg:mt-0 min-h-64 flex items-center justify-center lg:w-[40%] rounded-xl border-border bg-card/50 p-4 lg:p-8"
   >
     Loading...
   </div>
   <div
     v-else
-    class="border mt-12 lg:mt-0 lg:w-[40%] rounded-xl border-(--dark-border) bg-(--dark-card)/50 p-4 lg:p-8"
+    class="border mt-12 lg:mt-0 lg:w-[40%] rounded-xl border-border bg-card/50 p-4 lg:p-8"
   >
     <div
-      class="w-full min-h-[16vh] lg:h-1/2 border bg-(--dark-bg) border-(--dark-border) rounded-md pt-6 lg:pt-0 flex flex-col lg:flex-row justify-start items-center gap-2 relative"
+      class="w-full min-h-[16vh] lg:h-1/2 border bg-(--dark-bg) border-border rounded-md pt-6 lg:pt-0 flex flex-col lg:flex-row justify-start items-center gap-2 relative"
     >
       <div class="lg:hidden flex flex-col items-center justify-center">
         <div class="flex items-center gap-1">
@@ -46,7 +44,7 @@ console.log(filteredByGoalFor.value);
         </div>
 
         <span class="my-2">Top Goal Scorer</span>
-        <h3 class="text-4xl text-(--primary)">
+        <h3 class="text-4xl text-brand">
           {{ filteredByGoalFor[0]?.totalGoals ?? 0 }}
         </h3>
       </div>
@@ -72,20 +70,20 @@ console.log(filteredByGoalFor.value);
           class="bg-transparent"
         />
         <p class="lg:text-xl">Top Goal Scorer</p>
-        <h2 class="text-3xl lg:text-5xl text-(--primary)">
+        <h2 class="text-3xl lg:text-5xl text-brand">
           {{ filteredByGoalFor[0]?.totalGoals ?? 0 }}
         </h2>
       </div>
     </div>
 
     <div
-      class="mt-5 divide-y divide-(--dark-border) border border-(--dark-border) rounded-md lg:h-[calc(50%-20px)] overflow-y-auto invisible-scrollbar"
+      class="mt-5 divide-y divide-border border border-border rounded-md lg:h-[calc(50%-20px)] overflow-y-auto invisible-scrollbar"
     >
       <div
         v-for="(team, index) in filteredByGoalFor.slice(1)"
-        class="flex flex-col lg:flex-row items-center gap-4 justify-between py-2 px-4 even:bg-(--dark-bg)/30"
+        class="flex flex-col lg:flex-row items-center gap-4 justify-between py-2 px-4 even:bg-dark/50"
       >
-        <span class="text-(--light-text)/50 text-sm">#{{ index + 2 }}</span>
+        <span class="text-text/50 text-sm">#{{ index + 2 }}</span>
         <div class="flex-1 flex items-center gap-3">
           <UAvatar
             :src="team?.team?.club?.logo"
@@ -103,8 +101,8 @@ console.log(filteredByGoalFor.value);
           />
         </UAvatarGroup>
 
-        <span class="text-lg text-(--primary)">
-          <span class="text-(--light-text)/50 text-sm inline-block pr-2"
+        <span class="text-lg text-brand">
+          <span class="text-text/50 text-sm inline-block pr-2"
             >Goal Scored</span
           >
           {{ team?.totalGoals }}</span

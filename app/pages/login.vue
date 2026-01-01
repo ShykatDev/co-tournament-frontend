@@ -47,15 +47,9 @@ const onSubmit = async () => {
     </div>
     <div class="flex flex-col gap-y-4 md:gap-y-10 justify-center md:w-1/2">
       <div>
-        <NuxtLink to="/">
-          <img
-            src="/images/logo.svg"
-            alt="logo"
-            class="w-12 object-cover mix-blend-difference"
-          />
-        </NuxtLink>
+        <UiLogo />
         <h1 class="mt-4 text-3xl font-semibold">
-          Login as <span class="text-primary">Admin</span>
+          Login as <span class="text-info">Admin</span>
         </h1>
 
         <p class="mt-2 text-gray-400">
@@ -71,7 +65,7 @@ const onSubmit = async () => {
             <UInput
               placeholder="Enter your email"
               size="lg"
-              class="w-full md:w-1/2"
+              class="w-full md:w-1/2 bg-card ring-border"
               v-model="formdata.email"
             />
           </UFormField>
@@ -81,7 +75,7 @@ const onSubmit = async () => {
               v-model="formdata.password"
               placeholder="Password"
               :type="show ? 'text' : 'password'"
-              class="w-full md:w-1/2"
+              class="w-full md:w-1/2 bg-card ring-border"
               size="lg"
               :ui="{ trailing: 'pe-1' }"
             >
@@ -107,7 +101,7 @@ const onSubmit = async () => {
             :loading="isLoading"
             :disabled="isLoading"
             loading-icon="i-lucide-loader-circle"
-            color="secondary"
+            color="info"
             icon="i-lucide-log-in"
             type="submit"
           >

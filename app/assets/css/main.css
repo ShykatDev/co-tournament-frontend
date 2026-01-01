@@ -2,18 +2,22 @@
 @import "@nuxt/ui";
 
 :root {
-  --dark-bg: #101010;
-  --light-text: #cccccc;
-  --primary: #ffdaba;
-  --dark-card: #202020;
-  --dark-border: #2f2f2f;
+  --ui-info: #ffdaba;
+}
+
+@theme {
+  --color-brand: #ffdaba;
+  --color-dark: #101010;
+  --color-text: #cccccc;
+  --color-card: #202020;
+  --color-border: #2f2f2f;
 }
 
 body {
   font-family: "Inter", sans-serif;
-  background: var(--dark-bg);
-  color: var(--light-text);
   font-family: "Inter", system-ui, sans-serif;
+
+  @apply bg-dark text-text;
 }
 
 h1,
@@ -27,9 +31,8 @@ button {
 }
 
 input,
-select,
-button {
-  @apply focus-visible:ring-secondary focus:ring-secondary;
+select {
+  @apply focus-visible:ring-brand focus:ring-brand bg-brand/10 ring-border placeholder:text-brand/50;
 }
 
 /* Chrome, Safari, Edge, Opera */
@@ -49,5 +52,9 @@ input[type="number"] {
 }
 
 .router-link-active {
-  @apply text-(--primary)!;
+  @apply text-brand!;
+}
+
+div[role="group"] {
+  @apply bg-brand/50! ring-brand;
 }

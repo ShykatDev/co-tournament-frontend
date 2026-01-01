@@ -12,7 +12,7 @@ const props = defineProps({
     <img
       :src="team?.club?.logo"
       :alt="team?.club?.name"
-      class="hidden md:inline size-10"
+      class="hidden md:inline size-8"
     />
     <Icon
       name="i-lucide-arrow-up-from-dot"
