@@ -22,13 +22,13 @@ const filteredByGoalFor = computed(() => {
 <template>
   <div
     v-if="pending"
-    class="border mt-12 lg:mt-0 min-h-64 flex items-center justify-center lg:w-[40%] rounded-xl border-border bg-card/50 p-4 lg:p-8"
+    class="border min-h-64 flex items-center justify-center lg:w-[40%] rounded-xl border-border bg-card/50 p-4 lg:p-8"
   >
     Loading...
   </div>
   <div
     v-else
-    class="border mt-12 lg:mt-0 lg:w-[40%] rounded-xl border-border bg-card/50 p-4 lg:p-8"
+    class="border lg:w-[40%] rounded-xl border-border bg-card/50 p-4 lg:p-8"
   >
     <div
       class="w-full min-h-[16vh] lg:h-1/2 border bg-(--dark-bg) border-border rounded-md pt-6 lg:pt-0 flex flex-col lg:flex-row justify-start items-center gap-2 relative"
