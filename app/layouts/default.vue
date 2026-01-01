@@ -6,7 +6,7 @@
 
     <UiNavbar />
 
-    <div class="mt-8">
+    <div class="mt-6">
       <slot />
     </div>
   </main>

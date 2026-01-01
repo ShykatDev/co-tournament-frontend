@@ -109,7 +109,7 @@ const filterAvatar = computed(
 </script>
 
 <template>
-  <div class="space-y-6 py-6 h-auto">
+  <div class="space-y-6 pb-6 h-auto">
     <div class="flex gap-y-4 md:flex-row justify-between items-center">
       <div class="w-1/2">
         <USelect
@@ -211,7 +211,7 @@ const filterAvatar = computed(
     <div v-if="pending">
       <LoadingMatchCard />
     </div>
-    <div v-else class="space-y-6 py-6 h-full">
+    <div v-else class="space-y-6 h-full">
       <div v-show="data?.find((d) => d.status === 'ONGOING')">
         <UBadge
           variant="soft"

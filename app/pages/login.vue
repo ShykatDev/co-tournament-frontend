@@ -65,7 +65,7 @@ const onSubmit = async () => {
             <UInput
               placeholder="Enter your email"
               size="lg"
-              class="w-full md:w-1/2 bg-card ring-border"
+              class="w-full md:w-1/2 ring-border"
               v-model="formdata.email"
             />
           </UFormField>
@@ -75,13 +75,13 @@ const onSubmit = async () => {
               v-model="formdata.password"
               placeholder="Password"
               :type="show ? 'text' : 'password'"
-              class="w-full md:w-1/2 bg-card ring-border"
+              class="w-full md:w-1/2 ring-border"
               size="lg"
               :ui="{ trailing: 'pe-1' }"
             >
               <template #trailing>
                 <UButton
-                  color="neutral"
+                  color="info"
                   variant="link"
                   size="sm"
                   :icon="show ? 'i-lucide-eye-off' : 'i-lucide-eye'"

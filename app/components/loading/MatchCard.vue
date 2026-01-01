@@ -39,7 +39,9 @@
             </div>
           </div>
 
-          <USkeleton class="w-full h-6 lg:hidden" />
+          <USkeleton
+            class="w-full h-6 lg:hidden bg-card border border-border"
+          />
         </div>
       </UCard>
     </div>
