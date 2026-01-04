@@ -1,3 +1,3 @@
 <template>
-  <Homepage />
+  <HomepageV2 />
 </template>

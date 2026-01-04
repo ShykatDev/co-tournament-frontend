@@ -1,9 +1,29 @@
 @import "tailwindcss";
 @import "@nuxt/ui";
 
+:root {
+  --ui-info: #ffdaba;
+}
+
+@theme {
+  --color-brand: #ffdaba;
+  --color-dark: #101010;
+  --color-text: #cccccc;
+  --color-card: #202020;
+  --color-border: #2f2f2f;
+}
+
 body {
   font-family: "Inter", sans-serif;
-  padding-bottom: 2rem;
+  font-family: "Inter", system-ui, sans-serif;
+
+  @apply bg-dark text-text;
+}
+
+h1,
+h2,
+h3 {
+  font-family: "Space Grotesk", system-ui, sans-serif;
 }
 
 button {
@@ -11,9 +31,8 @@ button {
 }
 
 input,
-select,
-button {
-  @apply focus-visible:ring-secondary focus:ring-secondary;
+select {
+  @apply focus-visible:ring-brand focus:ring-brand bg-brand/10 ring-border placeholder:text-brand/50 overflow-hidden rounded-md;
 }
 
 /* Chrome, Safari, Edge, Opera */
@@ -26,4 +45,16 @@ input[type="number"]::-webkit-inner-spin-button {
 /* Firefox */
 input[type="number"] {
   -moz-appearance: textfield;
+}
+
+.invisible-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.router-link-active {
+  @apply text-brand!;
+}
+
+div[role="group"] {
+  @apply bg-brand/50! ring-brand;
 }

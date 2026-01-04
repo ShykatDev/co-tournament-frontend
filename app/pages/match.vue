@@ -109,20 +109,20 @@ const filterAvatar = computed(
 </script>
 
 <template>
-  <div v-if="pending">
-    <LoadingMatchCard />
-  </div>
-  <div v-else-if="error">Error: {{ error.message }}</div>
-  <div v-else class="space-y-6 py-6">
+  <div class="space-y-6 pb-6 h-auto">
     <div class="flex gap-y-4 md:flex-row justify-between items-center">
       <div class="w-1/2">
         <USelect
           placeholder="Filter team"
           v-model="filterKey"
-          :items="itemsWithAll"
           value-key="value"
+          :items="itemsWithAll"
           :avatar="filterAvatar"
           class="w-40 md:w-56 py-2"
+          :ui="{
+            base: 'bg-brand/10 ring-brand/20 text-white hover:bg-brand/30 focus-visible:ring-brand focus:ring-brand',
+            trailingIcon: 'text-brand',
+          }"
         />
       </div>
 
@@ -171,6 +171,7 @@ const filterAvatar = computed(
             :items="items"
             value-key="value"
             :avatar="avatarA"
+            color="info"
             class="w-full md:w-64 py-2"
           />
         </UFormField>
@@ -207,47 +208,54 @@ const filterAvatar = computed(
       </form>
     </UCard>
 
-    <div v-show="data?.find((d) => d.status === 'ONGOING')">
-      <UBadge
-        variant="soft"
-        color="neutral"
-        size="xl"
-        class="w-full text-center block mb-2 py-2"
-        label="Ongoing Match"
-      />
-      <CardsMatchCard
-        :data="data?.filter((d) => d.status === 'ONGOING')"
-        isLive="true"
-      />
+    <div v-if="pending">
+      <LoadingMatchCard />
     </div>
-
-    <div>
-      <UBadge
-        variant="soft"
-        color="info"
-        size="xl"
-        class="w-full text-center block mb-2 py-2"
-        label="Upcoming Matches"
-      />
-
-      <div class="grid lg:grid-cols-2 gap-2">
-        <CardsMatchCard :data="data?.filter((d) => d.status === 'UPCOMING')" />
-      </div>
-    </div>
-
-    <div>
-      <UBadge
-        variant="soft"
-        size="xl"
-        class="w-full text-center block mb-2 py-2"
-        label="Finished Matches"
-      />
-
-      <div class="grid lg:grid-cols-2 gap-2">
-        <CardsMatchCard
-          :data="data?.filter((d) => d.status === 'FINISHED')"
-          isEnd="true"
+    <div v-else class="space-y-6 h-full">
+      <div v-show="data?.find((d) => d.status === 'ONGOING')">
+        <UBadge
+          variant="soft"
+          color="neutral"
+          size="xl"
+          class="w-full text-center block mb-2 py-2"
+          label="Ongoing Match"
         />
+        <CardsMatchCard
+          :data="data?.filter((d) => d.status === 'ONGOING')"
+          isLive="true"
+        />
+      </div>
+
+      <div>
+        <UBadge
+          variant="soft"
+          color="info"
+          size="xl"
+          class="w-full text-center block mb-2 py-2"
+          label="Upcoming Matches"
+        />
+
+        <div class="grid lg:grid-cols-2 gap-2">
+          <CardsMatchCard
+            :data="data?.filter((d) => d.status === 'UPCOMING')"
+          />
+        </div>
+      </div>
+
+      <div>
+        <UBadge
+          variant="soft"
+          size="xl"
+          class="w-full text-center block mb-2 py-2"
+          label="Finished Matches"
+        />
+
+        <div class="grid lg:grid-cols-2 gap-2">
+          <CardsMatchCard
+            :data="data?.filter((d) => d.status === 'FINISHED')"
+            isEnd="true"
+          />
+        </div>
       </div>
     </div>
   </div>

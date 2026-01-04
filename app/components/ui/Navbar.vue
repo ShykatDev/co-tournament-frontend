@@ -9,8 +9,6 @@ const isMenuOpen = ref(false);
 // Use auth store
 const auth = useAuthStore();
 
-console.log(auth.user, "auth user");
-
 // Toggle menu
 const handleMenuToggle = () => {
   isMenuOpen.value = !isMenuOpen.value;
@@ -28,19 +26,13 @@ onMounted(async () => {
 </script>
 
 <template>
-  <nav class="mt-4 bg-gray-950 rounded-xl relative border border-gray-800">
-    <div class="flex justify-between items-center p-4">
-      <NuxtLink to="/">
-        <img
-          src="/images/logo.svg"
-          alt="logo"
-          class="w-12 object-cover mix-blend-difference"
-        />
-      </NuxtLink>
+  <nav class="bg-card rounded-xl relative border border-border">
+    <div class="flex justify-between items-center px-4 py-2">
+      <UiLogo />
 
       <div class="flex gap-4 items-center">
-        <NuxtLink to="/match" class="py-1.5 rounded block">
-          <UButton variant="link" color="neutral">Match List</UButton>
+        <NuxtLink to="/match" class="py-1.5 rounded block underline">
+          Match List
         </NuxtLink>
 
         <button @click="handleMenuToggle">
@@ -52,7 +44,7 @@ onMounted(async () => {
     <!-- dropdown menu -->
     <div
       v-show="isMenuOpen"
-      class="absolute p-2 top-[115%] right-0 z-50 border border-gray-600 rounded backdrop-blur-sm bg-gray-900/90"
+      class="absolute p-2 top-[115%] right-0 z-50 border border-border rounded backdrop-blur-sm bg-card/50"
     >
       <!-- Show Login if user is NOT logged in -->
       <NuxtLink
@@ -61,16 +53,20 @@ onMounted(async () => {
         class="rounded flex items-center gap-2"
         @click="handleMenuToggle"
       >
-        <UButton icon="i-lucide-log-in" color="secondary" variant="soft">
+        <UButton
+          icon="i-lucide-log-in"
+          class="bg-card text-brand border border-border hover:bg-brand/10"
+          variant="soft"
+        >
           Login
         </UButton>
       </NuxtLink>
 
       <!-- Show Logout if user IS logged in -->
       <div v-else>
-        <div class="border-b border-gray-700 pb-2 mb-2">
-          <p class="text-secondary">{{ auth.user?.name }}</p>
-          <small class="text-gray-400">{{ auth.user.email }}</small>
+        <div class="border-b border-border pb-2 mb-2">
+          <h2 class="text-brand">{{ auth.user?.name }}</h2>
+          <small class="text-text/50">{{ auth.user.email }}</small>
         </div>
         <UButton
           trailing-icon="i-lucide-log-out"

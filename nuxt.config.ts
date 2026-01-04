@@ -1,12 +1,33 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  modules: ["@nuxt/eslint", "@nuxt/ui", "@pinia/nuxt"],
+  app: {
+    head: {
+      title: "CO-Tournament",
+    },
+  },
+
+  modules: ["@nuxt/eslint", "@nuxt/ui", "@pinia/nuxt", "@nuxtjs/google-fonts"],
 
   devtools: {
     enabled: true,
   },
 
   css: ["~/assets/css/main.css"],
+
+  googleFonts: {
+    families: {
+      Inter: [300, 400, 500, 600, 700],
+      Space_Grotesk: [400, 500, 600],
+    },
+    display: "swap",
+    preload: true,
+    download: true,
+  },
+
+  devServer: {
+    host: "0.0.0.0", // expose to network
+    port: 3000,
+  },
 
   routeRules: {
     "/": { prerender: true },
