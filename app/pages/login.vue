@@ -21,7 +21,7 @@ const onSubmit = async () => {
       color: "success",
     });
 
-    await navigateTo("/");
+    await navigateTo("/match");
   } catch (err) {
     console.error(err);
 
