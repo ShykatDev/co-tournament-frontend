@@ -27,9 +27,9 @@ const app = useAppStore();
         v-model="app.matchType"
         value-key="value"
         :items="[
-          { label: 'Pre Season', value: 'preseason' },
-          { label: 'Semi Final', value: 'semifinal' },
-          { label: 'Final', value: 'final' },
+          { label: 'Pre Season', value: 'PRESEASON' },
+          { label: 'Semi Final', value: 'SEMIFINAL' },
+          { label: 'Final', value: 'FINAL' },
         ]"
         class="w-32 md:w-48 py-2"
         :ui="{

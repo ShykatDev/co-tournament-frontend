@@ -49,16 +49,16 @@ const filteredByGoalFor = computed(() => {
         </h3>
       </div>
 
-      <div class="relative w-full lg:w-1/2 h-full flex justify-center">
+      <div class="relative w-full xl:w-1/2 h-full flex justify-center">
         <img
           :src="filteredByGoalFor[0]?.team?.players[0]?.profileImg"
           :alt="filteredByGoalFor[0]?.team?.players[0]?.name"
-          class="lg:absolute -left-4 lg:-left-8 bottom-0 w-[50%] lg:w-auto lg:h-[150%]"
+          class="xl:absolute -left-4 xl:-left-8 bottom-0 w-[50%] xl:w-auto xl:h-[150%] object-cover"
         />
         <img
           :src="filteredByGoalFor[0]?.team?.players[1]?.profileImg"
           :alt="filteredByGoalFor[0]?.team?.players[1]?.name"
-          class="lg:absolute left-16 lg:left-16 bottom-0 scale-x-[-1] w-[50%] lg:w-auto lg:h-[150%]"
+          class="xl:absolute left-16 xl:left-16 bottom-0 scale-x-[-1] w-[50%] xl:w-auto xl:h-[150%] object-cover"
         />
       </div>
 

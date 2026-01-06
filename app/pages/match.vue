@@ -91,6 +91,10 @@ function formatDate(dateStr) {
   return `${yyyy}-${mm}-${dd} ${hh}:${min}:${ss}`;
 }
 
+watch(() => {
+  console.log(filterKey.value);
+});
+
 const avatarA = computed(
   () =>
     items.value.find((item) => item.value === formData.value.teamAId)?.avatar
@@ -275,7 +279,7 @@ const filterAvatar = computed(
       <div v-show="data?.find((d) => d.status === 'ONGOING')">
         <UBadge
           variant="soft"
-          color="neutral"
+          color="info"
           size="xl"
           class="w-full text-center block mb-2 py-2"
           label="Ongoing Match"
@@ -289,7 +293,7 @@ const filterAvatar = computed(
       <div>
         <UBadge
           variant="soft"
-          color="info"
+          color="secondary"
           size="xl"
           class="w-full text-center block mb-2 py-2"
           label="Upcoming Matches"
@@ -314,6 +318,7 @@ const filterAvatar = computed(
           <CardsMatchCard
             :data="data?.filter((d) => d.status === 'FINISHED')"
             isEnd="true"
+            :filterTeam="filterKey"
           />
         </div>
       </div>

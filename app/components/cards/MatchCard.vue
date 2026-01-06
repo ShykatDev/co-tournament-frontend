@@ -14,6 +14,10 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  filterTeam: {
+    type: Number,
+    default: null,
+  },
 });
 const toast = useToast();
 const auth = useAuthStore();
@@ -83,23 +87,29 @@ const onDelete = async (id) => {
     v-for="match in data"
     class="relative bg-card/50 ring-border"
     :class="{
-      'bg-primary/5 ring-green-500/10': isEnd,
-      'ring-1 bg-red-500/10 ring-red-900/50': isLive,
+      'bg-primary/5 ring-green-500/10': isEnd || match?.result === 'win',
+      'ring-1 bg-brand/10 ring-brand/50': isLive,
+      'bg-red-500/10 ring-red-900/50': isEnd && match?.result === 'loss',
+      ' ring-brand/10 bg-brand/0': isEnd && match?.result === 'draw',
     }"
   >
     <div
-      class="grid grid-cols-[1fr_max-content] gap-y-4 lg:grid-cols-3 lg:divide-x divide-info/10"
-      :class="{ 'divide-red-900/50': isLive }"
+      class="grid grid-cols-[1fr_max-content] gap-y-4 lg:grid-cols-5 lg:divide-x divide-info/10"
+      :class="{ 'divide-brand': isLive }"
     >
-      <div class="space-y-2 gap-6 shrink-0 px-2">
+      <div class="space-y-2 lg:col-span-2 gap-6 shrink-0 px-2">
         <div class="flex items-center gap-2">
           <UAvatar size="xs" :src="match?.teamA?.club?.logo" alt="club" />
-          <p class="font-semibold">{{ match?.teamA?.club?.name }}</p>
+          <p class="font-semibold text-nowrap">
+            {{ match?.teamA?.club?.name }}
+          </p>
         </div>
 
         <div class="flex items-center gap-2">
           <UAvatar size="xs" :src="match?.teamB?.club?.logo" alt="club" />
-          <p class="font-semibold">{{ match?.teamB?.club?.name }}</p>
+          <p class="font-semibold text-nowrap">
+            {{ match?.teamB?.club?.name }}
+          </p>
         </div>
       </div>
 
@@ -149,7 +159,7 @@ const onDelete = async (id) => {
       </div>
 
       <div
-        class="pl-2 flex flex-row justify-between items-center lg:items-start lg:flex-col gap-y-2 col-span-2 lg:col-span-1 order-first lg:order-3"
+        class="pl-2 flex flex-row justify-between items-center lg:items-start lg:flex-col gap-y-2 col-span-2 order-first lg:order-3"
       >
         <div class="flex xl:justify-between gap-2 w-full">
           <UBadge
@@ -207,8 +217,8 @@ const onDelete = async (id) => {
               class="flex items-center gap-1"
             >
               <UAvatar :src="match?.teamA?.club?.logo" size="2xs" />
-              <span class="text-sm text-nowrap"
-                >{{ match?.teamA?.club?.name }} 🏆
+              <span class="text-sm truncate"
+                >{{ match?.teamA?.club?.name.split(" ")[0] }} 🏆
               </span>
             </div>
 
@@ -217,8 +227,8 @@ const onDelete = async (id) => {
             </div>
             <div v-else class="flex items-center gap-1">
               <UAvatar :src="match?.teamB?.club?.logo" size="2xs" />
-              <span class="text-sm text-nowrap"
-                >{{ match?.teamB?.club?.name }} 🏆</span
+              <span class="text-sm truncate"
+                >{{ match?.teamB?.club?.name.split(" ")[0] }} 🏆</span
               >
             </div>
           </div>
@@ -236,7 +246,7 @@ const onDelete = async (id) => {
             <UIcon
               v-show="!auth.isLogin"
               name="i-lucide-lock"
-              class="size-3 text-yellow-500 ml-1"
+              class="size-3 text-dark ml-1"
             />
           </UButton>
         </div>
