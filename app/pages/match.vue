@@ -1,11 +1,13 @@
 <script setup>
 import { ref } from "vue";
 import { useAuthStore } from "~/store/authStore";
+
 const toast = useToast();
 const api = useAPIMethods();
 const auth = useAuthStore();
 
 const filterKey = ref(null);
+const matchType = ref("PRESEASON");
 
 const { data, pending, error, refresh } = useAPI(
   computed(() =>
@@ -89,6 +91,10 @@ function formatDate(dateStr) {
   return `${yyyy}-${mm}-${dd} ${hh}:${min}:${ss}`;
 }
 
+watch(() => {
+  console.log(filterKey.value);
+});
+
 const avatarA = computed(
   () =>
     items.value.find((item) => item.value === formData.value.teamAId)?.avatar
@@ -120,8 +126,14 @@ const filterAvatar = computed(
           :avatar="filterAvatar"
           class="w-40 md:w-56 py-2"
           :ui="{
-            base: 'bg-brand/10 ring-brand/20 text-white hover:bg-brand/30 focus-visible:ring-brand focus:ring-brand',
+            base: 'bg-brand/10 text-brand ring-1 ring-brand/30 hover:bg-brand/20 focus:ring-1 focus:ring-brand',
             trailingIcon: 'text-brand',
+
+            content: 'bg-dark border border-brand/30 rounded-md',
+
+            item: 'text-brand px-3 py-2 rounded-md transition hover:bg-card/50 data-highlighted:bg-card',
+
+            viewport: 'bg-dark',
           }"
         />
       </div>
@@ -158,34 +170,80 @@ const filterAvatar = computed(
       </UTooltip>
     </div>
 
-    <UCard variant="subtle" v-show="isAdd">
+    <UCard variant="subtle" class="bg-brand/10 ring-border" v-show="isAdd">
       <form
         @submit.prevent="onSubmit"
-        class="w-full rounded flex flex-col md:flex-row md:items-end gap-2 gap-y-4"
+        class="w-full rounded flex md:justify-between flex-col md:flex-row md:items-end gap-2 gap-y-4"
       >
-        <UFormField label="Team A" required>
-          <USelect
-            variant="subtle"
-            placeholder="Select Team A"
-            v-model="formData.teamAId"
-            :items="items"
-            value-key="value"
-            :avatar="avatarA"
-            color="info"
-            class="w-full md:w-64 py-2"
-          />
-        </UFormField>
+        <div class="flex flex-col md:flex-row md:items-end gap-2 gap-y-4">
+          <UFormField label="Team A" required>
+            <USelect
+              variant="subtle"
+              placeholder="Select Team A"
+              v-model="formData.teamAId"
+              :items="items"
+              value-key="value"
+              :avatar="avatarA"
+              color="info"
+              class="w-full md:w-64 py-2"
+              :ui="{
+                base: 'bg-brand/10 text-brand ring-1 ring-brand/30 hover:bg-brand/20 focus:ring-1 focus:ring-brand',
+                trailingIcon: 'text-brand',
 
-        <UFormField label="Team B" required>
-          <USelect
-            placeholder="Select Team B"
-            v-model="formData.teamBId"
-            :items="items"
-            value-key="value"
-            :avatar="avatarB"
-            class="w-full md:w-64 py-2"
-          />
-        </UFormField>
+                content: 'bg-dark border border-brand/30 rounded-md',
+
+                item: 'text-brand px-3 py-2 rounded-md transition hover:bg-card/50 data-highlighted:bg-card',
+                placeholder: 'text-brand',
+
+                viewport: 'bg-dark',
+              }"
+            />
+          </UFormField>
+
+          <UFormField label="Team B" required>
+            <USelect
+              placeholder="Select Team B"
+              v-model="formData.teamBId"
+              :items="items"
+              value-key="value"
+              :avatar="avatarB"
+              class="w-full md:w-64 py-2"
+              :ui="{
+                base: 'bg-brand/10 text-brand ring-1 ring-brand/30 hover:bg-brand/20 focus:ring-1 focus:ring-brand',
+                trailingIcon: 'text-brand',
+
+                content: 'bg-dark border border-brand/30 rounded-md',
+
+                item: 'text-brand px-3 py-2 rounded-md transition hover:bg-card/50 data-highlighted:bg-card',
+                placeholder: 'text-brand',
+                viewport: 'bg-dark',
+              }"
+            />
+          </UFormField>
+
+          <UFormField label="Match Type" required>
+            <USelect
+              v-model="matchType"
+              value-key="value"
+              :items="[
+                { label: 'Pre Season', value: 'PRESEASON' },
+                { label: 'Semi Final', value: 'SEMIFINAL' },
+                { label: 'Final', value: 'FINAL' },
+              ]"
+              class="w-full md:w-48 py-2"
+              :ui="{
+                base: 'bg-brand/10 text-brand ring-1 ring-brand/30 hover:bg-brand/20 focus:ring-1 focus:ring-brand',
+                trailingIcon: 'text-brand',
+
+                content: 'bg-dark border border-brand/30 rounded-md',
+
+                item: 'text-brand px-3 py-2 rounded-md transition hover:bg-card/50 data-highlighted:bg-card',
+
+                viewport: 'bg-dark',
+              }"
+            />
+          </UFormField>
+        </div>
 
         <UTooltip
           :text="
@@ -203,6 +261,12 @@ const filterAvatar = computed(
             class="py-2 text-center block md:inline-block disabled:opacity-50"
           >
             Add Match
+
+            <UIcon
+              v-show="formData.teamAId === formData.teamBId"
+              name="i-lucide-lock"
+              class="size-3 text-yellow-500"
+            />
           </UButton>
         </UTooltip>
       </form>
@@ -215,7 +279,7 @@ const filterAvatar = computed(
       <div v-show="data?.find((d) => d.status === 'ONGOING')">
         <UBadge
           variant="soft"
-          color="neutral"
+          color="info"
           size="xl"
           class="w-full text-center block mb-2 py-2"
           label="Ongoing Match"
@@ -229,7 +293,7 @@ const filterAvatar = computed(
       <div>
         <UBadge
           variant="soft"
-          color="info"
+          color="secondary"
           size="xl"
           class="w-full text-center block mb-2 py-2"
           label="Upcoming Matches"
@@ -254,6 +318,7 @@ const filterAvatar = computed(
           <CardsMatchCard
             :data="data?.filter((d) => d.status === 'FINISHED')"
             isEnd="true"
+            :filterTeam="filterKey"
           />
         </div>
       </div>
