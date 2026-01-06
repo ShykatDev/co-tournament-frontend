@@ -6,7 +6,6 @@ const api = useAPIMethods();
 const toast = useToast();
 const show = ref(false);
 const isLoading = ref(false);
-const route = useRoute();
 const formdata = ref({
   email: "admin.co-tournament@email.com",
   password: "",

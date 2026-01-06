@@ -14,9 +14,6 @@
 }
 
 body {
-  font-family: "Inter", sans-serif;
-  font-family: "Inter", system-ui, sans-serif;
-
   @apply bg-dark text-text;
 }
 
@@ -55,6 +52,6 @@ input[type="number"] {
   @apply text-brand!;
 }
 
-div[role="group"] {
-  @apply bg-brand/50! ring-brand;
-}
+/* div[role="group"] {
+  @apply bg-brand/20 border-brand ring-1 ring-brand;
+} */

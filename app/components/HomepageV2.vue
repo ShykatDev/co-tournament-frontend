@@ -1,16 +1,18 @@
+<script setup>
+import { useAppStore } from "~/store/appStore";
+
+// Use app store
+const app = useAppStore();
+</script>
+
 <template>
   <div class="h-full flex flex-col gap-8 relative">
     <div class="">
       <LandingHeader />
     </div>
-    <div class="flex flex-col lg:flex-row lg:h-[60%] gap-8">
-      <LandingOngoingMatch />
-      <LandingFixtures />
-    </div>
 
-    <div class="flex flex-col lg:flex-row lg:h-[40%] gap-8">
-      <LandingPoints />
-      <LandingTopScorer />
-    </div>
+    <!-- Preseason Match -->
+    <MatchPreseason v-if="app.matchType === 'PRESEASON'" />
+    <MatchSemifinal v-if="app.matchType === 'SEMIFINAL'" />
   </div>
 </template>
