@@ -1,11 +1,11 @@
 <template>
   <main class="flex flex-col gap-4 lg:gap-8">
     <div
-      class="shrink-0 border p-4 lg:p-8 lg:pb-16 rounded-xl border-border bg-[url('/assets/images/semifinal-bg.png')] bg-center bg-cover relative"
+      class="shrink-0 border p-4 lg:p-8 lg:pb-16 rounded-xl border-border bg-center bg-cover relative"
     >
-      <div
+      <!-- <div
         class="w-full h-full absolute inset-0 bg-black/65 rounded-xl backdrop-blur-xs z-0"
-      />
+      /> -->
 
       <div class="flex items-center justify-center">
         <CardsHeading lable="Road to Final" />
