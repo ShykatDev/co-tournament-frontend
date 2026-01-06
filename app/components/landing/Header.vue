@@ -6,7 +6,7 @@ const app = useAppStore();
 </script>
 
 <template>
-  <header class="flex justify-between items-center">
+  <header class="flex justify-between items-start">
     <div class="flex items-center gap-4">
       <img
         src="/assets/images/fc.jpg"
@@ -29,7 +29,7 @@ const app = useAppStore();
         :items="[
           { label: 'Pre Season', value: 'PRESEASON' },
           { label: 'Semi Final', value: 'SEMIFINAL' },
-          { label: 'Final', value: 'FINAL' },
+          // { label: 'Final', value: 'FINAL' },
         ]"
         class="w-32 md:w-48 py-2"
         :ui="{
