@@ -9,15 +9,8 @@ const props = defineProps({
 
 <template>
   <div class="flex items-center gap-2 lg:gap-4">
-    <img
-      :src="team?.club?.logo"
-      :alt="team?.club?.name"
-      class="hidden md:inline size-8"
-    />
-    <Icon
-      name="i-lucide-arrow-up-from-dot"
-      class="lg:hidden text-(--primary)"
-    />
+    <img :src="team?.club?.logo" :alt="team?.club?.name" class="hidden md:inline size-8 object-cover" />
+    <Icon name="i-lucide-arrow-up-from-dot" class="lg:hidden text-(--primary)" />
     <h3>
       <span class="hidden md:inline">Team</span> Goal:
       <span class="text-white font-semibold">{{
