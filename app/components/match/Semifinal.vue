@@ -1,6 +1,4 @@
 <script setup>
-
-
 const { data, pending, error, refresh } = useAPI(
   "bracket-matches",
   "/matches/brackets",
@@ -15,7 +13,7 @@ const semifinals = computed(() => {
 
 <template>
   <main class="flex flex-col gap-4 lg:gap-8">
-    <div class="shrink-0 border p-4 lg:p-8 lg:pb-32 rounded-xl border-border bg-center bg-cover relative">
+    <div class="shrink-0 border p-4 pb-16 lg:p-8 lg:pb-32 rounded-xl border-border bg-center bg-cover relative">
       <!-- <div
         class="w-full h-full absolute inset-0 bg-black/65 rounded-xl backdrop-blur-xs z-0"
       /> -->
@@ -170,12 +168,13 @@ const semifinals = computed(() => {
               <img :src="semifinals[1]?.teamA?.club?.logo" :alt="semifinals[1]?.teamA?.club?.name"
                 class="w-full h-full object-cover rounded-full p-5">
 
-              <h3 v-show="semifinals[1]?.scoreA || semifinals[1]?.scoreB" class="absolute -top-8 lg:-bottom-8"
+              <!-- Score -->
+              <h3 v-show="semifinals[1]?.scoreA" class="absolute -top-8 lg:-bottom-8"
                 :class="semifinals[1]?.scoreA > semifinals[1]?.scoreB ? 'text-lime-400' : ''">Score: {{
                   semifinals[1]?.scoreA }} {{ semifinals[1]?.scoreA > semifinals[1]?.scoreB ? '🏆' : '' }}</h3>
 
               <!-- Players -->
-              <div class="flex lg:flex-col gap-2 absolute lg:left-full top-full lg:top-auto py-2 lg:px-2 lg:py-0">
+              <div class="flex lg:flex-col gap-2 absolute lg:left-full bottom-full lg:top-auto py-2 lg:px-2 lg:py-0">
                 <div class="size-10 shrink-0 rounded-full bg-brand/10">
                   <UAvatar :src="semifinals[1]?.teamA?.players[0]?.profileImg"
                     :alt="semifinals[1]?.team?.players[0]?.name"
@@ -200,12 +199,14 @@ const semifinals = computed(() => {
               <img :src="semifinals[1]?.teamB?.club?.logo" :alt="semifinals[1]?.teamB?.club?.name"
                 class="w-full h-full object-cover rounded-full">
 
-              <h3 v-show="semifinals[1]?.scoreA || semifinals[1]?.scoreB" class="absolute -top-8 lg:-bottom-8"
+              <!-- Score -->
+              <h3 v-show="semifinals[1]?.scoreB" class="absolute -top-8 lg:-bottom-8"
                 :class="semifinals[1]?.scoreA > semifinals[1]?.scoreB ? 'text-lime-400' : ''">Score: {{
                   semifinals[1]?.scoreB }} {{ semifinals[1]?.scoreA < semifinals[1]?.scoreB ? '🏆' : '' }}</h3>
 
                   <!-- Players -->
-                  <div class="flex lg:flex-col gap-2 absolute lg:left-full top-full lg:top-auto py-2 lg:px-2 lg:py-0">
+                  <div
+                    class="flex lg:flex-col gap-2 absolute lg:left-full bottom-full lg:top-auto py-2 lg:px-2 lg:py-0">
                     <div class="size-10 shrink-0 rounded-full bg-brand/10">
                       <UAvatar :src="semifinals[1]?.teamB?.players[0]?.profileImg"
                         :alt="semifinals[1]?.team?.players[0]?.name"
