@@ -18,7 +18,7 @@ const fixtures = computed(() => data.value?.upcomingMatches ?? []);
     class="border rounded-xl lg:w-[40%] lg:max-h-[450px] border-border bg-card/50 p-4 lg:p-8 ."
   >
     <div class="flex justify-between items-stretch">
-      <CardsHeading lable="Fixtures" />
+      <CardsHeading lable="Semifinal Fixture" />
       <h3
         class="px-4 text-black font-semibold lg:text-xl rounded-lg bg-brand flex items-center"
       >
