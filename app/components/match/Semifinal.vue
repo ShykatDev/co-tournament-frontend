@@ -166,14 +166,27 @@ const semifinals = computed(() => {
             <div
               class="hidden lg:block w-16 h-32 2xl:h-40 lg:mt-16 2xl:mt-20 border border-brand/30 border-r-0 border-b-0 lg:rounded-tl-2xl" />
             <div
-              class="size-28 lg:size-32 2xl:size-40 shrink-0 rounded-full border border-brand/30 flex items-center justify-center bg-brand/10 text-4xl text-brand relative">
-              ?
+              class="size-28 lg:size-32 2xl:size-40 shrink-0 rounded-full border border-brand/30 flex items-center justify-center bg-brand/10 text-brand relative">
+              <img :src="semifinals[1]?.teamA?.club?.logo" :alt="semifinals[1]?.teamA?.club?.name"
+                class="w-full h-full object-cover rounded-full p-5">
 
-              <div
-                class="flex lg:flex-col gap-2 absolute lg:right-full bottom-full lg:bottom-auto py-2 lg:px-2 lg:py-0">
-                <div class="size-10 shrink-0 rounded-full bg-brand/10"></div>
+              <h3 v-show="semifinals[1]?.scoreA || semifinals[1]?.scoreB" class="absolute -top-8 lg:-bottom-8"
+                :class="semifinals[1]?.scoreA > semifinals[1]?.scoreB ? 'text-lime-400' : ''">Score: {{
+                  semifinals[1]?.scoreA }} {{ semifinals[1]?.scoreA > semifinals[1]?.scoreB ? '🏆' : '' }}</h3>
+
+              <!-- Players -->
+              <div class="flex lg:flex-col gap-2 absolute lg:left-full top-full lg:top-auto py-2 lg:px-2 lg:py-0">
+                <div class="size-10 shrink-0 rounded-full bg-brand/10">
+                  <UAvatar :src="semifinals[1]?.teamA?.players[0]?.profileImg"
+                    :alt="semifinals[1]?.team?.players[0]?.name"
+                    class="w-full h-full [&_img]:object-top grayscale-100" />
+                </div>
                 <div class="w-full h-px"></div>
-                <div class="size-10 shrink-0 rounded-full bg-brand/10"></div>
+                <div class="size-10 shrink-0 rounded-full bg-brand/10">
+                  <UAvatar :src="semifinals[1]?.teamA?.players[1]?.profileImg"
+                    :alt="semifinals[1]?.team?.players[1]?.name"
+                    class="w-full h-full [&_img]:object-top grayscale-100" />
+                </div>
               </div>
             </div>
           </div>
@@ -184,14 +197,28 @@ const semifinals = computed(() => {
               class="hidden lg:block w-16 h-32 2xl:h-40 border border-brand/30 border-r-0 border-t-0 lg:rounded-bl-2xl" />
             <div
               class="size-28 lg:size-32 2xl:size-40 shrink-0 lg:mt-16 2xl:mt-20 rounded-full border border-brand/30 flex items-center justify-center bg-brand/10 text-4xl text-brand relative">
-              ?
+              <img :src="semifinals[1]?.teamB?.club?.logo" :alt="semifinals[1]?.teamB?.club?.name"
+                class="w-full h-full object-cover rounded-full">
 
-              <div
-                class="flex lg:flex-col gap-2 absolute lg:right-full bottom-full lg:bottom-auto py-2 lg:px-2 lg:py-0">
-                <div class="size-10 shrink-0 rounded-full bg-brand/10"></div>
-                <div class="w-full h-px"></div>
-                <div class="size-10 shrink-0 rounded-full bg-brand/10"></div>
-              </div>
+              <h3 v-show="semifinals[1]?.scoreA || semifinals[1]?.scoreB" class="absolute -top-8 lg:-bottom-8"
+                :class="semifinals[1]?.scoreA > semifinals[1]?.scoreB ? 'text-lime-400' : ''">Score: {{
+                  semifinals[1]?.scoreB }} {{ semifinals[1]?.scoreA < semifinals[1]?.scoreB ? '🏆' : '' }}</h3>
+
+                  <!-- Players -->
+                  <div class="flex lg:flex-col gap-2 absolute lg:left-full top-full lg:top-auto py-2 lg:px-2 lg:py-0">
+                    <div class="size-10 shrink-0 rounded-full bg-brand/10">
+                      <UAvatar :src="semifinals[1]?.teamB?.players[0]?.profileImg"
+                        :alt="semifinals[1]?.team?.players[0]?.name"
+                        class="w-full h-full [&_img]:object-top grayscale-100" />
+                    </div>
+                    <div class="w-full h-px"></div>
+                    <div class="size-10 shrink-0 rounded-full bg-brand/10">
+                      <UAvatar :src="semifinals[1]?.teamB?.players[1]?.profileImg"
+                        :alt="semifinals[1]?.team?.players[1]?.name"
+                        class="w-full h-full [&_img]:object-top grayscale-100" />
+                    </div>
+                  </div>
+
             </div>
           </div>
 
