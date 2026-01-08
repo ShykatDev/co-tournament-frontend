@@ -32,24 +32,19 @@ const semifinals = computed(() => {
               <img :src="semifinals[0]?.teamA?.club?.logo" :alt="semifinals[0]?.teamA?.club?.name"
                 class="w-full h-full object-cover rounded-full">
 
-              <!-- score -->
-              <h3 class="absolute -top-8 lg:-bottom-8"
-                :class="semifinals[0]?.scoreA > semifinals[0]?.scoreB ? 'text-lime-400' : ''">Score: {{
-                  semifinals[0]?.scoreA }} {{ semifinals[0]?.scoreA > semifinals[0]?.scoreB ? '🏆' : '' }}</h3>
-
               <!-- Players -->
               <div class="flex lg:flex-col gap-2 absolute lg:left-full top-full lg:top-auto py-2 lg:px-2 lg:py-0">
-                <div class="size-10 shrink-0 rounded-full bg-brand/10">
-                  <UAvatar :src="semifinals[0]?.teamA?.players[0]?.profileImg"
-                    :alt="semifinals[0]?.team?.players[0]?.name"
-                    class="w-full h-full [&_img]:object-top grayscale-100" />
-                </div>
+
+                <UAvatar :src="semifinals[0]?.teamA?.players[0]?.profileImg"
+                  :alt="semifinals[0]?.team?.players[0]?.name"
+                  class="w-full h-full [&_img]:object-top grayscale-100 size-10 shrink-0 bg-white" />
+
                 <div class="w-full h-px"></div>
-                <div class="size-10 shrink-0 rounded-full bg-brand/10">
-                  <UAvatar :src="semifinals[0]?.teamA?.players[1]?.profileImg"
-                    :alt="semifinals[0]?.team?.players[1]?.name"
-                    class="w-full h-full [&_img]:object-top grayscale-100" />
-                </div>
+
+                <UAvatar :src="semifinals[0]?.teamA?.players[1]?.profileImg"
+                  :alt="semifinals[0]?.team?.players[1]?.name"
+                  class="w-full h-full [&_img]:object-top grayscale-100 size-10 shrink-0 bg-white" />
+
               </div>
             </div>
 
@@ -66,30 +61,44 @@ const semifinals = computed(() => {
               <img :src="semifinals[0]?.teamB?.club?.logo" :alt="semifinals[0]?.teamA?.club?.name"
                 class="w-full h-full object-cover rounded-full">
 
-              <!-- score -->
-              <h3 class="absolute -top-8 lg:-bottom-8"
-                :class="semifinals[0]?.scoreA < semifinals[0]?.scoreB ? 'text-lime-400' : ''">Score: {{
-                  semifinals[0]?.scoreB }} {{
-                  semifinals[0]?.scoreA < semifinals[0]?.scoreB ? '🏆' : '' }}</h3>
 
-                  <div class="flex lg:flex-col gap-2 absolute lg:left-full top-full lg:top-auto py-2 lg:px-2 lg:py-0">
-                    <div class="size-10 shrink-0 rounded-full bg-brand/10">
-                      <UAvatar :src="semifinals[0]?.teamB?.players[0]?.profileImg"
-                        :alt="semifinals[0]?.team?.players[0]?.name"
-                        class="w-full h-full [&_img]:object-top grayscale-100" />
-                    </div>
-                    <div class="w-full h-px"></div>
-                    <div class="size-10 shrink-0 rounded-full bg-brand/10">
-                      <UAvatar :src="semifinals[0]?.teamB?.players[1]?.profileImg"
-                        :alt="semifinals[0]?.team?.players[1]?.name"
-                        class="w-full h-full [&_img]:object-top grayscale-100" />
-                    </div>
-                  </div>
+
+              <div class="flex lg:flex-col gap-2 absolute lg:left-full top-full lg:top-auto py-2 lg:px-2 lg:py-0">
+
+                <UAvatar :src="semifinals[0]?.teamB?.players[0]?.profileImg"
+                  :alt="semifinals[0]?.team?.players[0]?.name"
+                  class="w-full h-full [&_img]:object-top grayscale-100 size-10 shrink-0 bg-white" />
+
+                <div class="w-full h-px"></div>
+
+                <UAvatar :src="semifinals[0]?.teamB?.players[1]?.profileImg"
+                  :alt="semifinals[0]?.team?.players[1]?.name"
+                  class="w-full h-full [&_img]:object-top grayscale-100 size-10 shrink-0 bg-white" />
+
+              </div>
             </div>
 
             <!-- line -->
             <div class="w-16 h-32 2xl:h-40 border border-l-0 border-t-0 hidden lg:block lg:rounded-br-2xl"
               :class="semifinals[0]?.winning_team === 'teamB' ? 'border-lime-400' : 'border-brand/30'" />
+          </div>
+
+          <!-- score -->
+          <div
+            class="absolute w-full lg:w-fit px-6 lg:px-0 justify-between lg:justify-start -top-12 left-1/2 -translate-x-1/2 lg:left-auto lg:-translate-x-0 lg:top-1/2 lg:-translate-y-1/2 flex items-center gap-4">
+            <div class="flex items-center gap-2">
+              <img :src="semifinals[0]?.teamA?.club?.logo" :alt="semifinals[0]?.teamA?.club?.name" class="size-10">
+              <h3 class="text-xl lg:text-3xl font-semibold"
+                :class="semifinals[0]?.scoreA > semifinals[0]?.scoreB ? 'text-lime-400' : ''">{{ semifinals[0]?.scoreA ?
+                  semifinals[0].scoreA : '-' }}</h3>
+            </div>
+            <span>:</span>
+            <div class="flex items-center gap-2">
+              <h3 class="text-xl lg:text-3xl font-semibold"
+                :class="semifinals[0]?.scoreA < semifinals[0]?.scoreB ? 'text-lime-400' : ''">{{ semifinals[0]?.scoreB ?
+                  semifinals[0].scoreB : '-' }}</h3>
+              <img :src="semifinals[0]?.teamB?.club?.logo" :alt="semifinals[0]?.teamB?.club?.name" class="size-8">
+            </div>
           </div>
 
           <h2 class="w-28 lg:w-32 mt-8 hidden lg:block 2xl:w-40 text-center text-brand text-lg absolute -bottom-24">
@@ -168,24 +177,20 @@ const semifinals = computed(() => {
               <img :src="semifinals[1]?.teamA?.club?.logo" :alt="semifinals[1]?.teamA?.club?.name"
                 class="w-full h-full object-cover rounded-full p-5">
 
-              <!-- Score -->
-              <h3 v-show="semifinals[1]?.scoreA" class="absolute -top-8 lg:-bottom-8"
-                :class="semifinals[1]?.scoreA > semifinals[1]?.scoreB ? 'text-lime-400' : ''">Score: {{
-                  semifinals[1]?.scoreA }} {{ semifinals[1]?.scoreA > semifinals[1]?.scoreB ? '🏆' : '' }}</h3>
-
               <!-- Players -->
-              <div class="flex lg:flex-col gap-2 absolute lg:left-full bottom-full lg:top-auto py-2 lg:px-2 lg:py-0">
-                <div class="size-10 shrink-0 rounded-full bg-brand/10">
-                  <UAvatar :src="semifinals[1]?.teamA?.players[0]?.profileImg"
-                    :alt="semifinals[1]?.team?.players[0]?.name"
-                    class="w-full h-full [&_img]:object-top grayscale-100" />
-                </div>
+              <div
+                class="flex lg:flex-col gap-2 absolute lg:right-full bottom-full lg:bottom-auto py-2 lg:px-2 lg:py-0">
+
+                <UAvatar :src="semifinals[1]?.teamA?.players[0]?.profileImg"
+                  :alt="semifinals[1]?.team?.players[0]?.name"
+                  class="w-full h-full [&_img]:object-top size-10 shrink-0 grayscale-100" />
+
                 <div class="w-full h-px"></div>
-                <div class="size-10 shrink-0 rounded-full bg-brand/10">
-                  <UAvatar :src="semifinals[1]?.teamA?.players[1]?.profileImg"
-                    :alt="semifinals[1]?.team?.players[1]?.name"
-                    class="w-full h-full [&_img]:object-top grayscale-100" />
-                </div>
+
+                <UAvatar :src="semifinals[1]?.teamA?.players[1]?.profileImg"
+                  :alt="semifinals[1]?.team?.players[1]?.name"
+                  class="w-full h-full [&_img]:object-top size-10 shrink-0 grayscale-100 " />
+
               </div>
             </div>
           </div>
@@ -199,27 +204,38 @@ const semifinals = computed(() => {
               <img :src="semifinals[1]?.teamB?.club?.logo" :alt="semifinals[1]?.teamB?.club?.name"
                 class="w-full h-full object-cover rounded-full">
 
-              <!-- Score -->
-              <h3 v-show="semifinals[1]?.scoreB" class="absolute -top-8 lg:-bottom-8"
-                :class="semifinals[1]?.scoreA > semifinals[1]?.scoreB ? 'text-lime-400' : ''">Score: {{
-                  semifinals[1]?.scoreB }} {{ semifinals[1]?.scoreA < semifinals[1]?.scoreB ? '🏆' : '' }}</h3>
 
-                  <!-- Players -->
-                  <div
-                    class="flex lg:flex-col gap-2 absolute lg:left-full bottom-full lg:top-auto py-2 lg:px-2 lg:py-0">
-                    <div class="size-10 shrink-0 rounded-full bg-brand/10">
-                      <UAvatar :src="semifinals[1]?.teamB?.players[0]?.profileImg"
-                        :alt="semifinals[1]?.team?.players[0]?.name"
-                        class="w-full h-full [&_img]:object-top grayscale-100" />
-                    </div>
-                    <div class="w-full h-px"></div>
-                    <div class="size-10 shrink-0 rounded-full bg-brand/10">
-                      <UAvatar :src="semifinals[1]?.teamB?.players[1]?.profileImg"
-                        :alt="semifinals[1]?.team?.players[1]?.name"
-                        class="w-full h-full [&_img]:object-top grayscale-100" />
-                    </div>
-                  </div>
+              <!-- Players -->
+              <div
+                class="flex lg:flex-col gap-2 absolute lg:right-full bottom-full lg:bottom-auto py-2 lg:px-2 lg:py-0">
+                <UAvatar :src="semifinals[1]?.teamB?.players[0]?.profileImg"
+                  :alt="semifinals[1]?.team?.players[0]?.name" class="w-full h-full grayscale-100 size-10 shrink-0" />
 
+                <div class="w-full h-px"></div>
+                <UAvatar :src="semifinals[1]?.teamB?.players[1]?.profileImg"
+                  :alt="semifinals[1]?.team?.players[1]?.name" class="w-full h-full grayscale-100 size-10 shrink-0" />
+              </div>
+
+            </div>
+          </div>
+
+          <!-- score -->
+          <div
+            class="absolute w-full lg:w-fit px-6 lg:px-0 justify-between lg:justify-start -bottom-12 lg:bottom-auto left-1/2 -translate-x-1/2 lg:left-auto lg:-translate-x-0 lg:top-1/2 lg:-translate-y-1/2 flex items-center gap-4">
+            <div class="flex items-center gap-2">
+              <img :src="semifinals[1]?.teamA?.club?.logo" :alt="semifinals[1]?.teamA?.club?.name"
+                class="size-8 shrink-0">
+              <h3 class="text-xl lg:text-3xl font-semibold"
+                :class="semifinals[1]?.scoreA > semifinals[1]?.scoreB ? 'text-lime-400' : ''">{{ semifinals[1]?.scoreA ?
+                  semifinals[1].scoreA : '-' }}</h3>
+            </div>
+            <span>:</span>
+            <div class="flex items-center gap-2">
+              <h3 class="text-xl lg:text-3xl font-semibold"
+                :class="semifinals[1]?.scoreA < semifinals[1]?.scoreB ? 'text-lime-400' : ''">{{ semifinals[1]?.scoreB ?
+                  semifinals[1].scoreB : '-' }}</h3>
+              <img :src="semifinals[1]?.teamB?.club?.logo" :alt="semifinals[1]?.teamB?.club?.name"
+                class="size-8  object-cover">
             </div>
           </div>
 
