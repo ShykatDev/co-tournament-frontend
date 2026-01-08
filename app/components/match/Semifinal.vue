@@ -115,7 +115,7 @@ const semifinals = computed(() => {
           <!-- Finalist -->
           <div class="relative">
             <div
-              class="size-32 2xl:size-52 shrink-0 rounded-full border border-brand flex items-center justify-center bg-brand/10 text-4xl text-brand">
+              class="size-32 2xl:size-52 shrink-0 rounded-full border border-lime-400 flex items-center justify-center bg-brand/10 text-4xl text-brand">
               <img :src="semifinals[0]?.teamA?.club?.logo" :alt="semifinals[0]?.teamA?.club?.name"
                 class="w-full h-full object-cover rounded-full">
             </div>
