@@ -1,8 +1,21 @@
+<script setup>
+
+
+const { data, pending, error, refresh } = useAPI(
+  "bracket-matches",
+  "/matches/brackets",
+);
+
+const semifinals = computed(() => {
+  if (!data.value) return [];
+  return data.value.filter(match => match.matchType === "SEMIFINAL");
+});
+
+</script>
+
 <template>
   <main class="flex flex-col gap-4 lg:gap-8">
-    <div
-      class="shrink-0 border p-4 lg:p-8 lg:pb-16 rounded-xl border-border bg-center bg-cover relative"
-    >
+    <div class="shrink-0 border p-4 lg:p-8 lg:pb-32 rounded-xl border-border bg-center bg-cover relative">
       <!-- <div
         class="w-full h-full absolute inset-0 bg-black/65 rounded-xl backdrop-blur-xs z-0"
       /> -->
@@ -11,81 +24,102 @@
         <CardsHeading lable="Road to Final" />
       </div>
 
-      <div
-        class="mt-6 lg:mt-12 flex flex-col lg:flex-row justify-between items-center relative z-10"
-      >
+      <div class="mt-16 flex flex-col lg:flex-row justify-between items-center relative z-10">
         <!-- left -->
         <div class="flex lg:flex-col w-full lg:w-fit justify-between relative">
           <div class="flex flex-col lg:flex-row">
             <div
-              class="size-28 lg:size-32 2xl:size-40 shrink-0 rounded-full border border-brand/30 flex items-center justify-center bg-brand/10 text-4xl text-brand relative"
-            >
-              ?
+              class="size-28 lg:size-32 2xl:size-40 shrink-0 rounded-full border  flex items-center justify-center bg-brand/10 text-brand relative"
+              :class="semifinals[0]?.winning_team === 'teamA' ? 'border-lime-400' : 'border-brand/30'">
+              <img :src="semifinals[0]?.teamA?.club?.logo" :alt="semifinals[0]?.teamA?.club?.name"
+                class="w-full h-full object-cover rounded-full">
 
-              <div
-                class="flex lg:flex-col gap-2 absolute lg:left-full top-full lg:top-auto py-2 lg:px-2 lg:py-0"
-              >
-                <div class="size-10 shrink-0 rounded-full bg-brand/10"></div>
+              <!-- score -->
+              <h3 class="absolute -top-8 lg:-bottom-8"
+                :class="semifinals[0]?.scoreA > semifinals[0]?.scoreB ? 'text-lime-400' : ''">Score: {{
+                  semifinals[0]?.scoreA }} {{ semifinals[0]?.scoreA > semifinals[0]?.scoreB ? '🏆' : '' }}</h3>
+
+              <!-- Players -->
+              <div class="flex lg:flex-col gap-2 absolute lg:left-full top-full lg:top-auto py-2 lg:px-2 lg:py-0">
+                <div class="size-10 shrink-0 rounded-full bg-brand/10">
+                  <UAvatar :src="semifinals[0]?.teamA?.players[0]?.profileImg"
+                    :alt="semifinals[0]?.team?.players[0]?.name"
+                    class="w-full h-full [&_img]:object-top grayscale-100" />
+                </div>
                 <div class="w-full h-px"></div>
-                <div class="size-10 shrink-0 rounded-full bg-brand/10"></div>
+                <div class="size-10 shrink-0 rounded-full bg-brand/10">
+                  <UAvatar :src="semifinals[0]?.teamA?.players[1]?.profileImg"
+                    :alt="semifinals[0]?.team?.players[1]?.name"
+                    class="w-full h-full [&_img]:object-top grayscale-100" />
+                </div>
               </div>
             </div>
 
             <!-- line -->
             <div
-              class="w-14 lg:w-16 h-32 2xl:h-40 lg:mt-16 2xl:mt-20 border border-brand/30 border-l-0 border-b-0 hidden lg:block lg:rounded-tr-2xl"
-            />
+              class="w-14 lg:w-16 h-32 2xl:h-40 lg:mt-16 2xl:mt-20 border border-l-0 border-b-0 hidden lg:block lg:rounded-tr-2xl"
+              :class="semifinals[0]?.winning_team === 'teamA' ? 'border-lime-400' : 'border-brand/30'" />
           </div>
 
           <div class="flex flex-col lg:flex-row">
             <div
-              class="size-28 lg:size-32 2xl:size-40 shrink-0 lg:mt-16 2xl:mt-20 rounded-full border border-brand/30 flex items-center justify-center bg-brand/10 text-4xl text-brand relative"
-            >
-              ?
+              class="size-28 lg:size-32 2xl:size-40 shrink-0 lg:mt-16 2xl:mt-20 rounded-full border  flex items-center justify-center bg-brand/10 text-brand relative"
+              :class="semifinals[0]?.winning_team === 'teamB' ? 'border-lime-400' : 'border-brand/30'">
+              <img :src="semifinals[0]?.teamB?.club?.logo" :alt="semifinals[0]?.teamA?.club?.name"
+                class="w-full h-full object-cover rounded-full">
 
-              <div
-                class="flex lg:flex-col gap-2 absolute lg:left-full top-full lg:top-auto py-2 lg:px-2 lg:py-0"
-              >
-                <div class="size-10 shrink-0 rounded-full bg-brand/10"></div>
-                <div class="w-full h-px"></div>
-                <div class="size-10 shrink-0 rounded-full bg-brand/10"></div>
-              </div>
+              <!-- score -->
+              <h3 class="absolute -top-8 lg:-bottom-8"
+                :class="semifinals[0]?.scoreA < semifinals[0]?.scoreB ? 'text-lime-400' : ''">Score: {{
+                  semifinals[0]?.scoreB }} {{
+                  semifinals[0]?.scoreA < semifinals[0]?.scoreB ? '🏆' : '' }}</h3>
+
+                  <div class="flex lg:flex-col gap-2 absolute lg:left-full top-full lg:top-auto py-2 lg:px-2 lg:py-0">
+                    <div class="size-10 shrink-0 rounded-full bg-brand/10">
+                      <UAvatar :src="semifinals[0]?.teamB?.players[0]?.profileImg"
+                        :alt="semifinals[0]?.team?.players[0]?.name"
+                        class="w-full h-full [&_img]:object-top grayscale-100" />
+                    </div>
+                    <div class="w-full h-px"></div>
+                    <div class="size-10 shrink-0 rounded-full bg-brand/10">
+                      <UAvatar :src="semifinals[0]?.teamB?.players[1]?.profileImg"
+                        :alt="semifinals[0]?.team?.players[1]?.name"
+                        class="w-full h-full [&_img]:object-top grayscale-100" />
+                    </div>
+                  </div>
             </div>
 
             <!-- line -->
-            <div
-              class="w-16 h-32 2xl:h-40 border border-brand/30 border-l-0 border-t-0 hidden lg:block lg:rounded-br-2xl"
-            />
+            <div class="w-16 h-32 2xl:h-40 border border-l-0 border-t-0 hidden lg:block lg:rounded-br-2xl"
+              :class="semifinals[0]?.winning_team === 'teamB' ? 'border-lime-400' : 'border-brand/30'" />
           </div>
 
-          <h2
-            class="w-28 lg:w-32 mt-8 hidden lg:block 2xl:w-40 text-center text-brand text-lg absolute -bottom-10"
-          >
+          <h2 class="w-28 lg:w-32 mt-8 hidden lg:block 2xl:w-40 text-center text-brand text-lg absolute -bottom-24">
             Semifinal
           </h2>
         </div>
 
         <!-- Mobile only -->
         <div class="lg:hidden px-14 w-full">
-          <div class="w-full h-18 border border-brand/30 border-t-0"></div>
+          <div class="flex">
+            <div class="w-1/2 h-18 border border-brand/30 border-lime-400 border-t-0 border-r-0 rounded-bl-md" />
+            <div class="w-1/2 h-18 border border-brand/30 border-l-lime-400 border-t-0 border-l-0 rounded-br-md" />
+          </div>
+
         </div>
 
         <!-- middle -->
-        <div
-          class="flex-1 flex items-center justify-center flex-col lg:flex-row"
-        >
-          <div class="w-px lg:w-full h-8 lg:h-px bg-brand/30"></div>
+        <div class="flex-1 flex items-center justify-center flex-col lg:flex-row">
+          <div class="w-px lg:w-full h-8 lg:h-px bg-lime-400"></div>
 
           <!-- Finalist -->
           <div class="relative">
             <div
-              class="size-32 2xl:size-52 shrink-0 rounded-full border border-brand/50 flex items-center justify-center bg-brand/10 text-4xl text-brand"
-            >
-              ?
+              class="size-32 2xl:size-52 shrink-0 rounded-full border border-brand flex items-center justify-center bg-brand/10 text-4xl text-brand">
+              <img :src="semifinals[0]?.teamA?.club?.logo" :alt="semifinals[0]?.teamA?.club?.name"
+                class="w-full h-full object-cover rounded-full">
             </div>
-            <h2
-              class="hidden lg:block text-brand text-center mt-2 absolute left-1/2 -translate-x-1/2"
-            >
+            <h2 class="hidden lg:block text-brand text-center mt-2 absolute left-1/2 -translate-x-1/2">
               Final
             </h2>
           </div>
@@ -95,13 +129,10 @@
           <!-- Champion -->
           <div class="relative">
             <div
-              class="size-48 2xl:size-72 shrink-0 rounded-full border border-brand flex items-center justify-center bg-brand/10 text-7xl text-brand relative"
-            >
+              class="size-48 2xl:size-72 shrink-0 rounded-full border border-brand flex items-center justify-center bg-brand/10 text-7xl text-brand relative">
               ?
             </div>
-            <h2
-              class="hidden lg:block text-lg text-brand text-center mt-2 absolute left-1/2 -translate-x-1/2"
-            >
+            <h2 class="hidden lg:block text-lg text-brand text-center mt-2 absolute left-1/2 -translate-x-1/2">
               Champion 🏆
             </h2>
           </div>
@@ -111,14 +142,11 @@
           <!-- Finalist -->
           <div class="relative">
             <div
-              class="size-32 2xl:size-52 shrink-0 rounded-full border border-brand/50 flex items-center justify-center bg-brand/10 text-4xl text-brand"
-            >
+              class="size-32 2xl:size-52 shrink-0 rounded-full border border-brand/50 flex items-center justify-center bg-brand/10 text-4xl text-brand">
               ?
             </div>
 
-            <h2
-              class="hidden lg:block text-brand text-center mt-2 absolute left-1/2 -translate-x-1/2"
-            >
+            <h2 class="hidden lg:block text-brand text-center mt-2 absolute left-1/2 -translate-x-1/2">
               Final
             </h2>
           </div>
@@ -128,28 +156,21 @@
 
         <!-- Mobile only -->
         <div class="lg:hidden px-14 w-full">
-          <div
-            class="w-full h-18 rounded-t-lg border border-brand/30 border-b-0"
-          ></div>
+          <div class="w-full h-18 rounded-t-lg border border-brand/30 border-b-0"></div>
         </div>
 
         <!-- right -->
-        <div
-          class="flex lg:flex-col w-full lg:w-fit justify-between items-end relative"
-        >
+        <div class="flex lg:flex-col w-full lg:w-fit justify-between items-end relative">
           <div class="flex flex-col lg:flex-row">
             <!-- line -->
             <div
-              class="hidden lg:block w-16 h-32 2xl:h-40 lg:mt-16 2xl:mt-20 border border-brand/30 border-r-0 border-b-0 lg:rounded-tl-2xl"
-            />
+              class="hidden lg:block w-16 h-32 2xl:h-40 lg:mt-16 2xl:mt-20 border border-brand/30 border-r-0 border-b-0 lg:rounded-tl-2xl" />
             <div
-              class="size-28 lg:size-32 2xl:size-40 shrink-0 rounded-full border border-brand/30 flex items-center justify-center bg-brand/10 text-4xl text-brand relative"
-            >
+              class="size-28 lg:size-32 2xl:size-40 shrink-0 rounded-full border border-brand/30 flex items-center justify-center bg-brand/10 text-4xl text-brand relative">
               ?
 
               <div
-                class="flex lg:flex-col gap-2 absolute lg:right-full bottom-full lg:bottom-auto py-2 lg:px-2 lg:py-0"
-              >
+                class="flex lg:flex-col gap-2 absolute lg:right-full bottom-full lg:bottom-auto py-2 lg:px-2 lg:py-0">
                 <div class="size-10 shrink-0 rounded-full bg-brand/10"></div>
                 <div class="w-full h-px"></div>
                 <div class="size-10 shrink-0 rounded-full bg-brand/10"></div>
@@ -160,16 +181,13 @@
           <div class="flex flex-col lg:flex-row">
             <!-- line -->
             <div
-              class="hidden lg:block w-16 h-32 2xl:h-40 border border-brand/30 border-r-0 border-t-0 lg:rounded-bl-2xl"
-            />
+              class="hidden lg:block w-16 h-32 2xl:h-40 border border-brand/30 border-r-0 border-t-0 lg:rounded-bl-2xl" />
             <div
-              class="size-28 lg:size-32 2xl:size-40 shrink-0 lg:mt-16 2xl:mt-20 rounded-full border border-brand/30 flex items-center justify-center bg-brand/10 text-4xl text-brand relative"
-            >
+              class="size-28 lg:size-32 2xl:size-40 shrink-0 lg:mt-16 2xl:mt-20 rounded-full border border-brand/30 flex items-center justify-center bg-brand/10 text-4xl text-brand relative">
               ?
 
               <div
-                class="flex lg:flex-col gap-2 absolute lg:right-full bottom-full lg:bottom-auto py-2 lg:px-2 lg:py-0"
-              >
+                class="flex lg:flex-col gap-2 absolute lg:right-full bottom-full lg:bottom-auto py-2 lg:px-2 lg:py-0">
                 <div class="size-10 shrink-0 rounded-full bg-brand/10"></div>
                 <div class="w-full h-px"></div>
                 <div class="size-10 shrink-0 rounded-full bg-brand/10"></div>
@@ -177,29 +195,23 @@
             </div>
           </div>
 
-          <h2
-            class="w-28 lg:w-32 mt-8 hidden lg:block 2xl:w-40 text-center text-brand text-lg absolute -bottom-10"
-          >
+          <h2 class="w-28 lg:w-32 mt-8 hidden lg:block 2xl:w-40 text-center text-brand text-lg absolute -bottom-24">
             Semifinal
           </h2>
         </div>
       </div>
     </div>
 
-    <div
-      class="w-full flex-1 h-full border border-border p-4 lg:p-8 lg:pb-16 rounded-xl flex flex-col items-center justify-center"
-    >
+    <!-- <div
+      class="w-full flex-1 h-full border border-border p-4 lg:p-8 lg:pb-16 rounded-xl flex flex-col items-center justify-center">
       <CardsHeading lable="3rd Place" />
 
       <div class="mt-6 lg:mt-12 flex flex-col lg:flex-row items-center">
         <div
-          class="size-28 lg:size-32 2xl:size-40 shrink-0 rounded-full border border-brand/30 flex items-center justify-center bg-brand/10 text-4xl text-brand relative"
-        >
+          class="size-28 lg:size-32 2xl:size-40 shrink-0 rounded-full border border-brand/30 flex items-center justify-center bg-brand/10 text-4xl text-brand relative">
           ?
 
-          <div
-            class="flex lg:flex-col gap-2 absolute lg:right-full top-full lg:top-auto py-2 lg:px-2 lg:py-0"
-          >
+          <div class="flex lg:flex-col gap-2 absolute lg:right-full top-full lg:top-auto py-2 lg:px-2 lg:py-0">
             <div class="size-10 shrink-0 rounded-full bg-brand/10"></div>
             <div class="w-full h-px"></div>
             <div class="size-10 shrink-0 rounded-full bg-brand/10"></div>
@@ -208,16 +220,13 @@
 
         <div class="w-px lg:w-16 h-16 lg:h-px bg-brand/30"></div>
 
-        <!-- middle -->
+
         <div class="relative">
           <div
-            class="size-48 2xl:size-64 shrink-0 rounded-full border border-brand flex items-center justify-center bg-brand/10 text-7xl text-brand relative"
-          >
+            class="size-48 2xl:size-64 shrink-0 rounded-full border border-brand flex items-center justify-center bg-brand/10 text-7xl text-brand relative">
             ?
           </div>
-          <h2
-            class="hidden lg:block text-lg text-brand text-center mt-2 absolute left-1/2 -translate-x-1/2"
-          >
+          <h2 class="hidden lg:block text-lg text-brand text-center mt-2 absolute left-1/2 -translate-x-1/2">
             3rd Position
           </h2>
         </div>
@@ -225,19 +234,16 @@
         <div class="w-px lg:w-16 h-16 lg:h-px bg-brand/30"></div>
 
         <div
-          class="size-28 lg:size-32 2xl:size-40 shrink-0 rounded-full border border-brand/30 flex items-center justify-center bg-brand/10 text-4xl text-brand relative"
-        >
+          class="size-28 lg:size-32 2xl:size-40 shrink-0 rounded-full border border-brand/30 flex items-center justify-center bg-brand/10 text-4xl text-brand relative">
           ?
 
-          <div
-            class="flex lg:flex-col gap-2 absolute lg:left-full bottom-full lg:bottom-auto py-2 lg:px-2 lg:py-0"
-          >
+          <div class="flex lg:flex-col gap-2 absolute lg:left-full bottom-full lg:bottom-auto py-2 lg:px-2 lg:py-0">
             <div class="size-10 shrink-0 rounded-full bg-brand/10"></div>
             <div class="w-full h-px"></div>
             <div class="size-10 shrink-0 rounded-full bg-brand/10"></div>
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
   </main>
 </template>
