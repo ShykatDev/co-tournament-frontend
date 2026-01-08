@@ -65,7 +65,7 @@ const upcomingMatch = computed(() => data.value?.upcomingMatch ?? null);
         <h2
           class="text-brand px-4 py-1.5 bg-brand/10 rounded-md text-xs md:text-sm lg:text-base"
         >
-          Pre Season
+          Semi Final
         </h2>
 
         <svg
