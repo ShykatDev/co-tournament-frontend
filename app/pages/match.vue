@@ -11,12 +11,12 @@ const matchType = ref("PRESEASON");
 
 const { data, pending, error, refresh } = useAPI(
   computed(() =>
-    filterKey.value ? `matches-${filterKey.value}` : "matches-all"
+    filterKey.value ? `matches-${filterKey.value}` : "matches-all",
   ),
   "/matches",
   computed(() => ({
     query: filterKey.value ? { teamId: filterKey.value } : {},
-  }))
+  })),
 );
 
 const {
@@ -42,6 +42,7 @@ const items = computed(() => {
 
 const formData = ref({
   tournamentId: 2,
+  matchType,
   teamAId: null,
   teamBId: null,
   scheduledAt: new Date(),
@@ -97,11 +98,11 @@ watch(() => {
 
 const avatarA = computed(
   () =>
-    items.value.find((item) => item.value === formData.value.teamAId)?.avatar
+    items.value.find((item) => item.value === formData.value.teamAId)?.avatar,
 );
 const avatarB = computed(
   () =>
-    items.value.find((item) => item.value === formData.value.teamBId)?.avatar
+    items.value.find((item) => item.value === formData.value.teamBId)?.avatar,
 );
 
 const itemsWithAll = computed(() => [
@@ -110,7 +111,7 @@ const itemsWithAll = computed(() => [
 ]);
 
 const filterAvatar = computed(
-  () => items.value.find((item) => item.value === filterKey.value)?.avatar
+  () => items.value.find((item) => item.value === filterKey.value)?.avatar,
 );
 </script>
 
