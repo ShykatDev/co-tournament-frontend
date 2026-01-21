@@ -34,7 +34,7 @@ const winPercentage = computed(() => {
       />
 
       <span
-        >Win <span class="hidden lg:inline">Percentange </span>:
+        >Win <span class="hidden lg:inline">Percentage </span>:
         {{ winPercentage }}%</span
       >
     </span>

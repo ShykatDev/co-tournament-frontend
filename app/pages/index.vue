@@ -1,3 +1,3 @@
 <template>
-  <HomepageV2 />
+  <Tournaments />
 </template>
