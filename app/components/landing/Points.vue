@@ -1,9 +1,9 @@
 <script setup>
 const { data, pending, execute } = useAPI(
   "point-table",
-  "/points/2",
+  "/points/1",
   undefined,
-  false
+  false,
 );
 
 onMounted(() => {
