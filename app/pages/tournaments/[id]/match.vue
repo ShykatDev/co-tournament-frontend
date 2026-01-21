@@ -2,6 +2,10 @@
 import { ref } from "vue";
 import { useAuthStore } from "~/store/authStore";
 
+definePageMeta({
+  layout: "tournament",
+});
+
 const toast = useToast();
 const api = useAPIMethods();
 const auth = useAuthStore();

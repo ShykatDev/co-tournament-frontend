@@ -5,6 +5,8 @@ import { onMounted, ref } from "vue";
 import { useAuthStore } from "~/store/authStore";
 
 const isMenuOpen = ref(false);
+const { params } = useRoute();
+const id = computed(() => params.id);
 
 // Use auth store
 const auth = useAuthStore();
@@ -31,7 +33,10 @@ onMounted(async () => {
       <UiLogo />
 
       <div class="flex gap-4 items-center">
-        <NuxtLink to="/match" class="py-1.5 rounded block underline">
+        <NuxtLink
+          :to="`/tournaments/${id}/match`"
+          class="py-1.5 rounded block underline"
+        >
           Match List
         </NuxtLink>
 

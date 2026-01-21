@@ -2,6 +2,7 @@
 definePageMeta({
   layout: "without-header-footer",
 });
+const router = useRouter();
 const api = useAPIMethods();
 const toast = useToast();
 const show = ref(false);
@@ -21,7 +22,7 @@ const onSubmit = async () => {
       color: "success",
     });
 
-    await navigateTo("/match");
+    router.back();
   } catch (err) {
     console.error(err);
 
