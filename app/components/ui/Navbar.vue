@@ -33,7 +33,7 @@ onMounted(async () => {
       <div class="flex items-center gap-6">
         <NuxtLink
           to="/"
-          class="rounded flex items-center gap-2 text-lg"
+          class="rounded md:flex items-center gap-2 text-lg hidden"
           @click="handleMenuToggle"
         >
           <HugeiconsIcon :icon="GridIcon" />
@@ -49,7 +49,7 @@ onMounted(async () => {
         </NuxtLink>
       </div>
 
-      <div class="absolute left-1/2 -translate-x-1/2">
+      <div class="absolute left-1/2 -translate-x-1/2 scale-80 md:scale-100">
         <UiLogo />
       </div>
 

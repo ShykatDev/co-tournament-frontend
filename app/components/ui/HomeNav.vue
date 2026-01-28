@@ -27,17 +27,19 @@ onMounted(async () => {
 
 <template>
   <nav class="bg-card rounded-xl relative border border-border">
-    <div class="flex justify-between items-center px-4 py-2.5">
+    <div class="flex justify-end md:justify-between items-center px-4 py-2.5">
       <NuxtLink
         to="/"
-        class="rounded flex items-center gap-2 text-lg"
+        class="rounded hidden md:flex items-center gap-2 text-lg"
         @click="handleMenuToggle"
       >
         <HugeiconsIcon :icon="GridIcon" />
         Tournaments
       </NuxtLink>
 
-      <div class="absolute left-1/2 -translate-x-1/2">
+      <div
+        class="absolute left-0 md:left-1/2 md:-translate-x-1/2 scale-80 md:scale-100"
+      >
         <UiLogo />
       </div>
 
