@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Menu05Icon } from "@hugeicons/core-free-icons";
+import { GridIcon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/vue";
 import { onMounted, ref } from "vue";
 import { useAuthStore } from "~/store/authStore";
@@ -27,11 +27,21 @@ onMounted(async () => {
 
 <template>
   <nav class="bg-card rounded-xl relative border border-border">
-    <div class="flex justify-between items-center px-4 py-2">
-      <UiLogo />
+    <div class="flex justify-between items-center px-4 py-2.5">
+      <NuxtLink
+        to="/"
+        class="rounded flex items-center gap-2 text-lg"
+        @click="handleMenuToggle"
+      >
+        <HugeiconsIcon :icon="GridIcon" />
+        Tournaments
+      </NuxtLink>
+
+      <div class="absolute left-1/2 -translate-x-1/2">
+        <UiLogo />
+      </div>
 
       <div class="flex gap-4 items-center">
-        <!-- Show Login if user is NOT logged in -->
         <NuxtLink
           v-if="!auth.isLogin"
           to="/login"
@@ -40,7 +50,7 @@ onMounted(async () => {
         >
           <UButton
             icon="i-lucide-log-in"
-            class="bg-card text-brand border border-border hover:bg-brand/10"
+            class="bg-card text-brand border text-lg border-border hover:bg-brand/10"
             variant="soft"
           >
             Login

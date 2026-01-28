@@ -19,7 +19,8 @@ body {
 
 h1,
 h2,
-h3 {
+h3,
+.heading-text {
   font-family: "Space Grotesk", system-ui, sans-serif;
 }
 
@@ -49,7 +50,7 @@ input[type="number"] {
 }
 
 .router-link-active {
-  @apply text-brand!;
+  @apply text-brand! font-medium;
 }
 
 /* div[role="group"] {

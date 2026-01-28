@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Menu05Icon } from "@hugeicons/core-free-icons";
+import { GridIcon, GridTableIcon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/vue";
 import { onMounted, ref } from "vue";
 import { useAuthStore } from "~/store/authStore";
@@ -29,20 +29,63 @@ onMounted(async () => {
 
 <template>
   <nav class="bg-card rounded-xl relative border border-border">
-    <div class="flex justify-between items-center px-4 py-2">
-      <UiLogo />
-
-      <div class="flex gap-4 items-center">
+    <div class="flex justify-between items-center px-4 py-2.5">
+      <div class="flex items-center gap-6">
         <NuxtLink
-          :to="`/tournaments/${id}/match`"
-          class="py-1.5 rounded block underline"
+          to="/"
+          class="rounded flex items-center gap-2 text-lg"
+          @click="handleMenuToggle"
         >
-          Match List
+          <HugeiconsIcon :icon="GridIcon" />
+          Tournaments
         </NuxtLink>
 
+        <NuxtLink
+          :to="`/tournaments/${id}/match`"
+          class="py-1.5 rounded flex items-center gap-2"
+        >
+          <HugeiconsIcon :icon="GridTableIcon" />
+          Match List
+        </NuxtLink>
+      </div>
+
+      <div class="absolute left-1/2 -translate-x-1/2">
+        <UiLogo />
+      </div>
+
+      <!-- <div class="flex gap-4 items-center">
         <button @click="handleMenuToggle">
           <HugeiconsIcon :icon="Menu05Icon" />
         </button>
+      </div> -->
+
+      <NuxtLink
+        v-if="!auth.isLogin"
+        to="/login"
+        class="rounded flex items-center gap-2"
+      >
+        <UButton
+          icon="i-lucide-log-in"
+          class="bg-card text-brand border border-border hover:bg-brand/10"
+          variant="soft"
+        >
+          Login
+        </UButton>
+      </NuxtLink>
+
+      <div v-else class="flex items-center gap-2">
+        <h2 class="text-brand">{{ auth.user?.name }}</h2>
+
+        <UButton
+          trailing-icon="i-lucide-log-out"
+          color="error"
+          variant="soft"
+          @click="
+            async () => {
+              await auth.logout();
+            }
+          "
+        />
       </div>
     </div>
 

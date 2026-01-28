@@ -7,7 +7,9 @@ export default defineNuxtConfig({
   },
 
   modules: ["@nuxt/eslint", "@nuxt/ui", "@pinia/nuxt", "@nuxtjs/google-fonts"],
-
+  ui: {
+    fonts: false,
+  },
   devtools: {
     enabled: true,
   },
